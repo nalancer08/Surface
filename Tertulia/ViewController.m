@@ -22,8 +22,12 @@
     
     //[WebchimpUtilities alerts :self :@"Funcionando todo" :@"Hola mundo desde alerta" :@"default"];
     
-    Surface *surface = [[Surface alloc] initFullSize:self display:NO];
-    //Surface *surface = [[Surface alloc] initWithSizeWidth:(NSInteger)10 high:(NSInteger)10 position_x:(NSInteger)15 position_y:(NSInteger)60 controller:self];
+    Surface *surf = [[Surface alloc] initFullSize:self grid:@"fluid" display:YES];
+    //Surface *surface = [[Surface alloc] initWithSizeWidth:(NSInteger)200 high:(NSInteger)20 position_x:(NSInteger)15 position_y:(NSInteger)100 controller:self grid:@"fluid" display:YES];
+
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{@"text" : @"Hola textooooooo!!!"}];
+    //[params setObject:@"font" forKey:@"font"];
+    [surf add:@"text" width:1 high:1 params:params display:YES];
 }
 
 - (void)didReceiveMemoryWarning {

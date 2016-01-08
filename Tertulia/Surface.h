@@ -11,16 +11,21 @@
 
 @interface Surface : NSObject {
     
-    NSInteger *high;
-    NSInteger *width;
-    NSInteger *position_x;
-    NSInteger *position_y;
+    float high;
+    float width;
+    float position_x;
+    float position_y;
     UIView *box;
 }
 
 // Contructors & Contructores //
-- (id)initWithSizeWidth:(NSInteger *)width high:(NSInteger *)high position_x:(NSInteger *)aposition_x position_y:(NSInteger *)aposition_y controller:(UIViewController *)acontroller;
-- (id)initFullSize:(UIViewController *)acontroller display:(BOOL *)adisplay;
+- (id)initWithSizeWidth:(float)awidth high:(float)ahigh position_x:(float)aposition_x position_y:(float)aposition_y controller:(UIViewController *)acontroller grid:(NSString *)agrid display:(BOOL)adisplay;
+- (id)initFullSize:(UIViewController *)acontroller grid:(NSString *)agrid display:(BOOL )adisplay;
 
+// Methods & Metodos //
+- (void)add:(NSString *)object width:(float)awidth high:(float)ahigh params:(NSMutableDictionary *)aparams display:(BOOL)adisplay;
+- (void)addCustom:(NSString *)object width:(float)awidth high:(float)ahigh position_x:(float)aposition_x position_y:(float)aposition_y display:(BOOL)adisplay;
+
+- (void)showSurface:(UIViewController *)acontroller;
 
 @end

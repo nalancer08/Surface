@@ -10,7 +10,7 @@
 
 @implementation Surface
 
-- (id)initWithSizeWidth:(NSInteger *)awidth high:(NSInteger *)ahigh position_x:(NSInteger *)aposition_x position_y:(NSInteger *)aposition_y controller:(UIViewController *)acontroller{
+- (id)initWithSizeWidth:(float)awidth high:(float)ahigh position_x:(float)aposition_x position_y:(float)aposition_y controller:(UIViewController *)acontroller grid:(NSString *)agrid display:(BOOL)adisplay{
     
     if ( self = [super init] ) {
         
@@ -21,20 +21,23 @@
         
     }
     
-    NSLog(@"rfre");
+    //NSLog(@"rfre");
     box = [[UIView alloc] init];
-    box.frame = CGRectMake(20, 100, acontroller.view.bounds.size.width-40, acontroller.view.bounds.size.height-120);
+    //box.frame = CGRectMake(20, 100, acontroller.view.bounds.size.width-40, acontroller.view.bounds.size.height-120);
+    box.frame = CGRectMake(position_x, position_y, width, high);
     //NSLog(@"y= %f", self.view.bounds.size.height);
     //self.cuadro.autoresizingMask =  UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight;
     //[self.cuadro sizeToFit];
     box.backgroundColor = [UIColor blueColor];
     
-    [acontroller.view addSubview:box];
+    if ( adisplay ) {
+        [acontroller.view addSubview:box];
+    }
     
     return self;
 }
 
-- (id)initFullSize:(UIViewController *)acontroller display:(BOOL *)adisplay {
+- (id)initFullSize:(UIViewController *)acontroller grid:(NSString *)agrid display:(BOOL)adisplay {
     
     if ( self = [super init] ) {
         
@@ -55,6 +58,29 @@
     
     return self;
     
+}
+
+- (void)add:(NSString *)object width:(float)awidth high:(float)ahigh params:(NSMutableDictionary *)aparams display:(BOOL)adisplay {
+    
+    NSArray *items = @[@"text", @"image", @"text_field"];
+    int item = [items indexOfObject:object];
+    
+    switch (item) {
+        case 0:
+            if ( [aparams objectForKey:@"text"] ) {
+                
+                NSLog(@"agregando texto: %@", [aparams objectForKey:@"text"] );
+                UILabel *label = [[UILabel alloc] init];
+                //label.frame = CGRect(
+                //label.text = @"[aparams objectForKey:@"text"]";
+            }
+            
+            if ( [aparams objectForKey:@"font"] ) {NSLog(@"hay font");} else {NSLog(@"no hay font");}
+        break;
+            
+        default:
+            break;
+    }
 }
 
 - (void)showSurface:(UIViewController *)acontroller {
