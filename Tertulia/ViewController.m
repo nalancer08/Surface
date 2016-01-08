@@ -22,7 +22,8 @@
     
     //[WebchimpUtilities alerts :self :@"Funcionando todo" :@"Hola mundo desde alerta" :@"default"];
     
-    Surface *surface = [[Surface alloc] initWithSizeWidth:(NSInteger)10 high:(NSInteger)10 position_x:(NSInteger)15 position_y:(NSInteger)60 controller:self];
+    Surface *surface = [[Surface alloc] initFullSize:self display:NO];
+    //Surface *surface = [[Surface alloc] initWithSizeWidth:(NSInteger)10 high:(NSInteger)10 position_x:(NSInteger)15 position_y:(NSInteger)60 controller:self];
 }
 
 - (void)didReceiveMemoryWarning {

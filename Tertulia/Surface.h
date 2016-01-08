@@ -18,6 +18,9 @@
     UIView *box;
 }
 
+// Contructors & Contructores //
 - (id)initWithSizeWidth:(NSInteger *)width high:(NSInteger *)high position_x:(NSInteger *)aposition_x position_y:(NSInteger *)aposition_y controller:(UIViewController *)acontroller;
+- (id)initFullSize:(UIViewController *)acontroller display:(BOOL *)adisplay;
+
 
 @end

@@ -20,6 +20,7 @@
         position_y = aposition_y;
         
     }
+    
     NSLog(@"rfre");
     box = [[UIView alloc] init];
     box.frame = CGRectMake(20, 100, acontroller.view.bounds.size.width-40, acontroller.view.bounds.size.height-120);
@@ -31,6 +32,34 @@
     [acontroller.view addSubview:box];
     
     return self;
+}
+
+- (id)initFullSize:(UIViewController *)acontroller display:(BOOL *)adisplay {
+    
+    if ( self = [super init] ) {
+        
+        CGRect screenRect = [[UIScreen mainScreen] bounds];
+        CGFloat screenWidth = screenRect.size.width;
+        CGFloat screenHeight = screenRect.size.height;
+        
+        box = [[UIView alloc] init];
+        box.frame = CGRectMake(0, 0, screenWidth, screenHeight);
+        box.backgroundColor = [UIColor redColor];
+        
+        if ( adisplay ) {
+            [acontroller.view addSubview:box];
+        }
+        
+        
+    }
+    
+    return self;
+    
+}
+
+- (void)showSurface:(UIViewController *)acontroller {
+    
+    [acontroller.view addSubview:box];
 }
 
 
