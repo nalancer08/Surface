@@ -19,6 +19,13 @@
 }
 
 @property (nonatomic, retain)UIView *box;
+@property (strong,nonatomic) UIScrollView *scroll;
+@property (nonatomic) float layout_height;
+@property (nonatomic) float layout_widht;
+@property (nonatomic) float layout_x;
+@property (nonatomic) float layout_y;
+@property (nonatomic) float layout_constant_y;
+@property (nonatomic) float layout_constant_x;
 
 // Contructors & Contructores //
 - (id)initWithSizeWidth:(float)awidth high:(float)ahigh position_x:(float)aposition_x position_y:(float)aposition_y controller:(UIViewController *)acontroller grid:(NSString *)agrid display:(BOOL)adisplay;
@@ -29,5 +36,9 @@
 - (void)addCustom:(NSString *)object width:(float)awidth high:(float)ahigh position_x:(float)aposition_x position_y:(float)aposition_y display:(BOOL)adisplay;
 
 - (void)showSurface:(UIViewController *)acontroller;
+
+// Methods Layout & Metodos para Layout //
+- (void)generateScroll;
+- (void)updateScroll:(float)ax y:(float)ay;
 
 @end

@@ -23,12 +23,10 @@
     
     //NSLog(@"rfre");
     self.box = [[UIView alloc] init];
-    //box.frame = CGRectMake(20, 100, acontroller.view.bounds.size.width-40, acontroller.view.bounds.size.height-120);
     self.box.frame = CGRectMake(position_x, position_y, width, high);
-    //NSLog(@"y= %f", self.view.bounds.size.height);
-    //self.cuadro.autoresizingMask =  UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight;
-    //[self.cuadro sizeToFit];
     self.box.backgroundColor = [UIColor blueColor];
+    
+    [self generateScroll];
     
     if ( adisplay ) {
         //[acontroller.view addSubview:self.box];
@@ -49,8 +47,10 @@
         self.box.frame = CGRectMake(0, 0, screenWidth, screenHeight);
         self.box.backgroundColor = [UIColor redColor];
         
+        [self generateScroll];
+        
         if ( adisplay ) {
-            [acontroller.view addSubview:self.box];
+            //[acontroller.view addSubview:self.box];
         }
         
         
@@ -73,21 +73,32 @@
                 NSLog(@"box--  %f", self.box.frame.size.width);
                 NSLog(@"agregando texto: %@", [aparams objectForKey:@"text"] );
                 UILabel *label = [[UILabel alloc] init];
-                if(adisplay){
+                
+                /*if(adisplay){
                     label.frame = CGRectMake(0, 0, self.box.frame.size.width - 10, self.box.frame.size.height - 10);
                     [label setBackgroundColor:[UIColor whiteColor]];
                 } else {
                     label.frame = CGRectMake(0, 0, self.box.frame.size.width - 20, self.box.frame.size.height - 20);
                     [label setBackgroundColor:[UIColor orangeColor]];
+                } */
+
+                [label setText:[aparams objectForKey:@"text"]];
+                [label setBackgroundColor:[UIColor whiteColor]];
+                
+                if ( awidth != 0 && ahigh != 0 ) {
+                    label.frame = CGRectMake(self.layout_x, self.layout_y, awidth, ahigh);
+                } else if ( awidth!= 0 && ahigh == 0 ) {
+                    label.frame = CGRectMake(self.layout_x, self.layout_y, awidth, 35);
+                } else if ( awidth == 0 && ahigh != 0 ) {
+                    label.frame = CGRectMake(self.layout_x, self.layout_y, (self.scroll.frame.size.width - 40), ahigh);
+                } else {
+                    label.frame = CGRectMake(self.layout_x, self.layout_y, (self.scroll.frame.size.width - 40), 35);
                 }
                 
-                //label.frame = CGRectMake(self.box.frame.origin.x, self.box.frame.origin.y, self.box.frame.size.width, self.box.frame.size.height);
-                [label setText:[aparams objectForKey:@"text"]];
                 
-
                 
-                [self.box addSubview:label];
-                [acontroller.view addSubview:self.box];
+                [self.scroll addSubview:label];
+                [self updateScroll:0 y:label.frame.size.height];
             }
             
             
@@ -102,6 +113,28 @@
 - (void)showSurface:(UIViewController *)acontroller {
     
     [acontroller.view addSubview:self.box];
+}
+
+- (void)generateScroll {
+    
+    self.layout_x = 20;
+    self.layout_y = 15;
+    self.layout_constant_y = 15;
+    self.layout_constant_x = 0;
+    
+    self.scroll = [[UIScrollView alloc] initWithFrame:self.box.bounds];
+    self.scroll.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    self.scroll.contentSize = CGSizeMake(self.scroll.frame.size.width, 0);
+    [self.box addSubview:self.scroll];
+    
+}
+
+- (void)updateScroll:(float)ax y:(float)ay {
+    
+    self.layout_x = self.layout_x + (ax + self.layout_constant_x);
+    self.layout_y = self.layout_y + (ay + self.layout_constant_y);
+    
+    self.scroll.contentSize = CGSizeMake(self.layout_x, self.layout_y);
 }
 
 
