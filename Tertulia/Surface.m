@@ -22,16 +22,16 @@
     }
     
     //NSLog(@"rfre");
-    box = [[UIView alloc] init];
+    self.box = [[UIView alloc] init];
     //box.frame = CGRectMake(20, 100, acontroller.view.bounds.size.width-40, acontroller.view.bounds.size.height-120);
-    box.frame = CGRectMake(position_x, position_y, width, high);
+    self.box.frame = CGRectMake(position_x, position_y, width, high);
     //NSLog(@"y= %f", self.view.bounds.size.height);
     //self.cuadro.autoresizingMask =  UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight;
     //[self.cuadro sizeToFit];
-    box.backgroundColor = [UIColor blueColor];
+    self.box.backgroundColor = [UIColor blueColor];
     
     if ( adisplay ) {
-        [acontroller.view addSubview:box];
+        //[acontroller.view addSubview:self.box];
     }
     
     return self;
@@ -45,12 +45,12 @@
         CGFloat screenWidth = screenRect.size.width;
         CGFloat screenHeight = screenRect.size.height;
         
-        box = [[UIView alloc] init];
-        box.frame = CGRectMake(0, 0, screenWidth, screenHeight);
-        box.backgroundColor = [UIColor redColor];
+        self.box = [[UIView alloc] init];
+        self.box.frame = CGRectMake(0, 0, screenWidth, screenHeight);
+        self.box.backgroundColor = [UIColor redColor];
         
         if ( adisplay ) {
-            [acontroller.view addSubview:box];
+            [acontroller.view addSubview:self.box];
         }
         
         
@@ -60,20 +60,36 @@
     
 }
 
-- (void)add:(NSString *)object width:(float)awidth high:(float)ahigh params:(NSMutableDictionary *)aparams display:(BOOL)adisplay {
+- (void)add:(NSString *)object width:(float)awidth high:(float)ahigh params:(NSMutableDictionary *)aparams display:(BOOL)adisplay controller:(UIViewController *)acontroller{
     
     NSArray *items = @[@"text", @"image", @"text_field"];
     int item = [items indexOfObject:object];
     
     switch (item) {
         case 0:
+            
             if ( [aparams objectForKey:@"text"] ) {
                 
+                NSLog(@"box--  %f", self.box.frame.size.width);
                 NSLog(@"agregando texto: %@", [aparams objectForKey:@"text"] );
                 UILabel *label = [[UILabel alloc] init];
-                //label.frame = CGRect(
-                //label.text = @"[aparams objectForKey:@"text"]";
+                if(adisplay){
+                    label.frame = CGRectMake(0, 0, self.box.frame.size.width - 10, self.box.frame.size.height - 10);
+                    [label setBackgroundColor:[UIColor whiteColor]];
+                } else {
+                    label.frame = CGRectMake(0, 0, self.box.frame.size.width - 20, self.box.frame.size.height - 20);
+                    [label setBackgroundColor:[UIColor orangeColor]];
+                }
+                
+                //label.frame = CGRectMake(self.box.frame.origin.x, self.box.frame.origin.y, self.box.frame.size.width, self.box.frame.size.height);
+                [label setText:[aparams objectForKey:@"text"]];
+                
+
+                
+                [self.box addSubview:label];
+                [acontroller.view addSubview:self.box];
             }
+            
             
             if ( [aparams objectForKey:@"font"] ) {NSLog(@"hay font");} else {NSLog(@"no hay font");}
         break;
@@ -85,7 +101,7 @@
 
 - (void)showSurface:(UIViewController *)acontroller {
     
-    [acontroller.view addSubview:box];
+    [acontroller.view addSubview:self.box];
 }
 
 
