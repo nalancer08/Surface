@@ -23,8 +23,10 @@
     //[WebchimpUtilities alerts :self :@"Funcionando todo" :@"Hola mundo desde alerta" :@"default"];
     
     Surface *surf = [[Surface alloc] initFullSize:self grid:@"fluid" display:YES];
-    Surface *surface = [[Surface alloc] initWithSizeWidth:(NSInteger)200 high:(NSInteger)200 position_x:(NSInteger)30 position_y:(NSInteger)100 controller:self grid:@"fluid" display:YES];
+    Surface *surface = [[Surface alloc] initWithSizeWidth:(NSInteger)200 high:(NSInteger)200 position_x:(NSInteger)20 position_y:(NSInteger)50 controller:self grid:@"horizontal" display:YES];
 
+    
+    
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{@"text" : @"Hola textooooooo!!!"}];
     //[params setObject:@"font" forKey:@"font"];
     [surf add:@"text" width:1 high:1 params:params display:YES controller:self];
@@ -33,7 +35,20 @@
     [surf add:@"text" width:0 high:0 params:params display:YES controller:self];
     [surf add:@"text" width:100 high:100 params:params display:YES controller:self];
     [surf add:@"text" width:0 high:0 params:params display:YES controller:self];
+    [surf add:@"text" width:0 high:0 params:params display:YES controller:self];
+    [surf add:@"text" width:0 high:0 params:params display:YES controller:self];
+    [surf add:@"text" width:0 high:0 params:params display:YES controller:self];
+    [surf add:@"text" width:0 high:0 params:params display:YES controller:self];
+    [surf add:@"text" width:0 high:0 params:params display:YES controller:self];
+    [surf add:@"text" width:0 high:0 params:params display:YES controller:self];
+    [surf add:@"text" width:0 high:0 params:params display:YES controller:self];
+    [surf add:@"text" width:0 high:0 params:params display:YES controller:self];
+    [surf add:@"text" width:0 high:0 params:params display:YES controller:self];
     //[surface add:@"text" width:1 high:1 params:params display:NO controller:self];
+    [surface add:@"text" width:100 high:100 params:params display:YES controller:self];
+    [surface add:@"text" width:0 high:0 params:params display:YES controller:self];
+    [surface add:@"text" width:0 high:0 params:params display:YES controller:self];
+    [surf addSurface:surface respect_position:NO];
     
     [surf showSurface:self];
     //[surface showSurface:self];

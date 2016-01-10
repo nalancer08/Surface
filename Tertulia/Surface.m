@@ -26,6 +26,8 @@
     self.box.frame = CGRectMake(position_x, position_y, width, high);
     self.box.backgroundColor = [UIColor blueColor];
     
+    self.general_grid = agrid;
+    
     [self generateScroll];
     
     if ( adisplay ) {
@@ -42,6 +44,8 @@
         CGRect screenRect = [[UIScreen mainScreen] bounds];
         CGFloat screenWidth = screenRect.size.width;
         CGFloat screenHeight = screenRect.size.height;
+        
+        self.general_grid = agrid;
         
         self.box = [[UIView alloc] init];
         self.box.frame = CGRectMake(0, 0, screenWidth, screenHeight);
@@ -95,10 +99,8 @@
                     label.frame = CGRectMake(self.layout_x, self.layout_y, (self.scroll.frame.size.width - 40), 35);
                 }
                 
-                
-                
                 [self.scroll addSubview:label];
-                [self updateScroll:0 y:label.frame.size.height];
+                [self updateScroll:label.frame.size.width y:label.frame.size.height];
             }
             
             
@@ -110,6 +112,18 @@
     }
 }
 
+- (void)addSurface:(Surface *)surf respect_position:(BOOL)aposition{
+
+    if ( aposition ) {
+        [self.scroll addSubview:surf.self.box];
+    } else {
+        surf.self.box.frame = CGRectMake(self.layout_x, self.layout_y, surf.self.box.frame.size.width, surf.self.box.frame.size.height);
+        [self.scroll addSubview:surf.self.box];
+    }
+    
+    [self updateScroll:surf.self.box.frame.size.width y:surf.self.box.frame.size.height];
+}
+
 - (void)showSurface:(UIViewController *)acontroller {
     
     [acontroller.view addSubview:self.box];
@@ -119,21 +133,41 @@
     
     self.layout_x = 20;
     self.layout_y = 15;
-    self.layout_constant_y = 15;
-    self.layout_constant_x = 0;
     
-    self.scroll = [[UIScrollView alloc] initWithFrame:self.box.bounds];
-    self.scroll.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    self.scroll.contentSize = CGSizeMake(self.scroll.frame.size.width, 0);
-    [self.box addSubview:self.scroll];
+    if ( [self.general_grid isEqualToString:@"horizontal"] ) {
+        
+        self.layout_constant_y = 0;
+        self.layout_constant_x = 15;
+        
+        self.scroll = [[UIScrollView alloc] initWithFrame:self.box.bounds];
+        self.scroll.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        self.scroll.contentSize = CGSizeMake(0, self.scroll.frame.size.height);
+        [self.box addSubview:self.scroll];
+    } else if ( [self.general_grid isEqualToString:@"fluid"] ) {
+        
+        self.layout_constant_y = 15;
+        self.layout_constant_x = 0;
+        
+        self.scroll = [[UIScrollView alloc] initWithFrame:self.box.bounds];
+        self.scroll.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        self.scroll.contentSize = CGSizeMake(self.scroll.frame.size.width, 0);
+        [self.box addSubview:self.scroll];
+    }
     
 }
 
+
 - (void)updateScroll:(float)ax y:(float)ay {
     
-    self.layout_x = self.layout_x + (ax + self.layout_constant_x);
-    self.layout_y = self.layout_y + (ay + self.layout_constant_y);
-    
+    if ( [self.general_grid isEqualToString:@"fluid"] ) {
+       // self.layout_x = self.layout_x + (ax + self.layout_constant_x);
+        self.layout_y = self.layout_y + (ay + self.layout_constant_y);
+    }
+    if ( [self.general_grid isEqualToString:@"horizontal"] ) {
+        self.layout_x = self.layout_x + (ax + self.layout_constant_x);
+        //self.layout_y = self.layout_y + (ay + self.layout_constant_y);
+    }
+   
     self.scroll.contentSize = CGSizeMake(self.layout_x, self.layout_y);
 }
 
