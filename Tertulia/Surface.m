@@ -55,6 +55,12 @@
     
     if ( self = [super init] ) {
         
+        [self setPaddingsleft:0 top:0 right:0 bottom:0];
+        [self setMarginsleft:0 top:0 right:0 bottom:0];
+        
+        self.parent = nil;
+        self.children = [[NSMutableDictionary alloc] init];
+        
         CGRect screenRect = [[UIScreen mainScreen] bounds];
         CGFloat screenWidth = screenRect.size.width;
         CGFloat screenHeight = screenRect.size.height;
@@ -128,7 +134,7 @@
             NSLog(@"%@", self.children);
             
             [self.scroll addSubview:label];
-            [self updateScroll];
+            //[self updateScroll];
             
         break;
             
@@ -230,7 +236,10 @@
     awidth = awidth !=-1 ? awidth : (self.scroll.frame.size.width -40 );
     aheight = aheight !=-1 ? aheight : 35;
     
+    [self updateScroll];
+    
     frame = CGRectMake(self.layout_x, self.layout_y, awidth, aheight);
+    
     
     return frame;
     
