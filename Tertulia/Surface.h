@@ -9,9 +9,18 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+struct CGValues {
+    
+    float left;
+    float top;
+    float right;
+    float bottom;
+    
+}; typedef struct CGValues CGValues;
+
 @interface Surface : UIView {
     
-    float high;
+    float height;
     float width;
     float position_x;
     float position_y;
@@ -28,13 +37,22 @@
 @property (nonatomic) float layout_constant_x;
 @property (retain, nonatomic) NSString *general_grid;
 
+@property (retain, nonatomic) Surface *parent;
+@property (retain, nonatomic) NSMutableDictionary *children;
+
+@property (nonatomic) CGValues margin;
+@property (nonatomic) CGValues padding;
+
+
+
 // Contructors & Contructores //
-- (id)initWithSizeWidth:(float)awidth high:(float)ahigh position_x:(float)aposition_x position_y:(float)aposition_y controller:(UIViewController *)acontroller grid:(NSString *)agrid display:(BOOL)adisplay;
+- (id)initWithSizeWidth:(float)awidth height:(float)aheight position_x:(float)aposition_x position_y:(float)aposition_y controller:(UIViewController *)acontroller grid:(NSString *)agrid display:(BOOL)adisplay;
 - (id)initFullSize:(UIViewController *)acontroller grid:(NSString *)agrid display:(BOOL )adisplay;
+- (id)initWithView:(UIViewController *)acontroller view:(UIView *)aview display:(BOOL)adisplay;
 
 // Methods & Metodos //
-- (void)add:(NSString *)object width:(float)awidth high:(float)ahigh params:(NSMutableDictionary *)aparams display:(BOOL)adisplay controller:(UIViewController *)acontroller;
-- (void)addCustom:(NSString *)object width:(float)awidth high:(float)ahigh position_x:(float)aposition_x position_y:(float)aposition_y display:(BOOL)adisplay;
+- (void)add:(NSString *)object width:(float)awidth height:(float)aheight key:(NSString *)akey params:(NSMutableDictionary *)aparams display:(BOOL)adisplay controller:(UIViewController *)acontroller;
+//- (void)addCustom:(NSString *)object width:(float)awidth height:(float)aheight position_x:(float)aposition_x position_y:(float)aposition_y display:(BOOL)adisplay;
 - (void)addSurface:(Surface *)surf respect_position:(BOOL)aposition;
 
 - (void)showSurface:(UIViewController *)acontroller;
@@ -42,8 +60,15 @@
 // Methods Layout & Metodos para Layout //
 - (void)generateScroll;
 - (void)updateScroll:(float)ax y:(float)ay;
+- (void)updateScroll;
+- (void)update;
 
 // Details & Detalles //
-- (void)background:(UIColor *)color;
+//- (void)background:(UIColor *)color;
+
+// Frames
+- (CGRect)frame:(float)awidth y:(float)aheight;
+- (void)setMarginsleft:(float)aleft top:(float)atop right:(float)aright bottom:(float)abottom;
+- (void)setPaddingsleft:(float)aleft top:(float)atop right:(float)aright bottom:(float)abottom;;
 
 @end
