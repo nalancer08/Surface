@@ -40,9 +40,11 @@ struct CGValues {
 @property (retain, nonatomic) Surface *parent;
 @property (retain, nonatomic) NSMutableDictionary *children;
 
-@property (nonatomic) CGValues margin;
-@property (nonatomic) CGValues padding;
+@property (nonatomic, assign) CGValues margin;
+@property (nonatomic, assign) CGValues padding;
 
+@property (nonatomic, retain) UIViewController *vc;
+@property (nonatomic) CGRect general_frame;
 
 
 // Contructors & Contructores //

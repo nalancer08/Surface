@@ -21,7 +21,16 @@
     return self;
 }
 
-- (id)initWithSizeWidth:(float)awidth height:(float)aheight position_x:(float)aposition_x position_y:(float)aposition_y controller:(UIViewController *)acontroller grid:(NSString *)agrid display:(BOOL)adisplay{
+- (void) start {
+    
+    [self setPaddingsleft:0 top:0 right:0 bottom:0];
+    [self setMarginsleft:0 top:0 right:0 bottom:0];
+    
+    self.parent = nil;
+    self.children = [[NSMutableDictionary alloc] init];
+}
+
+- (id)initWithSizeWidth:(float)awidth height:(float)aheight position_x:(float)aposition_x position_y:(float)aposition_y controller:(UIViewController *)acontroller grid:(NSString *)agrid display:(BOOL)adisplay {
 
     if ( self = [super init] ) {
         
@@ -29,6 +38,9 @@
         height = aheight;
         position_x = aposition_x;
         position_y = aposition_y;
+        
+        self.parent = nil;
+        self.children = [[NSMutableDictionary alloc] init];
         
     }
     
@@ -55,23 +67,21 @@
     
     if ( self = [super init] ) {
         
-        [self setPaddingsleft:0 top:0 right:0 bottom:0];
-        [self setMarginsleft:0 top:0 right:0 bottom:0];
-        
-        self.parent = nil;
-        self.children = [[NSMutableDictionary alloc] init];
+        [self start];
         
         CGRect screenRect = [[UIScreen mainScreen] bounds];
         CGFloat screenWidth = screenRect.size.width;
         CGFloat screenHeight = screenRect.size.height;
         
         self.general_grid = agrid;
+        self.vc = acontroller;
         
         self.box = [[UIView alloc] init];
         self.box.frame = CGRectMake(0, 0, screenWidth, screenHeight);
         self.box.backgroundColor = [UIColor redColor];
         
         [self setPaddingsleft:20 top:20 right:20 bottom:20];
+
         
         [self generateScroll];
         
@@ -98,7 +108,11 @@
             //[acontroller.view addSubview:self.box];
         }
         
+        self.parent = nil;
+        self.children = [[NSMutableDictionary alloc] init];
+        
         [self setMarginsleft:0 top:0 right:0 bottom:20];
+        [self setPaddingsleft:0 top:0 right:0 bottom:0];
         
     }
     
@@ -110,35 +124,39 @@
     NSArray *items = @[@"text", @"image", @"text_field"];
     NSInteger item = [items indexOfObject:object];
     
-    UILabel *label = [[UILabel alloc] init];
-    UIImageView *image = [[UIImageView alloc] init];
+    UILabel *label;
+    UIImageView *image;
+    
     CGRect frame = [self frame:awidth y:aheight];
     Surface *child;
     
     switch (item) {
         case 0:
             
+            label = [[UILabel alloc] init];
             if ( [aparams objectForKey:@"text"] ) {
                 
                 [label setText:[aparams objectForKey:@"text"]];
                 [label setBackgroundColor:[UIColor whiteColor]];
             }
             
-            if ( [aparams objectForKey:@"font"] ) {NSLog(@"hay font");} else {NSLog(@"no hay font");}
+            //if ( [aparams objectForKey:@"font"] ) {NSLog(@"hay font");} else {NSLog(@"no hay font");}
             
             label.frame = frame;
             
             child = [[Surface alloc] initWithView:acontroller view:label display:adisplay];
             child.parent = self;
             [self.children setObject:child forKey:akey];
-            NSLog(@"%@", self.children);
+            NSLog(@"agregando el hijo::: %@", child);
             
             [self.scroll addSubview:label];
-            //[self updateScroll];
+            [self updateScroll];
             
         break;
             
         case 1:
+            
+            image = [[UIImageView alloc] init];
             
             if ( [aparams objectForKey:@"name"] && [[aparams objectForKey:@"name"] length] != 0 ) {
                 
@@ -180,8 +198,8 @@
 
 - (void)generateScroll {
     
-    self.layout_x = 0;
-    self.layout_y = 0;
+    self.layout_x = self.padding.left;
+    self.layout_y = self.padding.top;
     
     if ( [self.general_grid isEqualToString:@"horizontal"] ) {
         
@@ -202,10 +220,12 @@
 
 - (void)updateScroll:(float)ax y:(float)ay {
     
+    
     if ( [self.general_grid isEqualToString:@"fluid"] ) {
        // self.layout_x = self.layout_x + (ax + self.layout_constant_x);
         self.layout_y = self.layout_y + (ay + self.layout_constant_y);
     }
+    
     if ( [self.general_grid isEqualToString:@"horizontal"] ) {
         self.layout_x = self.layout_x + (ax + self.layout_constant_x);
         //self.layout_y = self.layout_y + (ay + self.layout_constant_y);
@@ -216,17 +236,19 @@
 
 - (void)updateScroll {
     
-    self.layout_y = self.parent != nil ? self.parent.padding.top : 0 ;
-    self.layout_x = self.parent != nil ? self.parent.padding.left : 0 ;
-    
-    for (NSString *aKey in [self.children allKeys]) {
-        
-        NSDictionary *aValue = [self.children valueForKey:aKey];
-        NSLog(@"Key : %@", aKey);
-        NSLog(@"Value : %@", aValue);
+    self.layout_y = self.padding.top;
+    self.layout_x = self.padding.left;
 
+    for ( NSString* key in self.children ) {
+        
+        Surface *Surf = [self.children valueForKey:key];
+        NSLog(@"el surf en el loop == %@", Surf);
+        
+        self.layout_y = self.layout_y + (Surf.margin.top + Surf.margin.bottom + Surf.padding.top + Surf.padding.bottom + Surf->height);
+        
     }
     
+    self.scroll.contentSize = CGSizeMake(self.layout_x, (self.layout_y + self.padding.bottom));
 }
 
 - (CGRect)frame:(float)awidth y:(float)aheight {
@@ -239,7 +261,6 @@
     [self updateScroll];
     
     frame = CGRectMake(self.layout_x, self.layout_y, awidth, aheight);
-    
     
     return frame;
     
@@ -254,11 +275,25 @@
         CGFloat screenHeight = screenRect.size.height;
         
         self.box.frame = CGRectMake(0, 0, screenWidth, screenHeight);
+        
     } else {
         
-        if ( width == -1 || height == -1 ) {
+        if ( width != -1 || height != -1 ) {
             
+            self->width = self.parent->width - (self.parent.padding.left + self.margin.left + self.parent.padding.right + self.margin.right);
+
+            CGRect frame = self.frame;
+            frame.size.width = self->width;
+            frame.size.height = self->height;
+            self.frame = frame;
+
         }
+    }
+    
+    for ( NSString* key in self.children ) {
+        
+        Surface *Surf = [self.children valueForKey:key];
+        [Surf update];
     }
     
     //[self generateScroll];
@@ -276,12 +311,12 @@
 
 - (void)setPaddingsleft:(float)aleft top:(float)atop right:(float)aright bottom:(float)abottom {
     
-    CGValues paddings = self.margin;
+    CGValues paddings = self.padding;
     paddings.left = aleft;
     paddings.top = atop;
     paddings.right = aright;
     paddings.bottom = abottom;
-    self.margin = paddings;
+    self.padding = paddings;
 }
 
 @end
