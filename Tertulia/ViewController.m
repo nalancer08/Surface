@@ -28,7 +28,7 @@
     [nc addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:device];
     
     surf = [[Surface alloc] initFullSize:self grid:@"fluid" display:YES];
-    Surface *surface = [[Surface alloc] initWithSizeWidth:(NSInteger)200 height:(NSInteger)200 position_x:(NSInteger)20 position_y:(NSInteger)350 controller:self grid:@"horizontal" display:YES];
+    Surface *surface = [[Surface alloc] initWithSizeWidth:150 height:200 controller:self grid:@"horizontal" display:YES];
 
     
     
@@ -39,24 +39,18 @@
     [surf add:@"text" width:-1 height:250 key:@"label3" params:params display:YES controller:self];
     [surf add:@"text" width:-1 height:250 key:@"label4" params:params display:YES controller:self];
     [surf add:@"text" width:-1 height:250 key:@"label5" params:params display:YES controller:self];
-    [surf add:@"text" width:-1 height:250 key:@"label6" params:params display:YES controller:self];
-    /*[surf add:@"text" width:0 height:0 params:params display:YES controller:self];
-    [surf add:@"text" width:0 height:0 params:params display:YES controller:self];
-    [surf add:@"text" width:0 height:0 params:params display:YES controller:self];
-    [surf add:@"text" width:0 height:0 params:params display:YES controller:self];
-    [surf add:@"text" width:0 height:0 params:params display:YES controller:self];
-    [surf add:@"text" width:0 height:0 params:params display:YES controller:self];
-    [surf add:@"text" width:0 height:0 params:params display:YES controller:self];
-    [surf add:@"text" width:0 height:0 params:params display:YES controller:self];
-    [surf add:@"text" width:0 height:0 params:params display:YES controller:self];*/
+    [surf add:@"text" width:-1 height:25 key:@"label6" params:params display:YES controller:self];
+   
     //[surface add:@"text" width:1 height:1 params:params display:NO controller:self];
     
     //NSMutableDictionary *params1 = [NSMutableDictionary dictionaryWithDictionary:@{@"url" : @"https://stopbuyingrotas.files.wordpress.com/2010/08/evox.jpg"}];
-    /*[surface add:@"text" width:100 height:100 params:params display:YES controller:self];
-    [surface add:@"text" width:0 height:0 params:params display:YES controller:self];
-    [surface add:@"text" width:0 height:0 params:params display:YES controller:self];
-    [surface add:@"image" width:100 height:100 params:params1 display:YES controller:self];*/
-    //[surf addSurface:surface respect_position:YES];
+    
+    [surface add:@"text" width:-1 height:100 key:@"label7" params:params display:YES controller:self];
+    [surface add:@"text" width:-1 height:100 key:@"label8" params:params display:YES controller:self];
+    [surface add:@"text" width:-1 height:100 key:@"label9" params:params display:YES controller:self];
+    [surface add:@"text" width:-1 height:100 key:@"label10" params:params display:YES controller:self];
+
+    [surf addSurface:surface key:@"surf2" respect_position:YES];
     
     //[surf add:@"image" width:200 height:200 params:params1 display:YES controller:self];
     

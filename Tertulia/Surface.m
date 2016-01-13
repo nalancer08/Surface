@@ -30,39 +30,6 @@
     self.children = [[NSMutableDictionary alloc] init];
 }
 
-- (id)initWithSizeWidth:(float)awidth height:(float)aheight position_x:(float)aposition_x position_y:(float)aposition_y controller:(UIViewController *)acontroller grid:(NSString *)agrid display:(BOOL)adisplay {
-
-    if ( self = [super init] ) {
-        
-        width = awidth;
-        height = aheight;
-        position_x = aposition_x;
-        position_y = aposition_y;
-        
-        self.parent = nil;
-        self.children = [[NSMutableDictionary alloc] init];
-        
-    }
-    
-    //NSLog(@"rfre");
-    self.box = [[UIView alloc] init];
-    self.box.frame = CGRectMake(position_x, position_y, width, height);
-    self.box.backgroundColor = [UIColor blueColor];
-    
-    self.general_grid = agrid;
-    
-    [self setPaddingsleft:20 top:20 right:20 bottom:20];
-    [self setMarginsleft:0 top:0 right:0 bottom:20];
-    
-    [self generateScroll];
-    
-    if ( adisplay ) {
-        //[acontroller.view addSubview:self.box];
-    }
-    
-    return self;
-}
-
 - (id)initFullSize:(UIViewController *)acontroller grid:(NSString *)agrid display:(BOOL)adisplay {
     
     if ( self = [super init] ) {
@@ -81,19 +48,48 @@
         self.box.backgroundColor = [UIColor redColor];
         
         [self setPaddingsleft:20 top:20 right:20 bottom:20];
-
+        
         
         [self generateScroll];
         
         if ( adisplay ) {
             //[acontroller.view addSubview:self.box];
         }
-        
-        
     }
     
     return self;
 }
+
+- (id)initWithSizeWidth:(float)awidth height:(float)aheight controller:(UIViewController *)acontroller grid:(NSString *)agrid display:(BOOL)adisplay {
+
+    if ( self = [super init] ) {
+        
+        width = awidth;
+        height = aheight;
+        
+        [self start];
+        
+    }
+    
+    //NSLog(@"rfre");
+    self.box = [[UIView alloc] init];
+    self.box.frame = CGRectMake(0, 0, width, height);
+    self.box.backgroundColor = [UIColor blueColor];
+    
+    self.general_grid = agrid;
+    
+    [self setPaddingsleft:20 top:20 right:20 bottom:20];
+    [self setMarginsleft:0 top:0 right:0 bottom:20];
+    
+    [self generateScroll];
+    
+    if ( adisplay ) {
+        //[acontroller.view addSubview:self.box];
+    }
+    
+    return self;
+}
+
 
 -(id) initWithView:(UIViewController *)acontroller view:(UIView *)aview display:(BOOL)adisplay {
     
@@ -147,7 +143,7 @@
             child = [[Surface alloc] initWithView:acontroller view:label display:adisplay];
             child.parent = self;
             [self.children setObject:child forKey:akey];
-            NSLog(@"agregando el hijo::: %@", child);
+            //NSLog(@"agregando el hijo::: %@", child);
             
             [self.scroll addSubview:label];
             [self updateScroll];
@@ -179,16 +175,16 @@
     }
 }
 
-- (void)addSurface:(Surface *)surf respect_position:(BOOL)aposition{
-
-    if ( aposition ) {
-        [self.scroll addSubview:surf.self.box];
-    } else {
-        surf.self.box.frame = CGRectMake(self.layout_x, self.layout_y, surf.self.box.frame.size.width, surf.self.box.frame.size.height);
-        [self.scroll addSubview:surf.self.box];
-    }
+- (void)addSurface:(Surface *)surf key:(NSString *)akey respect_position:(BOOL)aposition {
     
-    [self updateScroll:surf.self.box.frame.size.width y:surf.self.box.frame.size.height];
+    surf.self.box.frame = [self frame:surf.self.box.frame.size.width y:surf.self.box.frame.size.height];
+    [surf setPaddingsleft:0 top:0 right:0 bottom:0];
+    
+    surf.parent = self;
+    [self.children setObject:surf forKey:akey];
+    
+    [self.scroll addSubview:surf.self.box];
+    [self updateScroll];
 }
 
 - (void)showSurface:(UIViewController *)acontroller {
@@ -242,7 +238,7 @@
     for ( NSString* key in self.children ) {
         
         Surface *Surf = [self.children valueForKey:key];
-        NSLog(@"el surf en el loop == %@", Surf);
+        //NSLog(@"el surf en el loop == %@", Surf);
         
         self.layout_y = self.layout_y + (Surf.margin.top + Surf.margin.bottom + Surf.padding.top + Surf.padding.bottom + Surf->height);
         
@@ -255,8 +251,8 @@
     
     CGRect frame;
     //FRAME
-    awidth = awidth !=-1 ? awidth : (self.scroll.frame.size.width -40 );
-    aheight = aheight !=-1 ? aheight : 35;
+    awidth = awidth != -1 ? awidth : ( self.scroll.frame.size.width - ( self.padding.left + self.padding.right ) );
+    aheight = aheight != -1 ? aheight : 35;
     
     [self updateScroll];
     

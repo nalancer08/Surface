@@ -48,14 +48,14 @@ struct CGValues {
 
 
 // Contructors & Contructores //
-- (id)initWithSizeWidth:(float)awidth height:(float)aheight position_x:(float)aposition_x position_y:(float)aposition_y controller:(UIViewController *)acontroller grid:(NSString *)agrid display:(BOOL)adisplay;
 - (id)initFullSize:(UIViewController *)acontroller grid:(NSString *)agrid display:(BOOL )adisplay;
+- (id)initWithSizeWidth:(float)awidth height:(float)aheight controller:(UIViewController *)acontroller grid:(NSString *)agrid display:(BOOL)adisplay;
 - (id)initWithView:(UIViewController *)acontroller view:(UIView *)aview display:(BOOL)adisplay;
 
 // Methods & Metodos //
 - (void)add:(NSString *)object width:(float)awidth height:(float)aheight key:(NSString *)akey params:(NSMutableDictionary *)aparams display:(BOOL)adisplay controller:(UIViewController *)acontroller;
 //- (void)addCustom:(NSString *)object width:(float)awidth height:(float)aheight position_x:(float)aposition_x position_y:(float)aposition_y display:(BOOL)adisplay;
-- (void)addSurface:(Surface *)surf respect_position:(BOOL)aposition;
+- (void)addSurface:(Surface *)surf key:(NSString *)akey respect_position:(BOOL)aposition;
 
 - (void)showSurface:(UIViewController *)acontroller;
 
@@ -71,6 +71,8 @@ struct CGValues {
 // Frames
 - (CGRect)frame:(float)awidth y:(float)aheight;
 - (void)setMarginsleft:(float)aleft top:(float)atop right:(float)aright bottom:(float)abottom;
-- (void)setPaddingsleft:(float)aleft top:(float)atop right:(float)aright bottom:(float)abottom;;
+- (void)setPaddingsleft:(float)aleft top:(float)atop right:(float)aright bottom:(float)abottom;
+- (void)setOrigins_x:(float)ax y:(float)ay frame:(CGRect)aframe;
+- (void)setSizes_width:(float)awidth height:(float)aheight frame:(CGRect)aframe;
 
 @end
