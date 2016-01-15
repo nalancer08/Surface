@@ -28,7 +28,7 @@
     [nc addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:device];
     
     surf = [[Surface alloc] initFullSize:self grid:@"fluid" display:YES];
-    Surface *surface = [[Surface alloc] initWithSizeWidth:150 height:200 controller:self grid:@"horizontal" display:YES];
+    Surface *surface = [[Surface alloc] initWithSizeWidth:-1 height:200 controller:self grid:@"horizontal" display:YES];
 
     
     
@@ -50,12 +50,12 @@
     [surface add:@"text" width:-1 height:100 key:@"label9" params:params display:YES controller:self];
     [surface add:@"text" width:-1 height:100 key:@"label10" params:params display:YES controller:self];
 
-    [surf addSurface:surface key:@"surf2" respect_position:YES];
+    //[surf addSurface:surface key:@"surf2" respect_position:YES];
     
     //[surf add:@"image" width:200 height:200 params:params1 display:YES controller:self];
     
     [surf showSurface:self];
-    //[surface showSurface:self];
+    [surface showSurface:self];
 }
 
 - (void)didReceiveMemoryWarning {

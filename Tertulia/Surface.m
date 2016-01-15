@@ -36,12 +36,17 @@
         
         [self start];
         
+        
         CGRect screenRect = [[UIScreen mainScreen] bounds];
         CGFloat screenWidth = screenRect.size.width;
         CGFloat screenHeight = screenRect.size.height;
         
+        width = screenWidth;
+        height = screenHeight;
+        
         self.general_grid = agrid;
         self.vc = acontroller;
+        [self setSizes_width:screenWidth height:screenHeight];
         
         self.box = [[UIView alloc] init];
         self.box.frame = CGRectMake(0, 0, screenWidth, screenHeight);
@@ -66,6 +71,8 @@
         
         width = awidth;
         height = aheight;
+        
+        [self setSizes_width:awidth height:aheight];
         
         [self start];
         
@@ -313,6 +320,14 @@
     paddings.right = aright;
     paddings.bottom = abottom;
     self.padding = paddings;
+}
+
+- (void)setSizes_width:(float)awidth height:(float)aheight {
+    
+    CGRect frame = self.general_frame;
+    frame.size.width = awidth;
+    frame.size.height = aheight;
+    self.general_frame = frame;
 }
 
 @end

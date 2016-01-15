@@ -73,6 +73,6 @@ struct CGValues {
 - (void)setMarginsleft:(float)aleft top:(float)atop right:(float)aright bottom:(float)abottom;
 - (void)setPaddingsleft:(float)aleft top:(float)atop right:(float)aright bottom:(float)abottom;
 - (void)setOrigins_x:(float)ax y:(float)ay frame:(CGRect)aframe;
-- (void)setSizes_width:(float)awidth height:(float)aheight frame:(CGRect)aframe;
+- (void)setSizes_width:(float)awidth height:(float)aheight;
 
 @end
