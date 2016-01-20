@@ -107,6 +107,8 @@
         width = self.box.frame.size.width;
         height = self.box.frame.size.height;
         
+        [self setSizes_width:self.box.frame.size.width height:self.box.frame.size.height];
+        
         if ( adisplay ) {
             //[acontroller.view addSubview:self.box];
         }
@@ -152,7 +154,7 @@
             [self.children setObject:child forKey:akey];
             //NSLog(@"agregando el hijo::: %@", child);
             
-            [self.scroll addSubview:label];
+            [self.scroll addSubview:child.box];
             [self updateScroll];
             
         break;
@@ -172,8 +174,14 @@
             
             image.frame = frame;
             
-            [self.scroll addSubview:image];
-            [self updateScroll:image.frame.size.width y:image.frame.size.height];
+            child = [[Surface alloc] initWithView:acontroller view:image display:adisplay];
+            child.parent = self;
+            [self.children setObject:child forKey:akey];
+            //NSLog(@"agregando el hijo::: %@", child);
+            
+            [self.scroll addSubview:child.box];
+            [self updateScroll];
+            
             
             break;
             
@@ -184,13 +192,19 @@
 
 - (void)addSurface:(Surface *)surf key:(NSString *)akey respect_position:(BOOL)aposition {
     
-    surf.self.box.frame = [self frame:surf.self.box.frame.size.width y:surf.self.box.frame.size.height];
-    [surf setPaddingsleft:0 top:0 right:0 bottom:0];
+    //surf.self.box.frame = [self frame:surf.self.box.frame.size.width y:surf.self.box.frame.size.height];
+    //[surf setPaddingsleft:0 top:0 right:0 bottom:0];
     
+    if ( !aposition ) {
+        
+        [surf setSizes_width:-1 height:surf->height];
+        CGRect frame = [self frame:-1 y:surf->height];
+        surf.self.box.frame = frame;
+    }
     surf.parent = self;
     [self.children setObject:surf forKey:akey];
     
-    [self.scroll addSubview:surf.self.box];
+    [self.scroll addSubview:surf.box];
     [self updateScroll];
 }
 
@@ -328,6 +342,48 @@
     frame.size.width = awidth;
     frame.size.height = aheight;
     self.general_frame = frame;
+}
+
+- (UIColor*)colorWithHexString:(NSString *)hex
+{
+    NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
+    
+    // String should be 6 or 8 characters
+    if ([cString length] < 6) return [UIColor grayColor];
+    
+    // strip 0X if it appears
+    if ([cString hasPrefix:@"0X"]) cString = [cString substringFromIndex:2];
+    
+    if ([cString length] != 6) return  [UIColor grayColor];
+    
+    // Separate into r, g, b substrings
+    NSRange range;
+    range.location = 0;
+    range.length = 2;
+    NSString *rString = [cString substringWithRange:range];
+    
+    range.location = 2;
+    NSString *gString = [cString substringWithRange:range];
+    
+    range.location = 4;
+    NSString *bString = [cString substringWithRange:range];
+    
+    // Scan values
+    unsigned int r, g, b;
+    [[NSScanner scannerWithString:rString] scanHexInt:&r];
+    [[NSScanner scannerWithString:gString] scanHexInt:&g];
+    [[NSScanner scannerWithString:bString] scanHexInt:&b];
+    
+    return [UIColor colorWithRed:((float) r / 255.0f)
+                           green:((float) g / 255.0f)
+                            blue:((float) b / 255.0f)
+                           alpha:1.0f];
+}
+
+- (void)background:(NSString *)back {
+    
+    UIColor *backGround = [self colorWithHexString:back];
+    self.box.backgroundColor = backGround;
 }
 
 @end

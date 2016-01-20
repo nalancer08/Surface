@@ -66,7 +66,7 @@ struct CGValues {
 - (void)update;
 
 // Details & Detalles //
-//- (void)background:(UIColor *)color;
+- (void)background:(NSString *)back;
 
 // Frames
 - (CGRect)frame:(float)awidth y:(float)aheight;

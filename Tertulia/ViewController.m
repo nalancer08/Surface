@@ -28,12 +28,13 @@
     [nc addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:device];
     
     surf = [[Surface alloc] initFullSize:self grid:@"fluid" display:YES];
-    Surface *surface = [[Surface alloc] initWithSizeWidth:-1 height:200 controller:self grid:@"horizontal" display:YES];
+    [surf background:@"ABA91F"];
+    Surface *surface = [[Surface alloc] initWithSizeWidth:200 height:200 controller:self grid:@"horizontal" display:YES];
 
     
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{@"text" : @"Hola textooooooo!!!"}];
-    //[params setObject:@"font" forKey:@"font"];
+    [params setObject:@"font" forKey:@"font"];
     [surf add:@"text" width:-1 height:100 key:@"label1" params:params display:YES controller:self];
     [surf add:@"text" width:-1 height:250 key:@"label2" params:params display:YES controller:self];
     [surf add:@"text" width:-1 height:250 key:@"label3" params:params display:YES controller:self];
@@ -43,16 +44,18 @@
    
     //[surface add:@"text" width:1 height:1 params:params display:NO controller:self];
     
-    //NSMutableDictionary *params1 = [NSMutableDictionary dictionaryWithDictionary:@{@"url" : @"https://stopbuyingrotas.files.wordpress.com/2010/08/evox.jpg"}];
+    NSMutableDictionary *params1 = [NSMutableDictionary dictionaryWithDictionary:@{@"url" : @"https://stopbuyingrotas.files.wordpress.com/2010/08/evox.jpg"}];
     
     [surface add:@"text" width:-1 height:100 key:@"label7" params:params display:YES controller:self];
     [surface add:@"text" width:-1 height:100 key:@"label8" params:params display:YES controller:self];
     [surface add:@"text" width:-1 height:100 key:@"label9" params:params display:YES controller:self];
     [surface add:@"text" width:-1 height:100 key:@"label10" params:params display:YES controller:self];
 
-    //[surf addSurface:surface key:@"surf2" respect_position:YES];
+    [surf addSurface:surface key:@"surf2" respect_position:NO];
     
-    //[surf add:@"image" width:200 height:200 params:params1 display:YES controller:self];
+    [surf add:@"image" width:200 height:200 key:@"i1" params:params1 display:YES controller:self];
+    
+    // jhdsyhdhd
     
     [surf showSurface:self];
     [surface showSurface:self];
