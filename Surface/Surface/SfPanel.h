@@ -77,7 +77,6 @@
     //
     - (SfPanel *)find:(NSString *)key;
     - (SfPanel *)next;
-    - (SfPanel *)next;
     - (SfPanel *)prev;
     - (NSMutableArray *)siblings;
     - (SfPanel *)closest:(NSString *)key;

@@ -12,7 +12,7 @@
 
 //@dynamic position;
 
-- (id) init
+- (id)init
 {
     self = [super init];
     if (self) {
@@ -30,6 +30,8 @@
         self.prev = nil;
         self.lastChild = nil;
         self.firstChild = nil;
+        
+        self.visible = true;
         
         //self.children = [[NSMutableArray alloc] init];
         self.position = SF_POSITION_RELATIVE;
@@ -240,68 +242,70 @@
     
     float parentW = 0;
     float parentH = 0;
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-        
-    float screenW = screenRect.size.width;
-    float screenH = screenRect.size.height;
-    
-    
-    if ( self.parent ) {
-        
-        parentW = self.parent.frame.width - [self.parent.padding getWidth];
-        parentH = self.parent.frame.height - [self.parent.padding getHeight];
-        
-    } else {
-        
-        parentW = screenW;
-        parentH = screenH;
-        
-    }
+    if ( self.visible ) {
+        CGRect screenRect = [[UIScreen mainScreen] bounds];
             
-    self.frame.width = self.size.width >= 0 ? self.size.width : ((parentW * (-self.size.width)) / 100 );
-    self.frame.height = self.size.height >= 0 ? self.size.height : ((parentH * (-self.size.height)) / 100 );
-    
-    switch (self.position) {
-        case SF_POSITION_RELATIVE:
-            // Do nothing YAY!
-        break;
+        float screenW = screenRect.size.width;
+        float screenH = screenRect.size.height;
+        
+        
+        if ( self.parent ) {
             
-        case SF_POSITION_ABSOLUTE:
+            parentW = self.parent.frame.width - [self.parent.padding getWidth];
+            parentH = self.parent.frame.height - [self.parent.padding getHeight];
             
-            if ( self.origin.left != SF_UNSET && self.origin.right != SF_UNSET ) {
+        } else {
+            
+            parentW = screenW;
+            parentH = screenH;
+            
+        }
                 
-                self.frame.width = parentW - (self.origin.left + self.origin.right);
-            }
-            
-            if ( self.origin.top != SF_UNSET && self.origin.bottom != SF_UNSET ) {
+        self.frame.width = self.size.width >= 0 ? self.size.width : ((parentW * (-self.size.width)) / 100 );
+        self.frame.height = self.size.height >= 0 ? self.size.height : ((parentH * (-self.size.height)) / 100 );
+        
+        switch (self.position) {
+            case SF_POSITION_RELATIVE:
+                // Do nothing YAY!
+            break;
                 
-                self.frame.height = parentH - (self.origin.top + self.origin.bottom);
-            }
-            
-        break;
-            
-        case SF_POSITION_FIXED:
-            
-            if ( self.origin.left != SF_UNSET && self.origin.right != SF_UNSET ) {
+            case SF_POSITION_ABSOLUTE:
                 
-                self.frame.width = screenW - (self.origin.left + self.origin.right);
-            }
-            
-            if ( self.origin.top != SF_UNSET && self.origin.bottom != SF_UNSET ) {
+                if ( self.origin.left != SF_UNSET && self.origin.right != SF_UNSET ) {
+                    
+                    self.frame.width = parentW - (self.origin.left + self.origin.right);
+                }
                 
-                self.frame.height = screenH - (self.origin.top + self.origin.bottom);
-            }
-            
-            
-        break;
-    }
-    
-    
-    SfPanel *child = self.firstChild;
-    
-    while ( child != nil ) {
-        [child calcSize];
-        child = child.next;
+                if ( self.origin.top != SF_UNSET && self.origin.bottom != SF_UNSET ) {
+                    
+                    self.frame.height = parentH - (self.origin.top + self.origin.bottom);
+                }
+                
+            break;
+                
+            case SF_POSITION_FIXED:
+                
+                if ( self.origin.left != SF_UNSET && self.origin.right != SF_UNSET ) {
+                    
+                    self.frame.width = screenW - (self.origin.left + self.origin.right);
+                }
+                
+                if ( self.origin.top != SF_UNSET && self.origin.bottom != SF_UNSET ) {
+                    
+                    self.frame.height = screenH - (self.origin.top + self.origin.bottom);
+                }
+                
+                
+            break;
+        }
+        
+        
+        SfPanel *child = self.firstChild;
+        
+        while ( child != nil ) {
+            [child calcSize];
+            child = child.next;
+        }
     }
     
 }
@@ -309,11 +313,12 @@
 - (void)calcPos {
     
     CGRect screenRect = [[UIScreen mainScreen] bounds];
+    BOOL newLine = TRUE;
     
-    CGSize statusBarSize = [[UIApplication sharedApplication] statusBarFrame].size;
+    //CGSize statusBarSize = [[UIApplication sharedApplication] statusBarFrame].size;
     
     float screenW = screenRect.size.width;
-    float screenH = screenRect.size.height - statusBarSize.height;
+    float screenH = screenRect.size.height; //- statusBarSize.height;
 
     if ( !self.parent ) {
                 
@@ -353,6 +358,12 @@
     float curX = srcX;
     float curY = srcY;
     
+    // FIXED 15/04/16
+        float parentRight;
+        float parentBotton;
+    
+    //
+    
     // Iterate through children panels
     
     SfPanel *panel = self.firstChild;
@@ -361,6 +372,8 @@
         
         float panelW = panel.frame.width + [panel.margin getWidth];
         float panelH = panel.frame.height + [panel.margin getHeight];
+        
+        if ( !panel.visible ) continue;
         
         switch (panel.position) {
             case SF_POSITION_RELATIVE:
@@ -398,12 +411,13 @@
                             
                         case SF_ALIGNMENT_CENTER:
                             
-                            if ( curX == srcX ) {
+                            if ( newLine ) {
                                 
                                 SfPanel *subPanel = panel;
                                 float totalWidth = 0;
                                 
                                 while ( subPanel != nil ) {
+                                    if ( !subPanel.visible ) continue;
                                     if ( subPanel.position == SF_POSITION_RELATIVE ) {
                                     
                                         float subPanelW = subPanel.frame.width + [subPanel.margin getWidth];
@@ -423,6 +437,7 @@
                                 }
                                 
                                 curX = srcX - (totalWidth / 2);
+                                newLine = FALSE;
                                 //
                             }
                             
@@ -430,9 +445,10 @@
                                 
                                 curX = srcX;
                                 curY += panelH;
+                                newLine = TRUE;
                             }
                             
-                            panel.frame.x = curX + panel.margin.left;
+                            panel.frame.x = self.padding.left +  curX + panel.margin.left;
                             panel.frame.y = curY + panel.margin.top;
                             curX += panelW;
                             
@@ -445,30 +461,30 @@
                 
             case SF_POSITION_ABSOLUTE:
                 
-                if ( panel.origin.left == SF_UNSET || panel.origin.right == SF_UNSET ) {
+                //if ( panel.origin.left == SF_UNSET || panel.origin.right == SF_UNSET ) {
                     
-                    float parentRight = self.frame.x + self.frame.width - self.padding.right;
-                    panel.frame.x = (panel.origin.left == SF_UNSET) ? (self.origin.left + panel.origin.left + panel.margin.left) : (parentRight - (panelW + panel.origin.right));
-                }
+                    parentRight = self.frame.x + self.frame.width - self.margin.right;
+                    panel.frame.x = (panel.origin.left != SF_UNSET) ? (self.origin.left + panel.origin.left + panel.margin.left) : (parentRight - (panelW + panel.origin.right));
+                //}
                 
                 
-                if ( panel.origin.top == SF_UNSET || panel.origin.bottom == SF_UNSET ) {
+                //if ( panel.origin.top == SF_UNSET || panel.origin.bottom == SF_UNSET ) {
                     
-                    float parentBotton = self.frame.y + self.frame.height - self.padding.bottom;
-                    panel.frame.y = (panel.origin.top == SF_UNSET) ? (self.origin.top + panel.origin.top + panel.margin.top) : (parentBotton - panelH + self.origin.bottom);
-                }
+                    parentBotton = self.frame.y + self.frame.height - self.margin.bottom;
+                    panel.frame.y = (panel.origin.top != SF_UNSET) ? (self.origin.top + panel.origin.top + panel.margin.top) : (parentBotton - panelH + self.origin.bottom);
+                //}
                 
             break;
                 
             case SF_POSITION_FIXED:
                 
-                if ( panel.origin.left == SF_UNSET || panel.origin.right == SF_UNSET ) {
+                //if ( panel.origin.left == SF_UNSET || panel.origin.right == SF_UNSET ) {
                     panel.frame.x = (panel.origin.left != SF_UNSET) ? (panel.origin.left + panel.margin.left) : (screenW - (panelW + panel.origin.right));
-                }
+                //}
                 
-                if ( panel.origin.top == SF_UNSET || panel.origin.bottom == SF_UNSET ) {
+               // if ( panel.origin.top == SF_UNSET || panel.origin.bottom == SF_UNSET ) {
                     panel.frame.y = (panel.origin.top != SF_UNSET) ? (panel.origin.top + panel.margin.top) : (screenH - (panelH + panel.origin.bottom));
-                }
+               // }
                 
             break;
         }

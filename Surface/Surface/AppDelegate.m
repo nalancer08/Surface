@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ViewController.h"
+#import "Puppeteer1ViewController.h"
 
 @interface AppDelegate ()
 
@@ -24,9 +25,11 @@
     NSLog(@"y == %f", [[UIScreen mainScreen] bounds].size.height);
     
     ViewController *v = [[ViewController alloc] init];
+    Puppeteer1ViewController *v1 = [[Puppeteer1ViewController alloc] init];
+
     
     
-    self.window.rootViewController = v;
+    self.window.rootViewController = v1;
     
     [self.window makeKeyAndVisible];
     
