@@ -444,13 +444,19 @@
                             if ( (srcW - curX) < panelW ) {
                                 
                                 curX = srcX;
-                                curY += panelH;
+                                newLine = TRUE;
+                            } else if ( srcW - curX == panelW ) {
+                                curX = srcX - ( panelW / 2 );
                                 newLine = TRUE;
                             }
                             
                             panel.frame.x = self.padding.left +  curX + panel.margin.left;
                             panel.frame.y = curY + panel.margin.top;
                             curX += panelW;
+                            
+                            if ( newLine ) {
+                                curY += panelH;
+                            }
                             
                             break;
                     }

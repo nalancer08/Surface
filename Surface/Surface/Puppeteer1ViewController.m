@@ -35,7 +35,7 @@
     
     UIFont *all = [UIFont fontWithName:@"FontAwesome" size:30];
     
-    SfPanel *menu = [puppeteer addMenuButton:@"MENU" :nil :-25 :PUPPET_MENU_LEFT :@selector(chachan)];
+    SfPanel *menu = [puppeteer addMenuButton:@"MENU" :nil :-25 :PUPPET_MENU_RIGHT :@selector(chachan)];
     UIButton *menuButton = (UIButton *)menu.view;
     [menuButton.titleLabel setFont:all];
     [menuButton setTintColor:[UIColor whiteColor]];
