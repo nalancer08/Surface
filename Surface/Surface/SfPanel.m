@@ -36,6 +36,9 @@
         //self.children = [[NSMutableArray alloc] init];
         self.position = SF_POSITION_RELATIVE;
         self.alignment = SF_ALIGNMENT_CENTER;
+        self.line = 0;
+        self.scrollHeight = 0;
+        self.scrollHost = FALSE;
     }
     return self;
 }
@@ -313,7 +316,6 @@
 - (void)calcPos {
     
     CGRect screenRect = [[UIScreen mainScreen] bounds];
-    BOOL newLine = TRUE;
     
     //CGSize statusBarSize = [[UIApplication sharedApplication] statusBarFrame].size;
     
@@ -328,28 +330,23 @@
     
     float srcX = 0;
     float srcY = 0;
-    float srcW = self.frame.width - [self.padding getWidth];
-    float srcH = self.frame.height - [self.padding getHeight];
+    float srcW = self.frame.width;
+    float srcH = self.frame.height;
             
     switch (self.alignment) {
-        case SF_ALIGNMENT_LEFT:
-            
-            srcX = self.frame.x + self.padding.left;
-            srcY = self.frame.y + self.padding.top;
-            
-        break;
             
         case SF_ALIGNMENT_RIGHT:
         
             srcX = self.frame.width - self.padding.left;
-            srcY = self.frame.y + self.padding.top;
+            srcY = (self.scrollHost ? 0 : self.frame.y) + self.padding.top;
             
         break;
-            
+        
+        case SF_ALIGNMENT_LEFT:
         case SF_ALIGNMENT_CENTER:
             
-            srcX = srcW / 2;
-            srcY = self.frame.y + self.padding.top;
+            srcX = (self.scrollHost ? 0 : self.frame.x) + self.padding.left;
+            srcY = (self.scrollHost ? 0 : self.frame.y) + self.padding.top;
             
         break;
 
@@ -357,11 +354,13 @@
     
     float curX = srcX;
     float curY = srcY;
+    BOOL newLine = TRUE;
     
     // FIXED 15/04/16
-        float parentRight;
-        float parentBotton;
-    
+    float lineHeight = 0;
+    int line = 0;
+    float parentRight;
+    float parentBotton;
     //
     
     // Iterate through children panels
@@ -385,84 +384,57 @@
                             if ( (srcW - curX) < panelW ) {
                                 
                                 curX = srcX;
-                                curY += panelH;
+                                curY += lineHeight;
+                                lineHeight = 0;
+                                line++;
                             }
                             
+                            lineHeight = lineHeight < panelH ? panelH : lineHeight;
+                            panel.line = line;
                             panel.frame.x = curX + panel.margin.left;
                             panel.frame.y = curY + panel.margin.top;
                             curX += panelW;
                             
-                            
-                            break;
+                        break;
                             
                         case SF_ALIGNMENT_RIGHT:
                             
-                            if ( curX - panelW >= 0 ) {
+                            if ( curX - panelW <= 0 ) {
                                 
                                 curX = srcX;
-                                curY += panelH;
+                                curY += lineHeight;
+                                lineHeight = 0;
+                                line++;
                             }
                             
+                            lineHeight = lineHeight < panelH ? panelH : lineHeight;
+                            panel.line = line;
                             panel.frame.x = curX - (panel.frame.width + panel.margin.left);
                             panel.frame.y = curY + panel.margin.top;
                             curX -= panelW;
                             
-                            break;
+                        break;
                             
                         case SF_ALIGNMENT_CENTER:
                             
-                            if ( newLine ) {
-                                
-                                SfPanel *subPanel = panel;
-                                float totalWidth = 0;
-                                
-                                while ( subPanel != nil ) {
-                                    if ( !subPanel.visible ) continue;
-                                    if ( subPanel.position == SF_POSITION_RELATIVE ) {
-                                    
-                                        float subPanelW = subPanel.frame.width + [subPanel.margin getWidth];
-                                        if ( totalWidth + subPanelW <= srcW ) {
-                                            totalWidth += panelW;
-                                            
-                                            // Increment
-                                            subPanel = subPanel.next;
-                                        } else {
-                                            subPanel = nil;
-                                        }
-                                    
-                                    } else {
-                                        subPanel = subPanel.next;  
-                                    }
-                                    
-                                }
-                                
-                                curX = srcX - (totalWidth / 2);
-                                newLine = FALSE;
-                                //
-                            }
-                            
-                            if ( (srcW - curX) < panelW ) {
+                            if ( panelW > srcW - curX ) {
                                 
                                 curX = srcX;
-                                newLine = TRUE;
-                            } else if ( srcW - curX == panelW ) {
-                                curX = srcX - ( panelW / 2 );
-                                newLine = TRUE;
+                                curY += lineHeight;
+                                lineHeight = 0;
+                                line++;
                             }
                             
-                            panel.frame.x = self.padding.left +  curX + panel.margin.left;
+                            lineHeight = lineHeight < panelH ? panelH : lineHeight;
+                            panel.line = line;
+                            panel.frame.x = curX + panel.margin.left;
                             panel.frame.y = curY + panel.margin.top;
                             curX += panelW;
                             
-                            if ( newLine ) {
-                                curY += panelH;
-                            }
-                            
-                            break;
+                        break;
                     }
 
                     //
-                
             break;
                 
             case SF_POSITION_ABSOLUTE:
@@ -477,7 +449,7 @@
                 //if ( panel.origin.top == SF_UNSET || panel.origin.bottom == SF_UNSET ) {
                     
                     parentBotton = self.frame.y + self.frame.height - self.margin.bottom;
-                    panel.frame.y = (panel.origin.top != SF_UNSET) ? (self.origin.top + panel.origin.top + panel.margin.top) : (parentBotton - panelH + self.origin.bottom);
+                    panel.frame.y = (panel.origin.top != SF_UNSET) ? (self.origin.top + panel.origin.top + panel.margin.top) : (parentBotton - (panelH + self.origin.bottom));
                 //}
                 
             break;
@@ -502,6 +474,51 @@
         
     }
     
+    if ( self.alignment == SF_ALIGNMENT_CENTER ) {
+        
+        NSInteger lineWidths[line+1];
+        for (NSInteger i = 0; i < (line + 1); i++){
+            lineWidths[i] = 0;
+        }
+        
+        NSInteger lineHeights[line+1];
+        for (NSInteger i = 0; i < (line + 1); i++){
+            lineHeights[i] = 0;
+        }
+
+        panel = self.firstChild;
+        while (panel != nil) {
+            if ( panel.position == SF_POSITION_RELATIVE ) {
+                float panelW = panel.frame.width + [panel.margin getWidth];
+                float panelH = panel.frame.height + [panel.margin getHeight];
+                
+                lineWidths[panel.line] += panelW;
+                lineHeights[panel.line] = lineHeights[panel.line] >= panelH ? lineHeights[panel.line] : panelH;
+            }
+            panel = panel.next;
+        }
+        
+        self.scrollHeight = 0;
+        for (int i = 0; i < (line + 1); i++ ) {
+            lineWidths[i] = (srcW / 2) - (lineWidths[i] / 2);
+            self.scrollHeight += lineHeights[i];
+        }
+        
+        panel = self.firstChild;
+        while ( panel != nil ) {
+            if ( panel.position == SF_POSITION_RELATIVE ) {
+                float panelW = panel.frame.width + [panel.margin getWidth];
+                panel.frame.x = lineWidths[panel.line];
+                lineWidths[panel.line] += panelW;
+            }
+            
+            panel = panel.next;
+        }
+    }
+    
+    if ( self.size.height == 0 && self.position == SF_POSITION_RELATIVE ) {
+        self.frame.height = self.scrollHeight;
+    }
 }
 
 

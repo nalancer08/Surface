@@ -62,10 +62,97 @@
     but3.backgroundColor = [Helpers rgbColor:50 :50 :50];
     [but3 setTitle:@"\U0000f1ea" forState:UIControlStateNormal];
     
+    /////////////Scroll
+    
+    SfPanel *panel1 = [[SfPanel alloc] init];
+    SfPanel *panel2 = [[SfPanel alloc] init];
+    SfPanel *panel3 = [[SfPanel alloc] init];
+    SfPanel *panel4 = [[SfPanel alloc] init];
+    SfPanel *panel5 = [[SfPanel alloc] init];
+    SfPanel *panel6 = [[SfPanel alloc] init];
+    SfPanel *panel7 = [[SfPanel alloc] init];
+    
+    UIView *view1 = [[UIView alloc] init];
+    UIView *view2 = [[UIView alloc] init];
+    UIView *view3 = [[UIView alloc] init];
+    UIView *view4 = [[UIView alloc] init];
+    UIView *view5 = [[UIView alloc] init];
+    UIView *view6 = [[UIView alloc] init];
+    UIView *view7 = [[UIView alloc] init];
+    
+    
+    view1.backgroundColor = [UIColor redColor];
+    view2.backgroundColor = [UIColor blueColor];
+    view3.backgroundColor = [UIColor cyanColor];
+    view4.backgroundColor = [UIColor yellowColor];
+    view5.backgroundColor = [UIColor magentaColor];
+    view6.backgroundColor = [UIColor grayColor];
+    view7.backgroundColor = [UIColor greenColor];
+    
+    [panel1 setView:view1];
+    [panel2 setView:view2];
+    [panel3 setView:view3];
+    [panel4 setView:view4];
+    [panel5 setView:view5];
+    [panel6 setView:view6];
+    [panel7 setView:view7];
+    
+    [[panel1 setSize:-30 andHeight:60] setMargin:0 Right:5 Bottom:5 Left:0];
+    [[panel2 setSize:-30 andHeight:60] setMargin:0 Right:5 Bottom:5 Left:0];
+    [[panel3 setSize:-30 andHeight:30] setMargin:0 Right:5 Bottom:5 Left:0];
+    [[panel4 setSize:-30 andHeight:150] setMargin:0 Right:5 Bottom:5 Left:0];
+    [[panel5 setSize:-30 andHeight:60] setMargin:0 Right:5 Bottom:5 Left:0];
+    [[panel6 setSize:-30 andHeight:60] setMargin:0 Right:5 Bottom:5 Left:0];
+    [[panel7 setSize:-30 andHeight:150] setMargin:0 Right:5 Bottom:5 Left:0];
+    
+    
+    UIScrollView *scrollView = [[UIScrollView alloc] init];
+    scrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    scrollView.contentSize = CGSizeMake(350, 10);
+    scrollView.backgroundColor = [UIColor blueColor];
+    
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [UIColor orangeColor];
+    
+    SfPanel *scrollPanel = [[SfPanel alloc] init];
+    SfPanel *innerPanel = [[SfPanel alloc] init];
+    
+    [self.view addSubview:scrollView];
+    [scrollView addSubview:view];
+    [scrollView addSubview:view1];
+    [scrollView addSubview:view2];
+    [scrollView addSubview:view3];
+    [scrollView addSubview:view4];
+    [scrollView addSubview:view5];
+    [scrollView addSubview:view6];
+    [scrollView addSubview:view7];
+    
+    [scrollPanel setView:scrollView];
+    [innerPanel setView:view];
+    
+    [[[scrollPanel setSize:-100 andHeight:200] append:innerPanel] setKey:@"scroll"];
+    [[innerPanel setSize:-100 andHeight:0] setKey:@"children"];
+    
+    [innerPanel append:panel1];
+    [innerPanel append:panel2];
+    [innerPanel append:panel3];
+    [innerPanel append:panel4];
+    [innerPanel append:panel5];
+    [innerPanel append:panel6];
+    [innerPanel append:panel7];
+    
+    scrollPanel.scrollHost = TRUE;
+    
+    [content append:scrollPanel];
+    [content update];
+    
+    scrollView.contentSize = CGSizeMake(350, scrollPanel.scrollHeight);
+    
+    
     /*UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [button setTitle:@"Magia" forState:UIControlStateNormal];
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    button.backgroundColor = [UIColor redColor];*/
+    button.backgroundColor = [UIColor redColor];
     
     
     //[button addTarget:self action:@selector(magia) forControlEvents:UIControlEventTouchUpInside];

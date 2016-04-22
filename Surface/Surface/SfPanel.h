@@ -48,6 +48,13 @@
     //@property (retain, nonatomic) NSMutableArray *children;
     @property (nonatomic) int alignment;
 
+    @property (nonatomic) int line;
+
+
+    // Part of scroll :3
+    @property (nonatomic) float scrollHeight;
+    @property (nonatomic) BOOL scrollHost;
+
     // Methods
     - (SfPanel *)setSize:(float)width andHeight:(float)height;
     - (void)setPosition:(int)position;
