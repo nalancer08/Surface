@@ -3,15 +3,8 @@ package com.appbuilders.surface;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Point;
-import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.Display;
-import android.view.View;
-import android.view.Window;
-import android.widget.AbsoluteLayout;
-import android.widget.ScrollView;
-
-import java.util.Objects;
 
 /**
  * Created by ercsanchez on 26/09/17.
@@ -24,82 +17,42 @@ public class SfScreen {
     static public int ScreenHeight = 2;
 
     // Context
-    public Context context;
+    private Context context;
 
     // Base screen sizes with Galaxy S6
-    public int screenBaseX = 1440;
-    public int screenBaseY = 2560;
+    private int screenBaseX = 1440;
+    private int screenBaseY = 2560;
 
     // Variables to save current screen dimensions
-    public int screenX;
-    public int screenY;
+    private int screenX;
+    private int screenY;
 
     // Density scale
-    public double mainScale =  3.0;
+    private double mainScale =  3.0;
     public double minDensity =  1.0;
 
-    // I didnt remeber
-    public static final int inX = 0;
-    public static final int inY = 1;
+    // Instance
+    private static SfScreen mInstance = null;
 
-    /****************************************************************************************
-     *                                 Second revision (16/04/2017)                         *
-     ***************************************************************************************/
-    private boolean autoStatbusbarHide = false;
-    protected Window statusBar = null;
+    public static SfScreen getInstance(Context context) {
+
+        if ( mInstance == null ) {
+            Class clazz = SfScreen.class;
+            synchronized (clazz) {
+                mInstance = new SfScreen(context);
+            }
+        }
+        return mInstance;
+    }
 
     /**
      * Constructor to define the context and get screen size
      * @param context: Application context
      * */
-    public Screen( Context context ) {
+    public SfScreen( Context context ) {
 
-        this.setContext(context);
-        this.getScreen();
-    }
-
-    public Screen setContentView () {
-
-        ((Activity)this.context).setContentView(this.windowsCanvas);
-        return this;
-    }
-
-    /**
-     * This method delete the status bar (actually don't use it, cause have bad ram stability)
-     * */
-    public void deleteStatusBar(Window window) {
-        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
-    }
-
-    /**
-     * This method help to add a view
-     * */
-    public void addView(View view) {
-        this.windowsCanvas.addView(view);
-    }
-
-    public void removeView(View view) {
-
-        this.windowsCanvas.removeView(view);
-    }
-
-    /**
-     * This method help to add a sub view
-     * */
-    public void addSubView(View view) {
-        this.subWindowCanvas.addView(view);
-    }
-
-    /** Global update */
-    public void update(SfPanel panel) {
-        panel.update(this.context);
-    }
-
-    /**
-     * Setter for context
-     * */
-    public void setContext(Context context) {
         this.context = context;
+        this.getScreen();
     }
 
     /**
@@ -125,6 +78,10 @@ public class SfScreen {
 
     }
 
+    /**
+     * This method allow to get a specific measure axis
+     * @param axis: Integer with reference axis
+     **/
     public int getScreenAxis(int axis) {
 
         Display display = ((Activity)this.context).getWindowManager().getDefaultDisplay();
@@ -156,6 +113,15 @@ public class SfScreen {
 
     /**
      * This method transform a dimension in base a Galaxy S6 screen width density
+     * @param value: Float number
+     * */
+    public float getDpX(float value) {
+        return ( this.screenX * value ) / this.screenBaseX;
+    }
+
+    /**
+     * This method transform a dimension in base a Galaxy S6 screen width density
+     * @param value: Ineteger number
      * */
     public int getDpX(int value) {
         return ( this.screenX * value ) / this.screenBaseX;
@@ -163,8 +129,17 @@ public class SfScreen {
 
     /**
      * This method transform a dimension in base a Galaxy S6 height screen density
+     * @param value: Integer number
      * */
     public int getDpY(int value) {
+        return ( this.screenY * value ) / this.screenBaseY;
+    }
+
+    /**
+     * This method transform a dimension in base a Galaxy S6 height screen density
+     * @param value: Float number
+     * */
+    public float getDpY(float value) {
         return ( this.screenY * value ) / this.screenBaseY;
     }
 
@@ -185,34 +160,4 @@ public class SfScreen {
         float scale = getContext().getResources().getDisplayMetrics().density;
         return (int) (( scale * dps ) / this.mainScale);
     }
-
-    public void setAutoStatusbarHide(boolean hide) {
-        this.autoStatbusbarHide = hide;
-    }
-
-    public boolean getAutoStatusbarHide() {
-        return this.autoStatbusbarHide;
-    }
-
-    public void sutoHideStatusbar() {
-
-        if ( this.statusBar != null ) {
-
-            new CountDownTimer(5000, 1000) {
-
-                public void onTick(long millisUntilFinished) {
-
-                }
-
-                @Override
-                public void onFinish() {
-
-                    deleteStatusBar(statusBar);
-                    sutoHideStatusbar();
-                }
-            }.start();
-        }
-    }
-
-    /** Abstract methods **/
 }
