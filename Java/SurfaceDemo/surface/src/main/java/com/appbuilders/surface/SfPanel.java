@@ -15,13 +15,13 @@ import android.widget.AbsoluteLayout;
 import java.util.ArrayList;
 
 /**
- * Created by ercsanchez on 26/09/17.
+ * Created by Erick Sanchez - App Builders CTO
+ * Revision 1 - 26/09/17
  */
 
 public class SfPanel extends Object {
 
     public static final int SF_POSITION_RELATIVE = 0;
-    public static final int SF_POSITION_ABSOLUTE = 1;
     public static final int SF_POSITION_FIXED    = 2;
 
     public static final int SF_ALIGNMENT_LEFT    = 0;
@@ -255,16 +255,6 @@ public class SfPanel extends Object {
         return this;
     }
 
-
-
-
-
-
-
-
-
-
-
     public SfPanel calcSize(Context context) {
 
         this.screen = SfScreen.getInstance(context);
@@ -284,51 +274,38 @@ public class SfPanel extends Object {
 
             // Setting temporal sizes
            if (!this.size.isEmpty()) { // Size in pixels
-               this.frame.width = screen.getDpX(this.size.width);
+               this.frame.width = this.screen.getDpX(this.size.width);
+               this.frame.height = this.screen.getDpY(this.size.height);
+           } else if(!this.sizePercent.isEmpty()) {
+               this.frame.width = (parentWidth * this.sizePercent.width) / 100;
+               this.frame.height = (parentHeight * this.sizePercent.height) / 100;
            }
-        }
 
+           switch(this.position) {
 
+               case SF_POSITION_RELATIVE:
+                   // Automatic calculations
+               break;
 
+               case SF_POSITION_FIXED:
 
-        if (this.visible) {
-
-            this.frame.width = this.size.width >= 0 ? this.size.width : (parentW * -this.size.width ) / 100;
-            this.frame.height = this.size.height >= 0 ? this.size.height : (parentH * -this.size.height ) / 100;
-            switch (this.position) {
-                case SF_POSITION_RELATIVE:
-                    // Do nothing YAY!
-                    break;
-                case SF_POSITION_ABSOLUTE:
-                    if (this.origin.left != SF_UNSET && this.origin.right != SF_UNSET) {
-                        this.frame.width = parentW - (this.origin.left + this.origin.right);
-                    }
-                    if (this.origin.top != SF_UNSET && this.origin.bottom != SF_UNSET) {
-                        this.frame.height = parentH - (this.origin.top + this.origin.bottom);
-                    }
-                    break;
-                case SF_POSITION_FIXED:
-                    if (this.origin.left != SF_UNSET && this.origin.right != SF_UNSET) {
-                        this.frame.width = metrics.widthPixels - (this.origin.left + this.origin.right);
-                    }
-                    if (this.origin.top != SF_UNSET && this.origin.bottom != SF_UNSET) {
-                        ActionBar actionbar = ((ActionBarActivity)context).getSupportActionBar();
-                        boolean fullScreen = (((ActionBarActivity)context).getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0;
-                        boolean actionbarVisible = actionbar != null ? actionbar.isShowing() : false;
-                        int offset = 0;
-                        if (!fullScreen) {
-                            int resourceId = Resources.getSystem().getIdentifier("status_bar_height", "dimen", "android");
-                            offset += resourceId > 0 ? Resources.getSystem().getDimensionPixelSize(resourceId) : 0;
-                        }
-                        if (actionbarVisible) {
-                            TypedValue tv = new TypedValue();
-                            context.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true);
-                            offset += context.getResources().getDimensionPixelSize(tv.resourceId) + 12;
-                        }
-                        this.frame.height = metrics.heightPixels - (offset + this.origin.top + this.origin.bottom);
-                    }
-                    break;
-            }
+                   this.frame.width = metrics.widthPixels - (this.origin.left + this.origin.right);
+                   ActionBar actionbar = ((ActionBarActivity)context).getSupportActionBar();
+                   boolean fullScreen = (((ActionBarActivity)context).getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0;
+                   boolean actionbarVisible = actionbar != null ? actionbar.isShowing() : false;
+                   int offset = 0;
+                   if (!fullScreen) {
+                       int resourceId = Resources.getSystem().getIdentifier("status_bar_height", "dimen", "android");
+                       offset += resourceId > 0 ? Resources.getSystem().getDimensionPixelSize(resourceId) : 0;
+                   }
+                   if (actionbarVisible) {
+                       TypedValue tv = new TypedValue();
+                       context.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true);
+                       offset += context.getResources().getDimensionPixelSize(tv.resourceId) + 12;
+                   }
+                   this.frame.height = metrics.heightPixels - (offset + this.origin.top + this.origin.bottom);
+               break;
+           }
             // Size children panels
             SfPanel child = this.firstChild;
             while (child != null) {
@@ -339,8 +316,62 @@ public class SfPanel extends Object {
         return this;
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public SfPanel calcPos(Context context) {
+
+        this.screen = SfScreen.getInstance(context);
         DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         if (this.parent == null) {
             // Root panel
             this.frame.x = this.origin.left + this.margin.left;
@@ -423,18 +454,7 @@ public class SfPanel extends Object {
                             curX += panelW;
                     }
                     break;
-                case SF_POSITION_ABSOLUTE:
-                    //if (panel.origin.left == SF_UNSET || panel.origin.right == SF_UNSET) {
-                    // In this case, it is relative to the parent
-                    float parentRight = this.frame.x + this.frame.width - this.margin.right;
-                    panel.frame.x = (panel.origin.left != SF_UNSET) ? (this.frame.x + panel.origin.left + panel.margin.left) : (parentRight - (panelW + panel.origin.right));
-                    //}
-                    //if (panel.origin.top == SF_UNSET || panel.origin.bottom == SF_UNSET) {
-                    // In this case, it is relative to the parent
-                    float parentBottom = this.frame.y + this.frame.height - this.margin.bottom;
-                    panel.frame.y = (panel.origin.top != SF_UNSET) ? (this.frame.y + panel.origin.top + panel.margin.top) : (parentBottom - (panelH + panel.origin.bottom));
-                    //}
-                    break;
+
                 case SF_POSITION_FIXED:
                     //if (panel.origin.left == SF_UNSET || panel.origin.right == SF_UNSET) {
                     // This time is relative TO the screen size
