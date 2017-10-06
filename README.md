@@ -32,8 +32,6 @@ Surface it's a layout engine to create prototypes and complete apps so faster
 			this.addView(vii);
 		}
 		this.screen.update(this.context);
-        
-	</pre>
   </td>
   <td>
       <img src="/Images/example_grid.png" height="100%">
@@ -59,8 +57,6 @@ Surface it's a layout engine to create prototypes and complete apps so faster
 			this.addView(vii);
 		}
 		this.screen.update(this.context);
-        
-	</pre>
   </td>
   <td>
       <img src="/Images/example_grid.png" height="100%">
