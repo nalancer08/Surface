@@ -53,7 +53,7 @@ Surface it's a layout engine to create prototypes and complete apps so faster
 
 			vii.setBackgroundColor(Color.rgb(c1, c2, c3));
 			this.screen.append(cachito);
-			cachito.setSize(-33.33333f, -10).setView(vii).setMargin(5, 0, 0 ,0);
+			cachito.setSize(-33.33333f, -10).setView(vii).setMargin((i*5), 0, 0 ,0);
 			this.addView(vii);
 		}
 		this.screen.update(this.context);

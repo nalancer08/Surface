@@ -41,7 +41,7 @@ public class MainView extends SurfaceActivityView {
             vii.setBackgroundColor(Color.rgb(c1, c2, c3));
 
             this.screen.append(cachito);
-            cachito.setSize(-33.33333f, -10).setView(vii);//.setMargin(i*5,0,0,0);
+            cachito.setSize(-33.33333f, -10).setView(vii).setMargin(i*5,0,0,0);
             this.addView(vii);
         }
 
