@@ -65,7 +65,7 @@ public abstract class SurfaceActivityView {
 
         // Creating and sizing the main panel
         this.screen = new SfPanel();
-        this.screen.setSize(-70, -50);
+        this.screen.setSize(-100, -100);
         this.screen.setKey("screen");
 
         // Create the render

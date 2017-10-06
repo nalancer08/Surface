@@ -29,13 +29,7 @@ public class MainView extends SurfaceActivityView {
         this.screen.setView(sub);
         this.addView(sub);
 
-        View ds = new View(this.context);
-        ds.setBackgroundColor(Color.CYAN);
-        SfPanel panelsito = new SfPanel().setSize(-80, -10).setView(ds);
-        this.screen.append(panelsito);
-        this.addView(ds);
-
-        for (int i = 0; i <1; i++) {
+        for (int i = 0; i <100; i++) {
 
             SfPanel cachito = new SfPanel();
             View vii = new View(this.context);
@@ -45,10 +39,9 @@ public class MainView extends SurfaceActivityView {
             Integer c3 = i + (int)(Math.random() * ((253 - i) + i));
 
             vii.setBackgroundColor(Color.rgb(c1, c2, c3));
-            //vii.setBackgroundColor(Color.GRAY);
 
             this.screen.append(cachito);
-            cachito.setSize(-33.33333f, -4f).setView(vii);
+            cachito.setSize(-33.33333f, -10).setView(vii);//.setMargin(i*5,0,0,0);
             this.addView(vii);
         }
 

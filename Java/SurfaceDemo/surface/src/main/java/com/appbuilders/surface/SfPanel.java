@@ -15,33 +15,36 @@ import java.util.ArrayList;
 
 /**
  * Created by Erick Sanchez - App Builders CTO
+ * Version 3.2 - 06/10/17
  * Revision 1 - 26/09/17
+ * Revision 2 - 06/10/17
  */
 
 public class SfPanel extends Object {
 
-    public SfPoint point;
-    public SfSize size;
-    public SfSize sizePercent;
-    public SfRect frame;
-    public SfBox origin;
-    public SfBox margin;
-    public SfBox padding;
-    public int zIndex;
-    public int position;
-    public int alignment;
-    public boolean visible;
-    public SfPanel parent;
-    public SfPanel firstChild;
-    public SfPanel lastChild;
-    public SfPanel prev;
-    public SfPanel next;
-    public View view;
-    public String key;
-    public float scrollHeight;
-    public boolean scrollHost;
-    public boolean fixScroll;
-    protected int line;
+    private SfScreen screen;
+    private SfSize size;
+    private SfRect frame;
+    private SfBox origin;
+    private SfBox margin;
+    private SfBox marginPercent;
+    private SfBox padding;
+    private SfBox paddingPercent;
+    private int zIndex;
+    private int position;
+    private int alignment;
+    private boolean visible;
+    private SfPanel parent;
+    private SfPanel firstChild;
+    private SfPanel lastChild;
+    private SfPanel prev;
+    private SfPanel next;
+    private View view;
+    private String key;
+    private float scrollHeight;
+    private boolean scrollHost;
+    private boolean fixScroll;
+    private int line;
 
     public static final int SF_POSITION_RELATIVE = 0;
     public static final int SF_POSITION_FIXED    = 1;
@@ -57,15 +60,15 @@ public class SfPanel extends Object {
      **/
     public SfPanel() {
 
-        this.point = new SfPoint();
         this.size = new SfSize();
-        this.sizePercent = new SfSize();
         this.frame = new SfRect();
         this.origin = new SfBox();
         this.margin = new SfBox();
+        this.marginPercent = new SfBox();
         this.padding = new SfBox();
-        this.position = this.SF_POSITION_RELATIVE;
-        this.alignment = this.SF_ALIGNMENT_CENTER;
+        this.paddingPercent = new SfBox();
+        this.position = SfPanel.SF_POSITION_RELATIVE;
+        this.alignment = SfPanel.SF_ALIGNMENT_CENTER;
         this.visible = true;
         this.zIndex = 0;
         this.parent = null;
@@ -76,6 +79,7 @@ public class SfPanel extends Object {
         this.view = null;
         this.key = "";
         this.line = 0;
+        this.zIndex = 0;
         this.scrollHeight = 0;
         this.scrollHost = false;
         this.fixScroll = false;
@@ -83,7 +87,7 @@ public class SfPanel extends Object {
 
     /**
      * Method to set panel size in pixels
-     * Automatically calculate the proportion
+     * Automatically calculate the proportions
      * @param width: Float widht in pixels
      * @param height: Float height in pixels
      **/
@@ -94,71 +98,154 @@ public class SfPanel extends Object {
     }
 
     /**
-     * Method to set panel size in pixels
-     * Automatically calculate the proportion
-     * @param width: Float widht in pixels
-     * @param height: Float height in pixels
+     * Method to set panel position
+     * Available relative and fixed
+     * @param position: Integer reference
      **/
-    public SfPanel setSizePercent(float width, float height) {
-
-        this.sizePercent.setSize(width, height);
-        return this;
-    }
-
     public SfPanel setPosition(int position) {
+
         this.position = position;
         return this;
     }
 
+    /**
+     * Method to set panel alignment
+     * Available left, center and right
+     * @param alignment: Integer reference
+     **/
     public SfPanel setAlignment(int alignment) {
+
         this.alignment = alignment;
         return this;
     }
 
+    /**
+     * Method to set origin of the panel
+     * Deprecated
+     **/
+    @Deprecated
     public SfPanel setOrigin(float top, float right, float bottom, float left) {
         this.origin.setBox(top, right, bottom, left);
         return this;
     }
 
+    /**
+     * Method to set panel margins in pixels
+     * Automatically calculate the size proportions
+     * @param top: Float pixels
+     * @param right: Float pixels
+     * @param bottom: Float pixels
+     * @param left: Float pixels
+     **/
     public SfPanel setMargin(float top, float right, float bottom, float left) {
+
         this.margin.setBox(top, right, bottom, left);
         return this;
     }
 
+    /**
+     * Method to set panel margins in percent
+     * In base to the parent
+     * @param top: Float percent
+     * @param right: Float percent
+     * @param bottom: Float percent
+     * @param left: Float percent
+     **/
+    public SfPanel setMarginPercent(float top, float right, float bottom, float left) {
+
+        this.marginPercent.setBox(top, right, bottom, left);
+        return this;
+    }
+
+    /**
+     * Method to set panel padding in pixels
+     * Automatically calculate the size proportions
+     * @param top: Float pixels
+     * @param right: Float pixels
+     * @param bottom: Float pixels
+     * @param left: Float pixels
+     **/
     public SfPanel setPadding(float top, float right, float bottom, float left) {
+
         this.padding.setBox(top, right, bottom, left);
         return this;
     }
 
-    public SfPanel setParent(SfPanel parent) {
+    /**
+     * Method to set panel padding in percent
+     * In base to the parent
+     * @param top: Float percent
+     * @param right: Float percent
+     * @param bottom: Float percent
+     * @param left: Float percent
+     **/
+    public SfPanel setPaddingPercent(float top, float right, float bottom, float left) {
+
+        this.paddingPercent.setBox(top, right, bottom, left);
+        return this;
+    }
+
+    /**
+     * Method to set parent panel
+     * @param parent: SfPanel
+     **/
+    private SfPanel setParent(SfPanel parent) {
+
         this.parent = parent;
         return this;
     }
 
+    /**
+     * Method to get the parent panel
+     * return parent SfPanel
+     **/
     public SfPanel getParent() {
         return this.parent;
     }
 
+    /**
+     * Method match view with panel
+     * @param view: View to be match
+     **/
     public SfPanel setView(View view) {
 
         this.view = view;
         return this;
     }
 
+    /**
+     * Method to get the panel's view
+     * return View
+     **/
     public View getView() {
         return this.view;
     }
 
+    /**
+     * Method to set panel string key
+     * @param key: String key
+     **/
     public SfPanel setKey(String key) {
+
         this.key = key;
         return this;
     }
 
+    /**
+     * Method to get panel's string key
+     * return String key
+     **/
     public String getKey() {
         return this.key;
     }
 
+    /**
+     * Method to append panels
+     * This method allow, to set children to a parent panel
+     * @param object: SfPanel to be appended
+     **/
     public SfPanel append(SfPanel object) {
+
         if (object != null) {
             object.setParent(this);
             // Our list logic
@@ -174,7 +261,13 @@ public class SfPanel extends Object {
         return this;
     }
 
+    /**
+     * Method to prepend panels
+     * This method add a panel in the beginning of the stack
+     * @param object: SfPanel to be prepend
+     **/
     public SfPanel prepend(SfPanel object) {
+
         if (object != null) {
             object.setParent(this);
             // Our list logic
@@ -190,7 +283,12 @@ public class SfPanel extends Object {
         return this;
     }
 
+    /**
+     * Method to find a panel throw a string key
+     * @param key: String key
+     **/
     public SfPanel find(String key) {
+
         SfPanel child = this.firstChild;
         SfPanel ret = null;
         while (child != null) {
@@ -206,16 +304,29 @@ public class SfPanel extends Object {
         return ret;
     }
 
-    public SfPanel next() {
+    /**
+     * Method to get the next panel in the stack
+     * return SfPanel
+     **/
+    private SfPanel next() {
         return this.next;
     }
 
-    public SfPanel prev() {
+    /**
+     * Method to get the previous panel in the stack
+     * return SfPanel
+     **/
+    private SfPanel prev() {
         return this.prev;
     }
 
+    /**
+     * Method to get siblings panels into the same parent panel
+     * return ArrayList of siblings panels
+     **/
     public ArrayList<SfPanel> siblings() {
-        ArrayList<SfPanel> siblings = new ArrayList<SfPanel>();
+
+        ArrayList<SfPanel> siblings = new ArrayList<>();
         if (this.parent != null) {
             SfPanel sibling = this.parent.firstChild;
             while (sibling != null) {
@@ -227,7 +338,13 @@ public class SfPanel extends Object {
         return siblings;
     }
 
+    /**
+     * Method to get closest parent panel
+     * @param key: String parent key
+     * return SfPanel
+     **/
     public SfPanel closest(String key) {
+
         SfPanel ret = null;
         if (this.parent != null) {
             if (this.parent.getKey().compareTo(key) == 0) {
@@ -239,7 +356,11 @@ public class SfPanel extends Object {
         return ret;
     }
 
+    /**
+     * Method to remove the current panel of the stack
+     **/
     public SfPanel remove() {
+
         SfPanel prev = this.prev;
         SfPanel next = this.next;
         prev.next = next;
@@ -247,7 +368,12 @@ public class SfPanel extends Object {
         return this;
     }
 
+    /**
+     * Method to get parent's children
+     * return ArrayList
+     **/
     public ArrayList<SfPanel> getChildren() {
+
         ArrayList<SfPanel> children = new ArrayList<SfPanel>();
         SfPanel child = this.firstChild;
         while (child != null) {
@@ -257,12 +383,24 @@ public class SfPanel extends Object {
         return children;
     }
 
+    /**
+     * Method to set z-index
+     * Deprecated
+     * @param zIndex: Integer layout
+     **/
+    @Deprecated
     public SfPanel setZIndex(int zIndex) {
+
         this.zIndex = zIndex;
         return this;
     }
 
+    /**
+     * Method to set logical visibility to the panel
+     * @param visible: boolean visibility
+     **/
     public SfPanel setVisible(boolean visible) {
+
         this.visible = visible;
         return this;
     }
@@ -271,7 +409,9 @@ public class SfPanel extends Object {
 
         float parentWidht = 0;
         float parentHeight = 0;
+
         if (this.visible) {
+
             DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
             if (this.parent != null) {
                 parentWidht = this.parent.frame.width;
@@ -280,8 +420,10 @@ public class SfPanel extends Object {
                 parentWidht = metrics.widthPixels;
                 parentHeight = metrics.heightPixels;
             }
+
             this.frame.width = this.size.width >= 0 ? this.size.width : (parentWidht * -this.size.width ) / 100;
             this.frame.height = this.size.height >= 0 ? this.size.height : (parentHeight * -this.size.height ) / 100;
+
             switch (this.position) {
                 case SF_POSITION_RELATIVE:
                     // Do nothing YAY!
