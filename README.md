@@ -9,7 +9,11 @@ Surface it's a layout engine to create prototypes and complete apps so faster
 
 # Examples
 
-## Creating a grid
+## Grids
+
+======================
+Code | Result
+--- | ---
 
 ```java
 for (int i = 0; i <100; i++) {
@@ -30,10 +34,4 @@ for (int i = 0; i <100; i++) {
 
 this.screen.update(this.context);
 
-```
-<div align="left">
-  <img src="https://github.com/nalancer08/Surface/blob/V3/Images/example_grid.png">
-</div>
-<p align="right">
-  <img src="https://github.com/nalancer08/Surface/blob/V3/Images/example_grid.png">
-</p>
+``` | <img src="https://github.com/nalancer08/Surface/blob/V3/Images/example_grid.png">
