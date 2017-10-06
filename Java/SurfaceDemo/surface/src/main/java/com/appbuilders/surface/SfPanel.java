@@ -7,7 +7,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
-import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AbsoluteLayout;
@@ -21,8 +20,31 @@ import java.util.ArrayList;
 
 public class SfPanel extends Object {
 
+    public SfPoint point;
+    public SfSize size;
+    public SfSize sizePercent;
+    public SfRect frame;
+    public SfBox origin;
+    public SfBox margin;
+    public SfBox padding;
+    public int zIndex;
+    public int position;
+    public int alignment;
+    public boolean visible;
+    public SfPanel parent;
+    public SfPanel firstChild;
+    public SfPanel lastChild;
+    public SfPanel prev;
+    public SfPanel next;
+    public View view;
+    public String key;
+    public float scrollHeight;
+    public boolean scrollHost;
+    public boolean fixScroll;
+    protected int line;
+
     public static final int SF_POSITION_RELATIVE = 0;
-    public static final int SF_POSITION_FIXED    = 2;
+    public static final int SF_POSITION_FIXED    = 1;
 
     public static final int SF_ALIGNMENT_LEFT    = 0;
     public static final int SF_ALIGNMENT_RIGHT   = 1;
@@ -30,31 +52,9 @@ public class SfPanel extends Object {
 
     public static final float SF_UNSET  = -9999;
 
-    private SfScreen screen;
-
-    private SfPoint point;
-    private SfSize size;
-    private SfSize sizePercent;
-    private SfRect frame;
-    private SfBox origin;
-    private SfBox margin;
-    private SfBox padding;
-    private int zIndex;
-    private int position;
-    private int alignment;
-    private boolean visible;
-    private SfPanel parent;
-    private SfPanel firstChild;
-    private SfPanel lastChild;
-    private SfPanel prev;
-    private SfPanel next;
-    private View view;
-    private String key;
-    private float scrollHeight;
-    private boolean scrollHost;
-    private boolean fixScroll;
-    private int line;
-
+    /**
+     * Constructor method
+     **/
     public SfPanel() {
 
         this.point = new SfPoint();
@@ -64,8 +64,8 @@ public class SfPanel extends Object {
         this.origin = new SfBox();
         this.margin = new SfBox();
         this.padding = new SfBox();
-        this.position = SfPanel.SF_POSITION_RELATIVE;
-        this.alignment = SfPanel.SF_ALIGNMENT_CENTER;
+        this.position = this.SF_POSITION_RELATIVE;
+        this.alignment = this.SF_ALIGNMENT_CENTER;
         this.visible = true;
         this.zIndex = 0;
         this.parent = null;
@@ -81,15 +81,27 @@ public class SfPanel extends Object {
         this.fixScroll = false;
     }
 
+    /**
+     * Method to set panel size in pixels
+     * Automatically calculate the proportion
+     * @param width: Float widht in pixels
+     * @param height: Float height in pixels
+     **/
     public SfPanel setSize(float width, float height) {
 
         this.size.setSize(width, height);
         return this;
     }
 
+    /**
+     * Method to set panel size in pixels
+     * Automatically calculate the proportion
+     * @param width: Float widht in pixels
+     * @param height: Float height in pixels
+     **/
     public SfPanel setSizePercent(float width, float height) {
 
-        this.size.setSize(width, height);
+        this.sizePercent.setSize(width, height);
         return this;
     }
 
@@ -257,55 +269,46 @@ public class SfPanel extends Object {
 
     public SfPanel calcSize(Context context) {
 
-        this.screen = SfScreen.getInstance(context);
-        float parentWidth = 0;
+        float parentWidht = 0;
         float parentHeight = 0;
-
         if (this.visible) {
-
             DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
-            if (this.parent != null) { // Taking parent sizes
-                parentWidth = this.parent.frame.width;
+            if (this.parent != null) {
+                parentWidht = this.parent.frame.width;
                 parentHeight = this.parent.frame.height;
-            } else { // Taking screen pixels
-                parentWidth = metrics.widthPixels;
+            } else {
+                parentWidht = metrics.widthPixels;
                 parentHeight = metrics.heightPixels;
             }
+            this.frame.width = this.size.width >= 0 ? this.size.width : (parentWidht * -this.size.width ) / 100;
+            this.frame.height = this.size.height >= 0 ? this.size.height : (parentHeight * -this.size.height ) / 100;
+            switch (this.position) {
+                case SF_POSITION_RELATIVE:
+                    // Do nothing YAY!
+                    break;
 
-            // Setting temporal sizes
-           if (!this.size.isEmpty()) { // Size in pixels
-               this.frame.width = this.screen.getDpX(this.size.width);
-               this.frame.height = this.screen.getDpY(this.size.height);
-           } else if(!this.sizePercent.isEmpty()) {
-               this.frame.width = (parentWidth * this.sizePercent.width) / 100;
-               this.frame.height = (parentHeight * this.sizePercent.height) / 100;
-           }
-
-           switch(this.position) {
-
-               case SF_POSITION_RELATIVE:
-                   // Automatic calculations
-               break;
-
-               case SF_POSITION_FIXED:
-
-                   this.frame.width = metrics.widthPixels - (this.origin.left + this.origin.right);
-                   ActionBar actionbar = ((ActionBarActivity)context).getSupportActionBar();
-                   boolean fullScreen = (((ActionBarActivity)context).getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0;
-                   boolean actionbarVisible = actionbar != null ? actionbar.isShowing() : false;
-                   int offset = 0;
-                   if (!fullScreen) {
-                       int resourceId = Resources.getSystem().getIdentifier("status_bar_height", "dimen", "android");
-                       offset += resourceId > 0 ? Resources.getSystem().getDimensionPixelSize(resourceId) : 0;
-                   }
-                   if (actionbarVisible) {
-                       TypedValue tv = new TypedValue();
-                       context.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true);
-                       offset += context.getResources().getDimensionPixelSize(tv.resourceId) + 12;
-                   }
-                   this.frame.height = metrics.heightPixels - (offset + this.origin.top + this.origin.bottom);
-               break;
-           }
+                case SF_POSITION_FIXED:
+                    if (this.origin.left != SF_UNSET && this.origin.right != SF_UNSET) {
+                        this.frame.width = metrics.widthPixels - (this.origin.left + this.origin.right);
+                    }
+                    if (this.origin.top != SF_UNSET && this.origin.bottom != SF_UNSET) {
+                        ActionBar actionbar = ((ActionBarActivity)context).getSupportActionBar();
+                        boolean fullScreen = (((ActionBarActivity)context).getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0;
+                        boolean actionbarVisible = actionbar != null ? actionbar.isShowing() : false;
+                        int offset = 0;
+                        if (!fullScreen) {
+                            int resourceId = Resources.getSystem().getIdentifier("status_bar_height", "dimen", "android");
+                            offset += resourceId > 0 ? Resources.getSystem().getDimensionPixelSize(resourceId) : 0;
+                        }
+                        if (actionbarVisible) {
+                            TypedValue tv = new TypedValue();
+                            context.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true);
+                            offset += context.getResources().getDimensionPixelSize(tv.resourceId) + 12;
+                        }
+                        this.frame.height = metrics.heightPixels - (offset + this.origin.top + this.origin.bottom);
+                    }
+                    break;
+            }
             // Size children panels
             SfPanel child = this.firstChild;
             while (child != null) {
@@ -316,62 +319,8 @@ public class SfPanel extends Object {
         return this;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public SfPanel calcPos(Context context) {
-
-        this.screen = SfScreen.getInstance(context);
         DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         if (this.parent == null) {
             // Root panel
             this.frame.x = this.origin.left + this.margin.left;
@@ -554,5 +503,4 @@ public class SfPanel extends Object {
         }
         return this;
     }
-
 }
