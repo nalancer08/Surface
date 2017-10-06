@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://github.com/nalancer08/ABAIS/blob/master/logo.png">
+</p>
+
 # Surface
 
 Surface it's a layout engine to create prototypes and complete apps so faster
@@ -20,10 +24,13 @@ for (int i = 0; i <100; i++) {
     vii.setBackgroundColor(Color.rgb(c1, c2, c3));
 
     this.screen.append(cachito);
-    cachito.setSize(-33.33333f, -10).setView(vii);//.setMargin(i*5,0,0,0);
+    cachito.setSize(-33.33333f, -10).setView(vii);
     this.addView(vii);
 }
 
 this.screen.update(this.context);
 
 ```
+<p align="center">
+  <img src="https://github.com/nalancer08/ABAIS/blob/master/logo.png">
+</p>
