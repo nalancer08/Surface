@@ -59,7 +59,7 @@ Surface it's a layout engine to create prototypes and complete apps so faster
 		this.screen.update(this.context);
   </td>
   <td>
-      <img src="/Images/example_grid.png" height="100%">
+      <img src="/Images/example_grid_margin_top.png" height="100%">
   </td>
   </tr>
 
