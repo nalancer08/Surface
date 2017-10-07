@@ -91,10 +91,6 @@ Surface it's a layout engine to create prototypes and complete apps so faster
 	    }
 	}
 
-	===================
-	
-  	<pre lang="java">
-
 	@Override
 	public void onCreateView() {
 
