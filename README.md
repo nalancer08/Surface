@@ -248,7 +248,7 @@ You can watch we use scroll exampe, into the layout provide for the xml
         View boxScrollView = new View(this.context);
         boxScrollView.setBackgroundColor(Color.MAGENTA);
         SfPanel boxScroll = new SfPanel().setSize(-85, -65).
-        						setMargin(20, 0, 0, 0).setView(boxScrollView);
+        		setMargin(20, 0, 0, 0).setView(boxScrollView);
         this.subScreen.append(boxScroll);
         this.makeItScrollable(boxScroll, "boxScroll");
         //this.addView(boxScrollView);
