@@ -78,7 +78,7 @@ Surface it's a layout engine to create prototypes and complete apps so faster
 	public class TabBar extends TabBarControl {
 
 	    public TabBar(SurfaceActivityView view, 
-	    		TabBarControlListener listener, int position) {
+	    					TabBarControlListener listener, int position) {
 
     		super(view, listener);
     		this.initialize(position);
