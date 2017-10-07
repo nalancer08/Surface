@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AbsoluteLayout;
 
+import com.appbuilders.surface.Controls.TabBarControl;
+
 /**
  * Created by ercsanchez on 26/09/17.
  */
@@ -18,7 +20,11 @@ public abstract class SurfaceActivityView {
 
     protected AbsoluteLayout screenCanvas;
 
-    protected SfPanel screen;
+    public SfPanel screen;
+    public SfPanel body;
+
+    /** Space for controls **/
+    public TabBarControl tabBar;
 
     /**
      * Constructor to require context
@@ -41,6 +47,14 @@ public abstract class SurfaceActivityView {
         this.activity = ((Activity)context);
         this.context = context;
         this.initialize(fullScreen);
+    }
+
+    /**
+     * Method to get the context
+     **/
+    public Context getContext() {
+
+        return this.context;
     }
 
     /**
@@ -69,18 +83,27 @@ public abstract class SurfaceActivityView {
         this.screen.setKey("screen");
 
         // Create the render
-        this.onCreateView();
+        this.activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                onCreate();
+                onCreateView();
+            }
+        });
+        //this.onCreateView();
     }
 
     /**
      * Method to add view to the screen
      **/
-    protected void addView(View view) {
+    public void addView(View view) {
         this.screenCanvas.addView(view);
     }
 
+    public abstract void onCreate();
+
     /**
-     * Abstract method to ......
-     * **/
+     * Abstract method to draw the widgets with logical
+     **/
     public abstract void onCreateView();
 }
