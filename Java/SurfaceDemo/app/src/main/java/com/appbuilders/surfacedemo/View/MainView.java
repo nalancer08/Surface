@@ -29,13 +29,12 @@ public class MainView extends SurfaceActivityView implements TabBarControl.TabBa
         /** Tab bar **/
         this.tabBar = new TabBar(this, this, 0);
 
-        View sub = new View(this.context);
-        sub.setBackgroundColor(Color.BLACK);
+        View bk = new View(this.context);
+        bk.setBackgroundColor(Color.BLACK);
+        this.body.setView(bk);
+        this.addView(bk);
 
-        this.screen.setView(sub);
-        this.addView(sub);
-
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 20; i++) {
 
             SfPanel cachito = new SfPanel();
             View vii = new View(this.context);

@@ -384,6 +384,15 @@ public class SfPanel extends Object {
     }
 
     /**
+     * Method to get the last child
+     **/
+    public SfPanel getLastChild() {
+
+        ArrayList<SfPanel> children = this.getChildren();
+        return children.get((children.size() - 1));
+    }
+
+    /**
      * Method to set z-index
      * Deprecated
      * @param zIndex: Integer layout
@@ -615,7 +624,7 @@ public class SfPanel extends Object {
             }
         }
         if (this.size.height == 0 && this.position == SF_POSITION_RELATIVE) {
-            this.frame.height = this.scrollHeight;
+            this.frame.height = this.scrollHeight + 2000;
         }
         return this;
     }
@@ -628,7 +637,7 @@ public class SfPanel extends Object {
         this.calcPos(context);
         //
         if ( this.scrollHost && this.fixScroll ) {
-            int cachito = (int)( this.frame.height * new SfScreen(context).getDpY(300) ) / 2560;
+            int cachito = (int)( this.frame.height * new SfScreen(context).getDpY(5) ) / 2560;
 
             params = new AbsoluteLayout.LayoutParams( (int)this.frame.width, (int)this.frame.height - cachito, (int)this.frame.x, (int)this.frame.y );
         } else {

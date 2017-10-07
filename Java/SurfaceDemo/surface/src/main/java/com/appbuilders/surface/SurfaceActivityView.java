@@ -24,7 +24,7 @@ public abstract class SurfaceActivityView {
     protected AbsoluteLayout screenCanvas;
 
     public SfPanel screen;
-    public SfPanel body;
+    public SfPanel body = null;
 
     /** Space for controls **/
     public TabBarControl tabBar;
@@ -98,7 +98,6 @@ public abstract class SurfaceActivityView {
                 onCreateView();
             }
         });
-        //this.onCreateView();
     }
 
     protected SfPanel makeItScrollable(SfPanel panel, String key) {

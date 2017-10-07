@@ -3,6 +3,7 @@ package com.appbuilders.surfacedemo.View;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -26,23 +27,23 @@ public class TabBarScrollView extends SurfaceActivityView implements TabBarContr
     @Override
     public void onCreateView() {
 
-        TabBar tab = new TabBar(this, this, 2);
+        this.tabBar = new TabBar(this, this, 2);
+
+        View bk = new View(this.context);
+        bk.setBackgroundColor(Color.BLACK);
+        this.screen.setView(bk);
+        this.addView(bk);
+
+        View bodyBk = new View(this.context);
+        bodyBk.setBackgroundColor(Color.BLACK);
+        this.body.setView(bodyBk);
+        this.addView(bodyBk);
+
         SfPanel scrollBody = new SfPanel().setSize(-100, -100);
         this.body.append(scrollBody);
         this.makeItScrollable(scrollBody, "scrollBody");
 
-        View sub = new View(this.context);
-        sub.setBackgroundColor(Color.BLUE);
-
-        View lala = new View(this.context);
-        lala.setBackgroundColor(Color.GRAY);
-        this.body.setView(lala);
-        this.addView(lala);
-
-        this.screen.setView(sub);
-        this.addView(sub);
-
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 200; i++) {
 
             SfPanel cachito = new SfPanel();
             View vii = new View(this.context);
@@ -54,9 +55,11 @@ public class TabBarScrollView extends SurfaceActivityView implements TabBarContr
             vii.setBackgroundColor(Color.rgb(c1, c2, c3));
 
             scrollBody.append(cachito);
-            cachito.setSize(-33.33333f, -10).setView(vii).setMargin(i*5, 0, 20, 0);
+            cachito.setSize(-33.33333f, -10).setView(vii).setMargin(i*5, 0, 20, 0).setKey("i-" + i);
             this.addToScroll("scrollBody", vii);
         }
+
+        scrollBody.getLastChild().setMargin(990, 0, 0, 0);
 
         this.screen.update(this.context);
     }

@@ -23,7 +23,6 @@ public abstract class TabBarControl extends SfControl {
     private float tabBarHeight = 12.0f;
 
     protected SfPanel tabBar = null;
-    protected SfPanel body = null;
 
     protected int currentTabPosition = -1;
     protected ArrayList<TabBarItem> tabBarItems;
@@ -105,15 +104,6 @@ public abstract class TabBarControl extends SfControl {
     }
 
     /**
-     * Method to het body
-     * return SfPanel body
-     **/
-    public SfPanel getBody() {
-
-        return this.body;
-    }
-
-    /**
      * Method to beginning to draw
      **/
     public SfPanel create() {
@@ -123,10 +113,10 @@ public abstract class TabBarControl extends SfControl {
             this.tabsNumber = this.tabBarItems.size();
             this.tabBar = new SfPanel().setSize(-100, -tabBarHeight);
 
-            if (this.body == null) {
+            if (this.view.body == null) {
 
-                this.body = new SfPanel();
-                this.body.setSize(-100, -(100-tabBarHeight));
+                this.view.body = new SfPanel();
+                this.view.body.setSize(-100, -(100-tabBarHeight));
             }
 
             for (int i = 0; i < tabsNumber; i++) {
@@ -165,13 +155,12 @@ public abstract class TabBarControl extends SfControl {
                     this.tabBar.append(tab);
                 }
             }
-
-            this.view.screen.append(this.body);
+            this.view.body.setKey("ericksin");
+            this.view.screen.append(this.view.body);
             this.view.screen.append(this.tabBar);
             this.view.screen.update(this.getContext());
-            this.view.body = this.body;
         }
-        return this.body;
+        return this.view.body;
     }
 
     /**
