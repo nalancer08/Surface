@@ -15,7 +15,7 @@ Surface it's a layout engine to create prototypes and complete apps so faster
 
   <tr>
   <td>
-  	<pre lang="java">
+    <pre lang="java">
 
 		for (int i = 0; i <100; i++) {
 
@@ -64,6 +64,7 @@ Surface it's a layout engine to create prototypes and complete apps so faster
       <img src="/Images/example_grid_margin_top.png" height="100%">
   </td>
   </tr>
+</table>
 
 
 ### TabBarControl
@@ -72,8 +73,6 @@ Surface it's a layout engine to create prototypes and complete apps so faster
 
   <tr>
   <td>
-
-  	<h3>TabBar</h3>
   	<pre lang="java">
 
 		public class TabBar extends TabBarControl {
@@ -91,8 +90,6 @@ Surface it's a layout engine to create prototypes and complete apps so faster
 		        this.create();
 		    }
 		}
-
-	<h3>ActivityView</h3>
   	<pre lang="java">
 
   		@Override
