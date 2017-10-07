@@ -75,6 +75,8 @@ Surface it's a layout engine to create prototypes and complete apps so faster
   <td width="80%" overflow="scroll">
   	<pre lang="java">
 
+  	TabBarControl custom class
+
 	public class TabBar extends TabBarControl {
 
 	    public TabBar(SurfaceActivityView view, 
@@ -84,26 +86,29 @@ Surface it's a layout engine to create prototypes and complete apps so faster
 	        this.init(position);
 	    }
 
-    public void init(int position) {
+	    public void init(int position) {
 
-        this.initialize(position);
-        this.create();
-    }
+	        this.initialize(position);
+	        this.create();
+	    }
 
-    @Override
-    public void setTabs() {
+	    @Override
+	    public void setTabs() {
 
-        this.tabBarItems = new ArrayList<>();
+	        this.tabBarItems = new ArrayList<>();
 
-        this.tabBarItems.add(TabBarItem.createBasicItem(this.getContext(), 
-			"\uf015", MainActivity.class, Color.CYAN, Color.GREEN));
+	        this.tabBarItems.add(TabBarItem.createBasicItem(this.getContext(), 
+				"\uf015", MainActivity.class, Color.CYAN, Color.GREEN));
 
-        this.tabBarItems.add(TabBarItem.createBasicItem(this.getContext(), 
-			"\uf016", TabBar1.class, Color.CYAN, Color.GREEN));
+	        this.tabBarItems.add(TabBarItem.createBasicItem(this.getContext(), 
+				"\uf016", TabBar1.class, Color.CYAN, Color.GREEN));
 
-        this.tabBarItems.add(TabBarItem.createBasicItem(this.getContext(), 
-			"\uf017", TabBarScroll.class, Color.CYAN, Color.GREEN));
-    }
+	        this.tabBarItems.add(TabBarItem.createBasicItem(this.getContext(), 
+				"\uf017", TabBarScroll.class, Color.CYAN, Color.GREEN));
+	    }
+	}
+
+	SurfaceActivityView instance
 	
 	@Override
 	public void onCreateView() {
