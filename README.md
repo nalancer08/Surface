@@ -14,7 +14,7 @@ Surface it's a layout engine to create prototypes and complete apps so faster
 <table>
 
   <tr>
-  <td>
+  <td width="80%">
     <pre lang="java">
 
 	for (int i = 0; i <100; i++) {
@@ -39,7 +39,7 @@ Surface it's a layout engine to create prototypes and complete apps so faster
   </tr>
 
   <tr>
-  <td>
+  <td width="80%">
   	<pre lang="java">
 
 	for (int i = 0; i <100; i++) {
@@ -72,13 +72,13 @@ Surface it's a layout engine to create prototypes and complete apps so faster
 <table>
 
   <tr>
-  <td>
+  <td width="80%">
   	<pre lang="java">
 
 	public class TabBar extends TabBarControl {
 
 	    public TabBar(SurfaceActivityView view, 
-	    	TabBarControlListener listener, int position) {
+	    		TabBarControlListener listener, int position) {
 
     		super(view, listener);
     		this.initialize(position);
@@ -99,7 +99,7 @@ Surface it's a layout engine to create prototypes and complete apps so faster
 	}
   </td>
   <td>
-      <img src="/Images/example_tabbar.png" width="100%">
+      <img src="/Images/example_tabbar.png" height="100%">
   </td>
   </tr>
 
