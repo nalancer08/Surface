@@ -75,27 +75,40 @@ Surface it's a layout engine to create prototypes and complete apps so faster
   <td width="80%">
   	<pre lang="java">
 
+  	TabBar Custom Class
+
 	public class TabBar extends TabBarControl {
 
 	    public TabBar(SurfaceActivityView view, 
-	    				TabBarControlListener listener, int position) {
+	    					TabBarControlListener listener, int position) {
 
-    		super(view, listener);
-    		this.initialize(position);
-		}
-
-
-	    public void initialize(int position) {
-
-	        this.initialize(5, position);
-	        this.create();
+	        super(view, listener);
+	        this.init(position);
 	    }
-	}
+
+    public void init(int position) {
+
+        this.initialize(position);
+        this.create();
+    }
+
+    @Override
+    public void setTabs() {
+
+        this.tabBarItems = new ArrayList<>();
+
+        // Creating first element
+        this.tabBarItems.add(TabBarItem.createBasicItem(this.getContext(), "\uf015", MainActivity.class, Color.CYAN, Color.GREEN));
+        this.tabBarItems.add(TabBarItem.createBasicItem(this.getContext(), "\uf016", TabBar1.class, Color.CYAN, Color.GREEN));
+        this.tabBarItems.add(TabBarItem.createBasicItem(this.getContext(), "\uf017", TabBarScroll.class, Color.CYAN, Color.GREEN));
+    }
+	
+    SurfaceActivityView instance
 
 	@Override
 	public void onCreateView() {
 
-    	TabBar tabBar = new TabBar(this, this, 2);
+    	TabBar tabBar = new TabBar(this, this, 1);
 	}
   </td>
   <td width="20%">

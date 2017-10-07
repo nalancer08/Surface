@@ -49,37 +49,4 @@ public class TabBar extends TabBarControl {
         this.tabBarItems.add(TabBarItem.createBasicItem(this.getContext(), "\uf016", TabBar1.class, Color.CYAN, Color.GREEN));
         this.tabBarItems.add(TabBarItem.createBasicItem(this.getContext(), "\uf017", TabBarScroll.class, Color.CYAN, Color.GREEN));
     }
-
-    /**
-     * This method handle change tabs
-     **/
-    public Intent changeTab(int position) {
-
-        Intent intent = null;
-
-        switch(position) {
-
-            case 0:
-                intent = new Intent(view.getContext(), MainActivity.class);
-                break;
-
-            case 1:
-                intent = new Intent(view.getContext(), TabBar1.class);
-                break;
-
-            case 2:
-                intent = new Intent(view.getContext(), MainActivity.class);
-                break;
-
-            case 3:
-                intent = new Intent(view.getContext(), TabBar1.class);
-                break;
-
-            case 4:
-                intent = new Intent(view.getContext(), MainActivity.class);
-                break;
-        }
-
-        return intent;
-    }
 }
