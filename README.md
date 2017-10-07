@@ -98,7 +98,7 @@ Surface it's a layout engine to create prototypes and complete apps so faster
 	}
   </td>
   <td>
-      <img src="/Images/example_grid.png" width="100%">
+      <img src="/Images/example_tabbar.png" width="100%">
   </td>
   </tr>
 

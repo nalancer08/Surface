@@ -86,7 +86,6 @@ public abstract class SurfaceActivityView {
         this.activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                onCreate();
                 onCreateView();
             }
         });
@@ -99,8 +98,6 @@ public abstract class SurfaceActivityView {
     public void addView(View view) {
         this.screenCanvas.addView(view);
     }
-
-    public abstract void onCreate();
 
     /**
      * Abstract method to draw the widgets with logical

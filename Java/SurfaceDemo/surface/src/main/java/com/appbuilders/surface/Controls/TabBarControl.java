@@ -85,15 +85,18 @@ public class TabBarControl extends SfControl {
                 Button tabButton = new Button(this.getContext());
                 tabButton.setText("Button " + i);
                 tabButton.setBackgroundColor(Color.CYAN);
-                final int position = i;
-                tabButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (tabListener != null) {
-                            tabListener.onItemClick(position);
+
+                if (currentTabPosition != i) {
+                    final int position = i;
+                    tabButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (tabListener != null) {
+                                tabListener.onItemClick(position);
+                            }
                         }
-                    }
-                });
+                    });
+                }
 
                 tab.setSize(-(100 / tabsNumber), -90).setOrigin(0, 0, 0, 0).setMargin(this.getDpY(15), 0, 0, 0);
                 if (this.currentTabPosition == i) {

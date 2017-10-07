@@ -1,6 +1,7 @@
 package com.appbuilders.surfacedemo.View;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,7 @@ import com.appbuilders.surface.SfControl;
 import com.appbuilders.surface.SfPanel;
 import com.appbuilders.surface.SurfaceActivityView;
 import com.appbuilders.surface.Controls.TabBarControl;
+import com.appbuilders.surfacedemo.Controllers.TabBar1;
 import com.appbuilders.surfacedemo.Controls.TabBar;
 
 /**
@@ -21,11 +23,6 @@ public class MainView extends SurfaceActivityView implements TabBarControl.TabBa
 
     public MainView(Context context) {
         super(context);
-    }
-
-    @Override
-    public void onCreate() {
-
     }
 
     @Override
@@ -69,9 +66,7 @@ public class MainView extends SurfaceActivityView implements TabBarControl.TabBa
 
     @Override
     public void onItemClick(int position) {
-
-        Log.d("DXGO", "Tab ::: " + position);
-        Toast.makeText(this.context, "TabBar ::: " + position, Toast.LENGTH_SHORT).show();
-
+        this.activity.startActivity(((TabBar)this.tabBar).changeTab(position));
+        this.activity.finish();
     }
 }
