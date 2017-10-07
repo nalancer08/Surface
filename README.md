@@ -75,21 +75,22 @@ Surface it's a layout engine to create prototypes and complete apps so faster
   <td>
   	<pre lang="java">
 
-		public class TabBar extends TabBarControl {
+	public class TabBar extends TabBarControl {
 
-		    public TabBar(SurfaceActivityView view, TabBarControlListener listener, int position) {
+	    public TabBar(SurfaceActivityView view, TabBarControlListener listener, int position) {
 
-        		super(view, listener);
-        		this.initialize(position);
-    		}
-
-
-		    public void initialize(int position) {
-
-		        this.initialize(5, position);
-		        this.create();
-		    }
+    		super(view, listener);
+    		this.initialize(position);
 		}
+
+
+	    public void initialize(int position) {
+
+	        this.initialize(5, position);
+	        this.create();
+	    }
+	}
+
 
   	<pre lang="java">
 
