@@ -91,7 +91,8 @@ Surface it's a layout engine to create prototypes and complete apps so faster
 	    }
 	}
 
-
+	===================
+	
   	<pre lang="java">
 
 	@Override
@@ -101,7 +102,7 @@ Surface it's a layout engine to create prototypes and complete apps so faster
 	}
   </td>
   <td>
-      <img src="/Images/example_grid.png" height="100%">
+      <img src="/Images/example_grid.png" width="100%">
   </td>
   </tr>
 
