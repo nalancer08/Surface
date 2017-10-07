@@ -1,6 +1,5 @@
 package com.appbuilders.surface.Controls;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
 import android.widget.Button;
@@ -8,22 +7,26 @@ import android.widget.Button;
 import com.appbuilders.surface.SfControl;
 import com.appbuilders.surface.SfPanel;
 import com.appbuilders.surface.SurfaceActivityView;
+import com.appbuilders.surface.Tabs.TabBarItem;
+
+import java.util.ArrayList;
 
 /**
  * Created by Erick Sanchez - App Builders CTO
  * Revision 1 - 06/10/17
  */
 
-public class TabBarControl extends SfControl {
+public abstract class TabBarControl extends SfControl {
 
     private TabBarControlListener tabListener;
     private int tabsNumber = 0;
-    private float tabBarHeight = 10.0f;
+    private float tabBarHeight = 12.0f;
 
     protected SfPanel tabBar = null;
     protected SfPanel body = null;
 
     protected int currentTabPosition = -1;
+    protected ArrayList<TabBarItem> tabBarItems;
 
     /** Variables for current tab **/
     protected float currentTabHeight = this.tabBarHeight;
@@ -39,38 +42,62 @@ public class TabBarControl extends SfControl {
         this.tabListener = listener;
     }
 
-    public TabBarControl initialize(int tabs, int posiiton) {
+    /**
+     * Method to initialize control
+     **/
+    public TabBarControl initialize(int posiiton) {
 
-        this.tabsNumber = tabs;
         this.currentTabPosition = posiiton;
+        this.setTabs();
         return this;
     }
 
+    /**
+     * Method to set tabBar height
+     * Default value it's 12
+     * @param height: Float number
+     **/
     public void setTabBarHeight(float height) {
 
         this.tabBarHeight = height;
     }
 
+    /**
+     * Method to set current tan position
+     * @param position: Integer position
+     **/
     protected TabBarControl setCurrentTabPosition(int position) {
 
         this.currentTabPosition = position;
         return this;
     }
 
+    /**
+     * Method to set height of the current tab
+     * @param height: Float number
+     **/
     public void setCurrentTabHeight(float height) {
 
         this.currentTabHeight = height;
     }
 
+    /**
+     * Method to get tabBar
+     * return SfPanel
+     **/
     public SfPanel getTabBar() {
 
         return this.tabBar;
     }
 
+    /**
+     * Method to beginning to draw
+     **/
     public SfPanel create() {
 
-        if (this.tabsNumber > 0) {
+        if (this.tabBarItems != null) {
 
+            this.tabsNumber = this.tabBarItems.size();
             this.tabBar = new SfPanel().setSize(-100, -tabBarHeight);
 
             if (this.body == null) {
@@ -82,33 +109,39 @@ public class TabBarControl extends SfControl {
             for (int i = 0; i < tabsNumber; i++) {
 
                 SfPanel tab = new SfPanel();
-                Button tabButton = new Button(this.getContext());
-                tabButton.setText("Button " + i);
-                tabButton.setBackgroundColor(Color.CYAN);
+                final TabBarItem item = this.tabBarItems.get(i);
+                View view = item.getView();
+                View selected = item.getSelectedView();
+                final int position = i;
 
-                if (currentTabPosition != i) {
-                    final int position = i;
-                    tabButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            if (tabListener != null) {
-                                tabListener.onItemClick(position);
-                            }
+                if (view != null) {
+
+                    tab.setSize(-(100 / tabsNumber), -90).setOrigin(0, 0, 0, 0).setMargin(this.getDpY(15), 0, 0, 0);
+
+                    if (this.currentTabPosition == i) {
+
+                        tab.setSize(-(100 / tabsNumber), -100);
+                        tab.setMargin(0, 0, this.getDpY(70), 0);
+                        if (selected != null) {
+                            tab.setView(selected);
+                            this.view.addView(selected);
                         }
-                    });
+
+                    } else {
+
+                        tab.setView(view);
+                        view.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if (tabListener != null) {
+                                    tabListener.onItemClick(position, item);
+                                }
+                            }
+                        });
+                        this.view.addView(view);
+                    }
+                    this.tabBar.append(tab);
                 }
-
-                tab.setSize(-(100 / tabsNumber), -90).setOrigin(0, 0, 0, 0).setMargin(this.getDpY(15), 0, 0, 0);
-                if (this.currentTabPosition == i) {
-
-                    tab.setSize(-(100 / tabsNumber), -100);
-                    tab.setMargin(0, 0, this.getDpY(70), 0);
-                    tabButton.setBackgroundColor(Color.RED);
-                }
-
-                tab.setView(tabButton);
-                this.tabBar.append(tab);
-                this.view.addView(tabButton);
             }
 
             this.view.screen.append(this.body);
@@ -119,8 +152,16 @@ public class TabBarControl extends SfControl {
         return this.body;
     }
 
+    public abstract void setTabs();
+
+    /**
+     * Interface to handle events at the tabBar
+     **/
     public interface TabBarControlListener {
 
-        public void onItemClick(int position);
+        /**
+         * Method to handle current click position
+         **/
+        public void onItemClick(int position, TabBarItem item);
     }
 }

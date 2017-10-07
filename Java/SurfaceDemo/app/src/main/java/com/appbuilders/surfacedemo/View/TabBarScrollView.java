@@ -10,19 +10,19 @@ import com.appbuilders.surfacedemo.Controls.TabBar;
 
 /**
  * Created by Erick Sanchez - App Builders CTO
- * Revision 1 - 06/10/17
+ * Revision 1 - 07/10/17
  */
 
-public class TabBar1View extends SurfaceActivityView implements TabBarControl.TabBarControlListener {
+public class TabBarScrollView extends SurfaceActivityView implements TabBarControl.TabBarControlListener {
 
-    public TabBar1View(Context context) {
+    public TabBarScrollView(Context context) {
         super(context);
     }
 
     @Override
     public void onCreateView() {
 
-        TabBar tab = new TabBar(this, this, 1);
+        TabBar tab = new TabBar(this, this, 2);
     }
 
     @Override

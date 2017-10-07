@@ -11,6 +11,7 @@ import com.appbuilders.surface.SfControl;
 import com.appbuilders.surface.SfPanel;
 import com.appbuilders.surface.SurfaceActivityView;
 import com.appbuilders.surface.Controls.TabBarControl;
+import com.appbuilders.surface.Tabs.TabBarItem;
 import com.appbuilders.surfacedemo.Controllers.TabBar1;
 import com.appbuilders.surfacedemo.Controls.TabBar;
 
@@ -29,7 +30,7 @@ public class MainView extends SurfaceActivityView implements TabBarControl.TabBa
     public void onCreateView() {
 
         /** Tab bar **/
-        this.tabBar = new TabBar(this, this, 2);
+        this.tabBar = new TabBar(this, this, 0);
 
         View sub = new View(this.context);
         sub.setBackgroundColor(Color.BLACK);
@@ -37,7 +38,7 @@ public class MainView extends SurfaceActivityView implements TabBarControl.TabBa
         this.screen.setView(sub);
         this.addView(sub);
 
-        for (int i = 0; i <5; i++) {
+        for (int i = 0; i < 5; i++) {
 
             SfPanel cachito = new SfPanel();
             View vii = new View(this.context);
@@ -65,8 +66,9 @@ public class MainView extends SurfaceActivityView implements TabBarControl.TabBa
     }
 
     @Override
-    public void onItemClick(int position) {
-        this.activity.startActivity(((TabBar)this.tabBar).changeTab(position));
+    public void onItemClick(int position, TabBarItem item) {
+
+        this.activity.startActivity(new Intent(this.context, item.getClazz()));
         this.activity.finish();
     }
 }
