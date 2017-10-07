@@ -96,13 +96,13 @@ Surface it's a layout engine to create prototypes and complete apps so faster
         this.tabBarItems = new ArrayList<>();
 
         this.tabBarItems.add(TabBarItem.createBasicItem(this.getContext(), 
-        				"\uf015", MainActivity.class, Color.CYAN, Color.GREEN));
+    				"\uf015", MainActivity.class, Color.CYAN, Color.GREEN));
 
         this.tabBarItems.add(TabBarItem.createBasicItem(this.getContext(), 
-        				"\uf016", TabBar1.class, Color.CYAN, Color.GREEN));
+    				"\uf016", TabBar1.class, Color.CYAN, Color.GREEN));
 
         this.tabBarItems.add(TabBarItem.createBasicItem(this.getContext(), 
-    					"\uf017", TabBarScroll.class, Color.CYAN, Color.GREEN));
+					"\uf017", TabBarScroll.class, Color.CYAN, Color.GREEN));
     }
 	
 	@Override
