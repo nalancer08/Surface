@@ -240,13 +240,15 @@ You can watch we use scroll exampe, into the layout provide for the xml
         View boxView = new View(this.context);
         boxView.setBackgroundColor(Color.BLACK);
 
-        SfPanel box = new SfPanel().setSize(-50, -30).setMargin(20, 0, 0, 0).setView(boxView);
+        SfPanel box = new SfPanel().setSize(-50, -30).
+        				setMargin(20, 0, 0, 0).setView(boxView);
         this.subScreen.append(box);
         this.addView(boxView);
 
         View boxScrollView = new View(this.context);
         boxScrollView.setBackgroundColor(Color.MAGENTA);
-        SfPanel boxScroll = new SfPanel().setSize(-85, -65).setMargin(20, 0, 0, 0).setView(boxScrollView);
+        SfPanel boxScroll = new SfPanel().setSize(-85, -65).
+        						setMargin(20, 0, 0, 0).setView(boxScrollView);
         this.subScreen.append(boxScroll);
         this.makeItScrollable(boxScroll, "boxScroll");
         //this.addView(boxScrollView);
@@ -263,7 +265,8 @@ You can watch we use scroll exampe, into the layout provide for the xml
             }
 
             boxScroll.append(cachito);
-            cachito.setSize(-33.33333f, -10).setView(vii).setMargin(i*5, 0, 20, 0).setKey("i-" + i);
+            cachito.setSize(-33.33333f, -10).setView(vii).
+            		setMargin(i*5, 0, 20, 0).setKey("i-" + i);
             this.addToScroll("boxScroll", vii);
         }
 
