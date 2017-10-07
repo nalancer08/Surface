@@ -42,8 +42,8 @@ public class SfPanel extends Object {
     private View view;
     private String key;
     private float scrollHeight;
-    private boolean scrollHost;
-    private boolean fixScroll;
+    protected boolean scrollHost;
+    protected boolean fixScroll;
     private int line;
 
     public static final int SF_POSITION_RELATIVE = 0;

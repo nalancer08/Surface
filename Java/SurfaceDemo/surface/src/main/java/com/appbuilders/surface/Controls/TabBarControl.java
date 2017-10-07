@@ -43,6 +43,20 @@ public abstract class TabBarControl extends SfControl {
     }
 
     /**
+     * Constructor to define the context and get screen size
+     * @param view : SurfaceActivityView
+     * @param listener: Listener
+     * @param position: Integer position
+     **/
+    public TabBarControl(SurfaceActivityView view, TabBarControlListener listener, int position) {
+
+        super(view);
+        this.tabListener = listener;
+        this.initialize(position);
+        this.create();
+    }
+
+    /**
      * Method to initialize control
      **/
     public TabBarControl initialize(int posiiton) {
@@ -91,6 +105,15 @@ public abstract class TabBarControl extends SfControl {
     }
 
     /**
+     * Method to het body
+     * return SfPanel body
+     **/
+    public SfPanel getBody() {
+
+        return this.body;
+    }
+
+    /**
      * Method to beginning to draw
      **/
     public SfPanel create() {
@@ -120,8 +143,7 @@ public abstract class TabBarControl extends SfControl {
 
                     if (this.currentTabPosition == i) {
 
-                        tab.setSize(-(100 / tabsNumber), -100);
-                        tab.setMargin(0, 0, this.getDpY(70), 0);
+                        tab.setSize(-(100 / tabsNumber), -100).setMargin(0, 0, this.getDpY(70), 0);
                         if (selected != null) {
                             tab.setView(selected);
                             this.view.addView(selected);
@@ -152,6 +174,9 @@ public abstract class TabBarControl extends SfControl {
         return this.body;
     }
 
+    /**
+     * Abstract method to force to add tabs array
+     **/
     public abstract void setTabs();
 
     /**

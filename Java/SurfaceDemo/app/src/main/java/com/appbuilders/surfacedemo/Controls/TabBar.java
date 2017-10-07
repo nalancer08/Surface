@@ -28,15 +28,7 @@ public class TabBar extends TabBarControl {
      * @param view : Application context
      **/
     public TabBar(SurfaceActivityView view, TabBarControlListener listener, int position) {
-
-        super(view, listener);
-        this.init(position);
-    }
-
-    public void init(int position) {
-
-        this.initialize(position);
-        this.create();
+        super(view, listener, position);
     }
 
     @Override
