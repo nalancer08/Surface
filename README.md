@@ -51,6 +51,8 @@ Surface it's a layout engine to create prototypes and complete apps so faster
 			Integer c2 = i + (int)(Math.random() * ((254 - i) + i));
 			Integer c3 = i + (int)(Math.random() * ((253 - i) + i));
 
+
+
 			vii.setBackgroundColor(Color.rgb(c1, c2, c3));
 			this.screen.append(cachito);
 			cachito.setSize(-33.33333f, -10).setView(vii).setMargin((i*5), 0, 0 ,0);
@@ -60,6 +62,48 @@ Surface it's a layout engine to create prototypes and complete apps so faster
   </td>
   <td>
       <img src="/Images/example_grid_margin_top.png" height="100%">
+  </td>
+  </tr>
+
+
+### TabBarControl
+
+<table>
+
+  <tr>
+  <td>
+
+  	<h3>TabBar</h3>
+  	<pre lang="java">
+
+		public class TabBar extends TabBarControl {
+
+		    public TabBar(SurfaceActivityView view, TabBarControlListener listener, int position) {
+
+        		super(view, listener);
+        		this.initialize(position);
+    		}
+
+
+		    public void initialize(int position) {
+
+		        this.initialize(5, position);
+		        this.create();
+		    }
+		}
+
+	<h3>ActivityView</h3>
+  	<pre lang="java">
+
+  		@Override
+    	public void onCreateView() {
+
+        	TabBar tabBar = new TabBar(this, this, 2);
+    	}
+
+  </td>
+  <td>
+      <img src="/Images/example_grid.png" height="100%">
   </td>
   </tr>
 

@@ -31,9 +31,4 @@ public class TabBar extends TabBarControl {
         this.initialize(5, position);
         this.create();
     }
-
-    public SfPanel getBody() {
-
-        return this.body;
-    }
 }
