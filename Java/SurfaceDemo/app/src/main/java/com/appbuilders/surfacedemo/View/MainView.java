@@ -2,26 +2,37 @@ package com.appbuilders.surfacedemo.View;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
+import com.appbuilders.surface.SfControl;
 import com.appbuilders.surface.SfPanel;
 import com.appbuilders.surface.SurfaceActivityView;
-
-import java.util.concurrent.ThreadLocalRandom;
+import com.appbuilders.surface.Controls.TabBarControl;
+import com.appbuilders.surfacedemo.Controls.TabBar;
 
 /**
  * Created by Erick Sanchez - App Builders CTO
  * Revision 1 - 05/10/17
  */
 
-public class MainView extends SurfaceActivityView {
+public class MainView extends SurfaceActivityView implements TabBarControl.TabBarControlListener {
 
     public MainView(Context context) {
         super(context);
     }
 
     @Override
+    public void onCreate() {
+
+    }
+
+    @Override
     public void onCreateView() {
+
+        /** Tab bar **/
+        this.tabBar = new TabBar(this, this, 2);
 
         View sub = new View(this.context);
         sub.setBackgroundColor(Color.BLACK);
@@ -29,7 +40,7 @@ public class MainView extends SurfaceActivityView {
         this.screen.setView(sub);
         this.addView(sub);
 
-        for (int i = 0; i <100; i++) {
+        for (int i = 0; i <5; i++) {
 
             SfPanel cachito = new SfPanel();
             View vii = new View(this.context);
@@ -39,13 +50,28 @@ public class MainView extends SurfaceActivityView {
             Integer c3 = i + (int)(Math.random() * ((253 - i) + i));
 
             vii.setBackgroundColor(Color.rgb(c1, c2, c3));
+            final int finalI = i;
+            vii.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(context, "I :: " + finalI, Toast.LENGTH_SHORT).show();
+                }
+            });
 
-            this.screen.append(cachito);
-            cachito.setSize(-33.33333f, -10).setView(vii).setMargin(i*5,0,0,0);
+            this.body.append(cachito);
+            cachito.setSize(-33.33333f, -10).setView(vii).setMargin(i*5, 0, 20, 0);
             this.addView(vii);
         }
 
-        this.screen.update(this.context);
+        this.body.update(this.context);
+
+    }
+
+    @Override
+    public void onItemClick(int position) {
+
+        Log.d("DXGO", "Tab ::: " + position);
+        Toast.makeText(this.context, "TabBar ::: " + position, Toast.LENGTH_SHORT).show();
 
     }
 }
