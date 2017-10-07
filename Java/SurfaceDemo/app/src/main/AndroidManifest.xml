@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Controllers.TabBar1" />
-        <activity android:name=".Controllers.TabBarScroll"></activity>
+        <activity android:name=".Controllers.TabBarScroll" />
+        <activity android:name=".Controllers.HybridXmlSurface"></activity>
     </application>
 
 </manifest>

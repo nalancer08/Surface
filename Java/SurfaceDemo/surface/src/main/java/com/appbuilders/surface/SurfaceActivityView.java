@@ -2,8 +2,10 @@ package com.appbuilders.surface;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Rect;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AbsoluteLayout;
 import android.widget.ScrollView;
@@ -24,6 +26,7 @@ public abstract class SurfaceActivityView {
     protected AbsoluteLayout screenCanvas;
 
     public SfPanel screen;
+    public SfPanel subScreen = null;
     public SfPanel body = null;
 
     /** Space for controls **/
@@ -40,7 +43,14 @@ public abstract class SurfaceActivityView {
 
         this.activity = ((Activity)context);
         this.context = context;
-        this.initialize(false);
+        this.initialize(false, null);
+    }
+
+    public SurfaceActivityView(Context context, AbsoluteLayout baseLayout) {
+
+        this.activity = ((Activity)context);
+        this.context = context;
+        this.initialize(false, baseLayout);
     }
 
     /**
@@ -52,7 +62,7 @@ public abstract class SurfaceActivityView {
 
         this.activity = ((Activity)context);
         this.context = context;
-        this.initialize(fullScreen);
+        this.initialize(fullScreen, null);
     }
 
     /**
@@ -67,26 +77,63 @@ public abstract class SurfaceActivityView {
      * Method to initialize the main variables, it's called automatically for the constructor
      * @param fullScreen: Boolean to use full screen
      **/
-    private void initialize(boolean fullScreen) {
+    private void initialize(boolean fullScreen, AbsoluteLayout baseLayout) {
 
-        // Make it full screen
-        if (fullScreen)
-            this.activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
+        // Creating or adding base layout
+        if (baseLayout == null) { // Create
 
-        // Clearing action bar
-        ActionBar actionbar = ((AppCompatActivity)context).getSupportActionBar();
-        actionbar.hide();
+            // Make it full screen
+            if (fullScreen)
+                this.activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
 
-        // Creating layouts
-        this.screenCanvas = new AbsoluteLayout(this.context);
+            // Clearing action bar
+            ActionBar actionbar = ((AppCompatActivity)context).getSupportActionBar();
+            actionbar.hide();
 
-        // Adding screenCanvas to the screen
-        this.activity.setContentView(this.screenCanvas);
+            // Creating layouts
+            this.screenCanvas = new AbsoluteLayout(this.context);
 
-        // Creating and sizing the main panel
-        this.screen = new SfPanel();
-        this.screen.setSize(-100, -100);
-        this.screen.setKey("screen");
+            // Adding screenCanvas to the screen
+            this.activity.setContentView(this.screenCanvas);
+
+            // Creating and sizing the main panel
+            this.screen = new SfPanel();
+            this.screen.setSize(-100, -100);
+            this.screen.setKey("screen");
+
+        } else { // Adding
+
+            // Matching canvas with base layout
+            this.screenCanvas = baseLayout;
+
+            // Creating and sizing the main panel
+            this.screen = new SfPanel();
+            this.screen.setSize(-100, -100);
+            this.screen.setKey("screen");
+
+            // Fixing sizes
+            //float width = (this.screenCanvas.getLayoutParams().width == -1) ? -100 : SfScreen.getInstance(this.context).getDpX(this.screenCanvas.getLayoutParams().width);
+            float width = (this.screenCanvas.getLayoutParams().width == -1) ? -100 : this.screenCanvas.getLayoutParams().width;
+            //float height = (this.screenCanvas.getLayoutParams().height == -1) ? -100 : SfScreen.getInstance(this.context).getDpY(this.screenCanvas.getLayoutParams().height);
+            float height = (this.screenCanvas.getLayoutParams().height == -1) ? -100 : this.screenCanvas.getLayoutParams().height;
+
+            // Fixing coordenates
+            Rect myViewRect = new Rect();
+            this.screenCanvas.getGlobalVisibleRect(myViewRect);
+            float x = myViewRect.left;
+            float y = myViewRect.top;
+
+
+            // Creating subScreen
+            this.subScreen = new SfPanel();
+            this.subScreen.setSize(width, height).setOrigin(y, 0, 0, x);
+            this.subScreen.setKey("subScreen");
+
+            this.screen.append(this.subScreen);
+
+            Log.d("DXGO", "X ::: " + x);
+            Log.d("DXGO", "Y ::: " + y);
+        }
 
         // Creating stack for scrolls
         this.scrolls = new HashMap<>();
