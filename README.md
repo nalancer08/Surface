@@ -90,6 +90,7 @@ Surface it's a layout engine to create prototypes and complete apps so faster
 		        this.create();
 		    }
 		}
+	</pre>	
   	<pre lang="java">
 
   		@Override
@@ -97,7 +98,7 @@ Surface it's a layout engine to create prototypes and complete apps so faster
 
         	TabBar tabBar = new TabBar(this, this, 2);
     	}
-
+    </pre>	
   </td>
   <td>
       <img src="/Images/example_grid.png" height="100%">
