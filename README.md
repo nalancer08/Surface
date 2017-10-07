@@ -225,7 +225,8 @@ You can watch we use scroll exampe, into the layout provide for the xml
 
 	        super.onCreate(savedInstanceState);
 	        setContentView(R.layout.activity_hybrid_xml_surface);
-	        AbsoluteLayout baseLayout = (AbsoluteLayout) findViewById(R.id.baseLayout);
+	        AbsoluteLayout baseLayout = 
+	        	(AbsoluteLayout) findViewById(R.id.baseLayout);
 
 	        HybridXmlSurfaceView view = new HybridXmlSurfaceView(this, baseLayout);
 
