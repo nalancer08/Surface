@@ -295,29 +295,30 @@ We want to call this "magic", you can usea panel, and add a native fragemnt, wit
 
     public class SurfaceBasic extends Fragment {
 
-    public SurfaceBasic() {
-        // Required empty public constructor
-    }
+	    public SurfaceBasic() {
+	        // Required empty public constructor
+	    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, 
-    			ViewGroup container, Bundle savedInstanceState) {
+	    @Override
+	    public View onCreateView(LayoutInflater inflater, 
+	    		ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_surface_basic, 
-        			container, false);
+	        View view = inflater.inflate(R.layout.fragment_surface_basic, 
+	        		container, false);
 
 
-        Button button = view.findViewById(R.id.buttonFragemnt);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(), "Fragment logic button", 
-                		Toast.LENGTH_SHORT).show();
-            }
-        });
+	        Button button = view.findViewById(R.id.buttonFragemnt);
+	        button.setOnClickListener(new View.OnClickListener() {
+	            @Override
+	            public void onClick(View view) {
+	                Toast.makeText(getContext(), "Fragment logic button", 
+	                		Toast.LENGTH_SHORT).show();
+	            }
+	        });
 
-        return view;
-    }
+	        return view;
+	    }
+	}
 
     Fragment Xml
 
@@ -374,12 +375,17 @@ We want to call this "magic", you can usea panel, and add a native fragemnt, wit
         this.screen.update(this.context);
     }
 
-}
-
   </td>
   <td width="20%">
       <img src="/Images/example_fragment.png" height="100%">
   </td>
+  </tr>
+  <tr>
+
+  		Fragmnt XML desgin
+
+  		<img src="/Images/example_fragment_xml.png" height="100%">
+
   </tr>
 </table>
 
