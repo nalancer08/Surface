@@ -280,3 +280,13 @@ You can watch we use scroll exampe, into the layout provide for the xml
   </td>
   </tr>
 </table>
+
+
+## Android Changelog
+
+- Version 3.0
+-- SurfaceActivityView
+--- Added support for use an external AbsoluteLayout, it means, can hanle native Android Layout (Xml)
+- Version 3.1
+-- SurfaceActivityView
+---
