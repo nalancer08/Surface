@@ -281,7 +281,7 @@ You can watch we use scroll exampe, into the layout provide for the xml
   </tr>
 </table>
 
-### Android Fragmnets into Surface Engine
+### Android Fragments into Surface Engine
 
 We want to call this "magic", you can usea panel, and add a native fragemnt, with all the nature structure of a fragment, this means, you can have your loginliving into the fragment extended class, let me show you
 
