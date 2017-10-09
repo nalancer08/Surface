@@ -394,10 +394,10 @@ We want to call this "magic", you can usea panel, and add a native fragemnt, wit
 ## Android Changelog
 
 - Version 3.0
--- SurfaceActivityView
-	- Added support for use an external AbsoluteLayout, it means, can hanle native Android Layout (Xml)
+	- SurfaceActivityView
+		- Added support for use an external AbsoluteLayout, it means, can hanle native Android Layout (Xml)
 - Version 3.1
--- SfPanel
-	- Added field to save fragment instance
--- SurfaceActivityView
-	- Added methods to add fragments so easily
+	- SfPanel
+		- Added field to save fragment instance
+	- SurfaceActivityView
+		- Added methods to add fragments so easily
