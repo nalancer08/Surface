@@ -281,12 +281,118 @@ You can watch we use scroll exampe, into the layout provide for the xml
   </tr>
 </table>
 
+### Android Fragmnets into Surface Engine
+
+We want to call this "magic", you can usea panel, and add a native fragemnt, with all the nature structure of a fragment, this means, you can have your loginliving into the fragment extended class, let me show you
+
+<table>
+
+  <tr>
+  <td width="80%" overflow="scroll">
+  	<pre lang="java">
+
+    Fragment extended class
+
+    public class SurfaceBasic extends Fragment {
+
+    public SurfaceBasic() {
+        // Required empty public constructor
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, 
+    			ViewGroup container, Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_surface_basic, 
+        			container, false);
+
+
+        Button button = view.findViewById(R.id.buttonFragemnt);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Fragment logic button", 
+                		Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        return view;
+    }
+
+    Fragment Xml
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    xmlns:tools="http://schemas.android.com/tools"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:background="@color/colorAccent"
+	    android:paddingLeft="10dp"
+	    android:paddingRight="10dp"
+	    tools:context="com.appbuilders.surfacedemo.Fragments.SurfaceBasic"
+	    android:id="@+id/lalita">
+
+	    <!-- TODO: Update blank fragment layout -->
+	    <TextView
+	        android:layout_width="match_parent"
+	        android:layout_height="50dp"
+	        android:text="Hello from fragment"
+	        android:textColor="@color/white"
+	        android:layout_alignParentTop="true"
+	        android:layout_alignParentStart="true" />
+
+	    <Button
+	        android:id="@+id/buttonFragemnt"
+	        android:layout_width="match_parent"
+	        android:layout_height="50dp"
+	        android:background="@color/colorPrimaryDark"
+	        android:text="Button fragment"
+	        android:textColor="@color/white"
+	        android:layout_alignParentTop="true"
+	        android:layout_alignParentEnd="true"
+	        android:layout_marginTop="70dp" />
+
+	</RelativeLayout>
+
+	SurfaceActivityView instance
+
+	@Override
+    public void onCreateView() {
+
+        this.tabBar = new TabBar(this, this, 4);
+
+        View bk =  new View(this.context);
+        bk.setBackgroundResource(R.color.colorPrimary);
+        this.body.setView(bk);
+        this.addView(bk);
+
+
+        SfPanel t = new SfPanel().setSize(-80, -70).
+        		setFragment(new SurfaceBasic()).setMargin(25, 0, 0, 0);
+        this.body.append(t);
+        this.addFragment(t);
+
+        this.screen.update(this.context);
+    }
+
+}
+
+  </td>
+  <td width="20%">
+      <img src="/Images/example_fragment.png" height="100%">
+  </td>
+  </tr>
+</table>
+
+
+
 
 ## Android Changelog
 
 - Version 3.0
 -- SurfaceActivityView
---- Added support for use an external AbsoluteLayout, it means, can hanle native Android Layout (Xml)
+	- Added support for use an external AbsoluteLayout, it means, can hanle native Android Layout (Xml)
 - Version 3.1
+-- SfPanel
+	- Added field to save fragment instance
 -- SurfaceActivityView
----
+	- Added methods to add fragments so easily

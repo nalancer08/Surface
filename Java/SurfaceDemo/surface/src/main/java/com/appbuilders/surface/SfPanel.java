@@ -2,6 +2,7 @@ package com.appbuilders.surface;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -15,9 +16,10 @@ import java.util.ArrayList;
 
 /**
  * Created by Erick Sanchez - App Builders CTO
- * Version 3.2 - 06/10/17
+ * Version 3.3 - 09/10/17
  * Revision 1 - 26/09/17
  * Revision 2 - 06/10/17
+ * Revision 3 - 09/10/17
  */
 
 public class SfPanel extends Object {
@@ -45,6 +47,7 @@ public class SfPanel extends Object {
     protected boolean scrollHost;
     protected boolean fixScroll;
     private int line;
+    protected Fragment fragment;
 
     public static final int SF_POSITION_RELATIVE = 0;
     public static final int SF_POSITION_FIXED    = 1;
@@ -83,6 +86,7 @@ public class SfPanel extends Object {
         this.scrollHeight = 0;
         this.scrollHost = false;
         this.fixScroll = false;
+        this.fragment = null;
     }
 
     /**
@@ -204,8 +208,8 @@ public class SfPanel extends Object {
     }
 
     /**
-     * Method match view with panel
-     * @param view: View to be match
+     * Method set view with panel
+     * @param view: View to be set
      **/
     public SfPanel setView(View view) {
 
@@ -219,6 +223,25 @@ public class SfPanel extends Object {
      **/
     public View getView() {
         return this.view;
+    }
+
+    /**
+     * Method set view with panel
+     * @param fragment: Fragmnet to be set
+     **/
+    public SfPanel setFragment(Fragment fragment) {
+
+        this.fragment = fragment;
+        return this;
+    }
+
+    /**
+     * Method to get the panel's fragment
+     * return Fragment
+     **/
+    public Fragment getFragment() {
+
+        return this.fragment;
     }
 
     /**
@@ -643,9 +666,12 @@ public class SfPanel extends Object {
         } else {
             params = new AbsoluteLayout.LayoutParams( (int)this.frame.width, (int)this.frame.height, (int)this.frame.x, (int)this.frame.y );
         }
+
+        // Setting size to the view
         if (this.view != null) {
             this.view.setLayoutParams(params);
         }
+
         // Size children panels
         SfPanel child = this.firstChild;
         while (child != null) {

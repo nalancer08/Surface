@@ -13,6 +13,7 @@ import android.widget.ScrollView;
 import com.appbuilders.surface.Controls.TabBarControl;
 
 import java.util.HashMap;
+import java.util.Random;
 
 /**
  * Created by ercsanchez on 26/09/17.
@@ -46,6 +47,11 @@ public abstract class SurfaceActivityView {
         this.initialize(false, null);
     }
 
+    /**
+     * Constructor to require context
+     * @param context: Activity context
+     * @param baseLayout: AbsoluteLayout
+     **/
     public SurfaceActivityView(Context context, AbsoluteLayout baseLayout) {
 
         this.activity = ((Activity)context);
@@ -66,7 +72,7 @@ public abstract class SurfaceActivityView {
     }
 
     /**
-     * Method to get the context
+     * Method to get the contex
      **/
     public Context getContext() {
 
@@ -147,6 +153,12 @@ public abstract class SurfaceActivityView {
         });
     }
 
+    /**
+     * Method to allow a panel handle scroll
+     * When you add a panel, it automatic it's added to panels stack
+     * @param panel: SfPanel to allow scroll
+     * @param key: String key of panel, to match next adds
+     **/
     protected SfPanel makeItScrollable(SfPanel panel, String key) {
 
         AbsoluteLayout scroll = new AbsoluteLayout(this.context);
@@ -164,15 +176,36 @@ public abstract class SurfaceActivityView {
         return panel;
     }
 
+    /**
+     * Method to add a view to an existed scroll
+     * @param key: String key for the previous panel scroll host
+     * @param view: View to be added
+     **/
     protected void addToScroll(String key, View view) {
        this.scrolls.get(key).addView(view);
     }
 
     /**
      * Method to add view to the screen
+     * @param view: View to be added to base layout
      **/
     public void addView(View view) {
         this.screenCanvas.addView(view);
+    }
+
+    /**
+     *
+     **/
+    public void addFragment(SfPanel panel) {
+
+        if (panel.getFragment() != null) {
+
+            AbsoluteLayout layout = new AbsoluteLayout(this.context);
+            layout.setId(1234 + (int)(Math.random() * ((9876 - 1234) + 1234)));
+            panel.setView(layout);
+            this.addView(layout);
+            ((AppCompatActivity)this.activity).getSupportFragmentManager().beginTransaction().replace(layout.getId(), panel.getFragment()).addToBackStack("fragment").commit();
+        }
     }
 
     /**

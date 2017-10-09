@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".Controllers.TabBar1" />
         <activity android:name=".Controllers.TabBarScroll" />
-        <activity android:name=".Controllers.HybridXmlSurface"></activity>
+        <activity android:name=".Controllers.HybridXmlSurface" />
+        <activity android:name=".Controllers.SurfaceWithFragments"></activity>
     </application>
 
 </manifest>
