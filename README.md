@@ -381,10 +381,11 @@ We want to call this "magic", you can usea panel, and add a native fragemnt, wit
   </td>
   </tr>
   <tr>
-  Fragmnt XML desgin
+  <td width="100%">
+      Fragmnt XML desgin
 
-  <img src="/Images/example_fragment_xml.png" height="100%">
-
+  	  <img src="/Images/example_fragment_xml.png" height="100%">
+  </td>
   </tr>
 </table>
 
