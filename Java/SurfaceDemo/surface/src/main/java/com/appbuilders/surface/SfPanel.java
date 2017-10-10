@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.WindowManager;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Erick Sanchez - App Builders CTO
- * Version 3.3 - 09/10/17
+ * Version 3.1.1 - 09/10/17
  * Revision 1 - 26/09/17
  * Revision 2 - 06/10/17
  * Revision 3 - 09/10/17
@@ -445,12 +446,24 @@ public class SfPanel extends Object {
         if (this.visible) {
 
             DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
+
             if (this.parent != null) {
+
                 parentWidht = this.parent.frame.width;
                 parentHeight = this.parent.frame.height;
+
             } else {
+
+                boolean fullScreenn = (((AppCompatActivity)context).getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0;
+                int offsett = 0;
+
+                if (!fullScreenn) {
+                    int resourceId = Resources.getSystem().getIdentifier("status_bar_height", "dimen", "android");
+                    offsett += resourceId > 0 ? Resources.getSystem().getDimensionPixelSize(resourceId) : 0;
+                }
+
                 parentWidht = metrics.widthPixels;
-                parentHeight = metrics.heightPixels;
+                parentHeight = metrics.heightPixels - offsett;
             }
 
             this.frame.width = this.size.width >= 0 ? this.size.width : (parentWidht * -this.size.width ) / 100;
@@ -466,15 +479,17 @@ public class SfPanel extends Object {
                         this.frame.width = metrics.widthPixels - (this.origin.left + this.origin.right);
                     }
                     if (this.origin.top != SF_UNSET && this.origin.bottom != SF_UNSET) {
-                        ActionBar actionbar = ((ActionBarActivity)context).getSupportActionBar();
-                        boolean fullScreen = (((ActionBarActivity)context).getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0;
+                        ActionBar actionbar = ((AppCompatActivity)context).getSupportActionBar();
+                        boolean fullScreen = (((AppCompatActivity)context).getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0;
                         boolean actionbarVisible = actionbar != null ? actionbar.isShowing() : false;
                         int offset = 0;
                         if (!fullScreen) {
+                            Log.d("DXGO", "Entre al fullscreen");
                             int resourceId = Resources.getSystem().getIdentifier("status_bar_height", "dimen", "android");
                             offset += resourceId > 0 ? Resources.getSystem().getDimensionPixelSize(resourceId) : 0;
                         }
                         if (actionbarVisible) {
+                            Log.d("DXGO", "Entre al action");
                             TypedValue tv = new TypedValue();
                             context.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true);
                             offset += context.getResources().getDimensionPixelSize(tv.resourceId) + 12;
