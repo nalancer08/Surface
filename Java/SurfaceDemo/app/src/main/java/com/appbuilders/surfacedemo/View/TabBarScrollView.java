@@ -32,7 +32,7 @@ public class TabBarScrollView extends SurfaceActivityView implements TabBarContr
         View bk = new View(this.context);
         bk.setBackgroundColor(Color.BLACK);
         this.screen.setView(bk);
-        this.addView(bk);
+        //this.addView(bk);
 
         View bodyBk = new View(this.context);
         bodyBk.setBackgroundColor(Color.BLACK);

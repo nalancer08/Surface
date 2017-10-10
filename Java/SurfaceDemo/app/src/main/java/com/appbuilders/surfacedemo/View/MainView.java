@@ -30,7 +30,7 @@ public class MainView extends SurfaceActivityView implements TabBarControl.TabBa
         this.tabBar = new TabBar(this, this, 0);
 
         View bk = new View(this.context);
-        bk.setBackgroundColor(Color.BLACK);
+        bk.setBackgroundColor(Color.MAGENTA);
         this.body.setView(bk);
         this.addView(bk);
 
@@ -53,12 +53,11 @@ public class MainView extends SurfaceActivityView implements TabBarControl.TabBa
             });
 
             this.body.append(cachito);
-            cachito.setSize(-33.33333f, -10).setView(vii).setMargin(i*5, 0, 20, 0);
+            cachito.setSize(-33.33333f, -10).setView(vii);//.setMargin(i*5, 0, 20, 0);
             this.addView(vii);
         }
 
-        this.body.update(this.context);
-
+        this.screen.update(this.context);
     }
 
     @Override

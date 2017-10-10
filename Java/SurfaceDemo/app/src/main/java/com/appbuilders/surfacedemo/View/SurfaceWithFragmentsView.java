@@ -2,8 +2,6 @@ package com.appbuilders.surfacedemo.View;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.appbuilders.surface.Controls.TabBarControl;
@@ -36,7 +34,7 @@ public class SurfaceWithFragmentsView extends SurfaceActivityView implements Tab
         this.addView(bk);
 
 
-        SfPanel t = new SfPanel().setSize(-80, -70).setFragment(new SurfaceBasic()).setMargin(25, 0, 0, 0);
+        SfPanel t = new SfPanel().setSize(-80, -70).setFragment(new SurfaceBasic()).setMargin(100, 0, 0, 0);
         this.body.append(t);
         this.addFragment(t);
 

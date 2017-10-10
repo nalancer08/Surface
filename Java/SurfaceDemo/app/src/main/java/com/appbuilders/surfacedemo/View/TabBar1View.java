@@ -2,8 +2,12 @@ package com.appbuilders.surfacedemo.View;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.view.View;
+import android.widget.Toast;
 
 import com.appbuilders.surface.Controls.TabBarControl;
+import com.appbuilders.surface.SfPanel;
 import com.appbuilders.surface.SurfaceActivityView;
 import com.appbuilders.surface.Tabs.TabBarItem;
 import com.appbuilders.surfacedemo.Controls.TabBar;
@@ -22,7 +26,9 @@ public class TabBar1View extends SurfaceActivityView implements TabBarControl.Ta
     @Override
     public void onCreateView() {
 
-        TabBar tab = new TabBar(this, this, 1);
+        this.tabBar = new TabBar(this, this, 1);
+
+        this.screen.update(this.context);
     }
 
     @Override
