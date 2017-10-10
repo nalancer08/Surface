@@ -136,9 +136,6 @@ public abstract class SurfaceActivityView {
             this.subScreen.setKey("subScreen");
 
             this.screen.append(this.subScreen);
-
-            Log.d("DXGO", "X ::: " + x);
-            Log.d("DXGO", "Y ::: " + y);
         }
 
         // Creating stack for scrolls
@@ -186,7 +183,7 @@ public abstract class SurfaceActivityView {
     }
 
     /**
-     * Method to add view to the screen
+     * Method to add a view to the screen
      * @param view: View to be added to base layout
      **/
     public void addView(View view) {
@@ -194,7 +191,10 @@ public abstract class SurfaceActivityView {
     }
 
     /**
-     *
+     * Method to add a fragment into a panel
+     * The method create AbsoluteLayout, and iy's added to the panel, then
+     * we beginning to get fragmentSupport and the transaction into the layout
+     * @param panel: SfPanel to be prepared to use fragments
      **/
     public void addFragment(SfPanel panel) {
 

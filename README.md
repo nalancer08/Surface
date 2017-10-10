@@ -283,7 +283,7 @@ You can watch we use scroll exampe, into the layout provide for the xml
 
 ### Android Fragments into Surface Engine
 
-We want to call this "magic", you can usea panel, and add a native fragemnt, with all the nature structure of a fragment, this means, you can have your loginliving into the fragment extended class, let me show you
+We want to call this "magic", you can u sea panel, and add a native fragemnt, with all the nature structure of a fragment, this means, you can have your loginliving into the fragment extended class, let me show you
 
 <table>
 
@@ -332,7 +332,6 @@ We want to call this "magic", you can usea panel, and add a native fragemnt, wit
 	    tools:context="com.appbuilders.surfacedemo.Fragments.SurfaceBasic"
 	    android:id="@+id/lalita">
 
-	    <!-- TODO: Update blank fragment layout -->
 	    <TextView
 	        android:layout_width="match_parent"
 	        android:layout_height="50dp"
