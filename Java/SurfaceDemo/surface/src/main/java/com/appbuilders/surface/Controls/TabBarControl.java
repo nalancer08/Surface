@@ -1,6 +1,8 @@
 package com.appbuilders.surface.Controls;
 
 import android.graphics.Color;
+import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -20,7 +22,8 @@ public abstract class TabBarControl extends SfControl {
 
     private TabBarControlListener tabListener;
     private int tabsNumber = 0;
-    private float tabBarHeight = 12.0f;
+    private float tabBarHeight = 10.0f;
+    private boolean selectedHeight = true;
 
     protected SfPanel tabBar = null;
 
@@ -75,6 +78,11 @@ public abstract class TabBarControl extends SfControl {
         this.tabBarHeight = height;
     }
 
+    public void setSelectedHeight(boolean state) {
+
+        this.selectedHeight = state;
+    }
+
     /**
      * Method to set current tan position
      * @param position: Integer position
@@ -112,6 +120,8 @@ public abstract class TabBarControl extends SfControl {
 
             this.tabsNumber = this.tabBarItems.size();
             this.tabBar = new SfPanel().setSize(-100, -tabBarHeight);
+            float tabHeight = selectedHeight ? 85 : 100;
+            float tabMarginTop = selectedHeight ? 40 : 0;
 
             if (this.view.body == null) {
 
@@ -121,27 +131,55 @@ public abstract class TabBarControl extends SfControl {
 
             for (int i = 0; i < tabsNumber; i++) {
 
-                SfPanel tab = new SfPanel();
                 final TabBarItem item = this.tabBarItems.get(i);
+                SfPanel tab = new SfPanel();
                 View view = item.getView();
                 View selected = item.getSelectedView();
                 final int position = i;
 
-                if (view != null) {
+                if (item.getPanel() == null) { // New panel
 
-                    tab.setSize(-(100 / tabsNumber), -90).setOrigin(0, 0, 0, 0).setMargin(this.getDpY(15), 0, 0, 0);
+                    if (view != null) {
+
+                        tab.setSize(-(100 / tabsNumber), -tabHeight).setMargin(this.getDpY(tabMarginTop), 0, 0, 0);
+
+                        if (this.currentTabPosition == i) {
+
+                            tab.setSize(-(100 / tabsNumber), -100).setMargin(0, 0, 0, 0);
+                            if (selected != null) {
+                                tab.setView(selected);
+                                this.view.addView(selected);
+                            }
+
+                        } else {
+
+                            item.setPanel(tab);
+                            view.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    if (tabListener != null) {
+                                        tabListener.onItemClick(position, item);
+                                    }
+                                }
+                            });
+                            tab.setView(view);
+                            this.view.addView(view);
+                        }
+                        this.tabBar.append(tab);
+                    }
+
+                } else { // Using current item panel
 
                     if (this.currentTabPosition == i) {
 
-                        tab.setSize(-(100 / tabsNumber), -100).setMargin(0, 0, this.getDpY(70), 0);
-                        if (selected != null) {
-                            tab.setView(selected);
-                            this.view.addView(selected);
-                        }
+                        tab = (item.getSelectedPanel() != null) ? item.getSelectedPanel() : item.getPanel();
+                        tab.setSize(-(100 / tabsNumber), -100).setMargin(0, 0, 0, 0);
+                        this.view.addView(tab.getView());
 
                     } else {
 
-                        tab.setView(view);
+                        tab = item.getPanel();
+                        tab.setSize(-(100 / tabsNumber), -tabHeight).setMargin(this.getDpY(tabMarginTop), 0, 0, 0);
                         view.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -150,12 +188,11 @@ public abstract class TabBarControl extends SfControl {
                                 }
                             }
                         });
-                        this.view.addView(view);
+                        this.view.addView(tab.getView());
                     }
                     this.tabBar.append(tab);
                 }
             }
-            this.view.body.setKey("ericksin");
             this.view.screen.append(this.view.body);
             this.view.screen.append(this.tabBar);
             this.view.screen.update(this.getContext());
