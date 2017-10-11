@@ -395,8 +395,25 @@ We want to call this "magic", you can u sea panel, and add a native fragemnt, wi
 - Version 3.0
 	- SurfaceActivityView
 		- Added support for use an external AbsoluteLayout, it means, can hanle native Android Layout (Xml)
+
 - Version 3.1
 	- SfPanel
 		- Added field to save fragment instance
 	- SurfaceActivityView
 		- Added methods to add fragments so easily
+
+- Version 3.1.1
+	- SfPanel
+		- Fixed calcSize in Relative case, it didn't take care about status bar nd action bar
+	- TabBarControl
+		- Added support for customItemBar with override panels, and setup for auto height
+	- SurfaceActivyView
+		- Support for fragments
+	- TabBarItem
+		- Added customItem, and support for override panels
+
+
+
+
+
+

@@ -12,6 +12,7 @@ public class SfBox extends Object {
     public float left;
 
     public SfBox() {
+
         this.top = 0;
         this.right = 0;
         this.bottom = 0;

@@ -10,6 +10,7 @@ public class SfPoint extends Object {
     public float y;
 
     public SfPoint() {
+
         this.x = 0;
         this.y = 0;
     }

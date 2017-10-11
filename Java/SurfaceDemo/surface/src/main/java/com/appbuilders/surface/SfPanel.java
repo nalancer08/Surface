@@ -438,6 +438,10 @@ public class SfPanel extends Object {
         return this;
     }
 
+    /**
+     * Method to calculate the size of a panel
+     * @param context: Application context
+     **/
     public SfPanel calcSize(Context context) {
 
         float parentWidht = 0;
