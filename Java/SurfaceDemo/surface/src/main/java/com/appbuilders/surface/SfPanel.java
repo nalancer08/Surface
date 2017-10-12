@@ -83,7 +83,6 @@ public class SfPanel extends Object {
         this.view = null;
         this.key = "";
         this.line = 0;
-        this.zIndex = 0;
         this.scrollHeight = 0;
         this.scrollHost = false;
         this.fixScroll = false;
