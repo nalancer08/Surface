@@ -7,7 +7,7 @@
 Surface Engine it's a layout engine to create prototypes and complete apps so faster
 
 
-# Examples
+# Android Examples
 
 ### Grids
 
@@ -388,6 +388,54 @@ We want to call this "magic", you can u sea panel, and add a native fragemnt, wi
 </table>
 
 
+# iOS Swift Examples
+
+### Grids
+
+<table>
+
+  <tr>
+  <td width="80%">
+    <pre lang="swift">
+
+	override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        self.view.backgroundColor = UIColor.white;
+        
+        let vi: UIView! = UIView();
+        vi.backgroundColor = UIColor.blue;
+        
+        let panel: SfPanel! = SfPanel();
+        panel.setSize(width: -100, height: -100).setView(view: vi);
+        
+        self.view.addSubview(vi);
+        
+        for i in 1 ..< 20 {
+            
+            let pan = SfPanel();
+            pan.setSize(width: -33.3333, height: -10);
+            
+            let vis = UIView();
+            let red:CGFloat = CGFloat(drand48())
+            let green:CGFloat = CGFloat(drand48())
+            let blue:CGFloat = CGFloat(drand48())
+            vis.backgroundColor = UIColor(red:red, green: green, blue: blue, alpha: 1.0);
+            
+            pan.setView(view: vis);
+            panel.append(object: pan);
+            
+            self.view.addSubview(vis);
+        }
+        
+        panel.update()
+    }
+  </td>
+  <td>
+      <img src="/Images/example_grid.png" height="100%">
+  </td>
+  </tr>
+</table>
 
 
 ## Android Changelog

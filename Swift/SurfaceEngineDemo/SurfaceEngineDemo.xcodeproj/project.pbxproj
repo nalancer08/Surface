@@ -14,8 +14,11 @@
 		A28AB3291F8F488600768B31 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A28AB3271F8F488600768B31 /* LaunchScreen.storyboard */; };
 		A28AB3341F8F488600768B31 /* SurfaceEngineDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28AB3331F8F488600768B31 /* SurfaceEngineDemoTests.swift */; };
 		A28AB33F1F8F488600768B31 /* SurfaceEngineDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28AB33E1F8F488600768B31 /* SurfaceEngineDemoUITests.swift */; };
-		A28AB3611F8F4A9700768B31 /* SurfaceEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A28AB3601F8F4A9600768B31 /* SurfaceEngine.framework */; };
-		A28AB3621F8F4A9700768B31 /* SurfaceEngine.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A28AB3601F8F4A9600768B31 /* SurfaceEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A28AB36B1F8F513300768B31 /* SfSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28AB3661F8F513200768B31 /* SfSize.swift */; };
+		A28AB36C1F8F513300768B31 /* SfBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28AB3671F8F513200768B31 /* SfBox.swift */; };
+		A28AB36D1F8F513300768B31 /* SfPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28AB3681F8F513200768B31 /* SfPanel.swift */; };
+		A28AB36E1F8F513300768B31 /* SfPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28AB3691F8F513200768B31 /* SfPoint.swift */; };
+		A28AB36F1F8F513300768B31 /* SfRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28AB36A1F8F513200768B31 /* SfRect.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,7 +45,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				A28AB3621F8F4A9700768B31 /* SurfaceEngine.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -63,7 +65,11 @@
 		A28AB33A1F8F488600768B31 /* SurfaceEngineDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SurfaceEngineDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A28AB33E1F8F488600768B31 /* SurfaceEngineDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurfaceEngineDemoUITests.swift; sourceTree = "<group>"; };
 		A28AB3401F8F488600768B31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A28AB3601F8F4A9600768B31 /* SurfaceEngine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SurfaceEngine.framework; sourceTree = "<group>"; };
+		A28AB3661F8F513200768B31 /* SfSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SfSize.swift; sourceTree = "<group>"; };
+		A28AB3671F8F513200768B31 /* SfBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SfBox.swift; sourceTree = "<group>"; };
+		A28AB3681F8F513200768B31 /* SfPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SfPanel.swift; sourceTree = "<group>"; };
+		A28AB3691F8F513200768B31 /* SfPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SfPoint.swift; sourceTree = "<group>"; };
+		A28AB36A1F8F513200768B31 /* SfRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SfRect.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,7 +77,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A28AB3611F8F4A9700768B31 /* SurfaceEngine.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,7 +100,6 @@
 		A28AB3121F8F488500768B31 = {
 			isa = PBXGroup;
 			children = (
-				A28AB3601F8F4A9600768B31 /* SurfaceEngine.framework */,
 				A28AB31D1F8F488500768B31 /* SurfaceEngineDemo */,
 				A28AB3321F8F488600768B31 /* SurfaceEngineDemoTests */,
 				A28AB33D1F8F488600768B31 /* SurfaceEngineDemoUITests */,
@@ -117,6 +121,11 @@
 		A28AB31D1F8F488500768B31 /* SurfaceEngineDemo */ = {
 			isa = PBXGroup;
 			children = (
+				A28AB3671F8F513200768B31 /* SfBox.swift */,
+				A28AB3681F8F513200768B31 /* SfPanel.swift */,
+				A28AB3691F8F513200768B31 /* SfPoint.swift */,
+				A28AB36A1F8F513200768B31 /* SfRect.swift */,
+				A28AB3661F8F513200768B31 /* SfSize.swift */,
 				A28AB31E1F8F488500768B31 /* AppDelegate.swift */,
 				A28AB3201F8F488500768B31 /* ViewController.swift */,
 				A28AB3221F8F488600768B31 /* Main.storyboard */,
@@ -287,7 +296,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A28AB36C1F8F513300768B31 /* SfBox.swift in Sources */,
+				A28AB36E1F8F513300768B31 /* SfPoint.swift in Sources */,
 				A28AB3211F8F488500768B31 /* ViewController.swift in Sources */,
+				A28AB36F1F8F513300768B31 /* SfRect.swift in Sources */,
+				A28AB36D1F8F513300768B31 /* SfPanel.swift in Sources */,
+				A28AB36B1F8F513300768B31 /* SfSize.swift in Sources */,
 				A28AB31F1F8F488500768B31 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
