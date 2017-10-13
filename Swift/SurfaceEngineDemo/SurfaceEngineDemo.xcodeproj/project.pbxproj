@@ -19,6 +19,8 @@
 		A28AB36D1F8F513300768B31 /* SfPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28AB3681F8F513200768B31 /* SfPanel.swift */; };
 		A28AB36E1F8F513300768B31 /* SfPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28AB3691F8F513200768B31 /* SfPoint.swift */; };
 		A28AB36F1F8F513300768B31 /* SfRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28AB36A1F8F513200768B31 /* SfRect.swift */; };
+		A28AB3711F8FBF3900768B31 /* SurfaceControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28AB3701F8FBF3900768B31 /* SurfaceControllerView.swift */; };
+		A28AB3741F8FBFCB00768B31 /* ViewControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28AB3731F8FBFCB00768B31 /* ViewControllerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +72,8 @@
 		A28AB3681F8F513200768B31 /* SfPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SfPanel.swift; sourceTree = "<group>"; };
 		A28AB3691F8F513200768B31 /* SfPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SfPoint.swift; sourceTree = "<group>"; };
 		A28AB36A1F8F513200768B31 /* SfRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SfRect.swift; sourceTree = "<group>"; };
+		A28AB3701F8FBF3900768B31 /* SurfaceControllerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurfaceControllerView.swift; sourceTree = "<group>"; };
+		A28AB3731F8FBFCB00768B31 /* ViewControllerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,13 +125,10 @@
 		A28AB31D1F8F488500768B31 /* SurfaceEngineDemo */ = {
 			isa = PBXGroup;
 			children = (
-				A28AB3671F8F513200768B31 /* SfBox.swift */,
-				A28AB3681F8F513200768B31 /* SfPanel.swift */,
-				A28AB3691F8F513200768B31 /* SfPoint.swift */,
-				A28AB36A1F8F513200768B31 /* SfRect.swift */,
-				A28AB3661F8F513200768B31 /* SfSize.swift */,
+				A28AB3761F905A8300768B31 /* SurfaceEngine */,
+				A28AB3751F905A6800768B31 /* Controllers */,
+				A28AB3721F8FBFAE00768B31 /* Views */,
 				A28AB31E1F8F488500768B31 /* AppDelegate.swift */,
-				A28AB3201F8F488500768B31 /* ViewController.swift */,
 				A28AB3221F8F488600768B31 /* Main.storyboard */,
 				A28AB3251F8F488600768B31 /* Assets.xcassets */,
 				A28AB3271F8F488600768B31 /* LaunchScreen.storyboard */,
@@ -159,6 +160,35 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A28AB3721F8FBFAE00768B31 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A28AB3731F8FBFCB00768B31 /* ViewControllerView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A28AB3751F905A6800768B31 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A28AB3201F8F488500768B31 /* ViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		A28AB3761F905A8300768B31 /* SurfaceEngine */ = {
+			isa = PBXGroup;
+			children = (
+				A28AB3701F8FBF3900768B31 /* SurfaceControllerView.swift */,
+				A28AB3671F8F513200768B31 /* SfBox.swift */,
+				A28AB3681F8F513200768B31 /* SfPanel.swift */,
+				A28AB3691F8F513200768B31 /* SfPoint.swift */,
+				A28AB36A1F8F513200768B31 /* SfRect.swift */,
+				A28AB3661F8F513200768B31 /* SfSize.swift */,
+			);
+			path = SurfaceEngine;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -302,6 +332,8 @@
 				A28AB36F1F8F513300768B31 /* SfRect.swift in Sources */,
 				A28AB36D1F8F513300768B31 /* SfPanel.swift in Sources */,
 				A28AB36B1F8F513300768B31 /* SfSize.swift in Sources */,
+				A28AB3711F8FBF3900768B31 /* SurfaceControllerView.swift in Sources */,
+				A28AB3741F8FBFCB00768B31 /* ViewControllerView.swift in Sources */,
 				A28AB31F1F8F488500768B31 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

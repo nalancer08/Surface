@@ -275,9 +275,7 @@ public class SfPanel {
                 parentWidth = self.parent.frame.width;
                 parentHeigth = self.parent.frame.height;
             } else {
-                
                 let offset: Float! = Float(UIApplication.shared.statusBarFrame.height);
-                print("Status bar height :: " , offset);
                 parentWidth = Float(metrics.size.width);
                 parentHeigth = Float(metrics.size.height) - offset;
             }
