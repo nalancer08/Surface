@@ -35,11 +35,11 @@ public class TabBar extends TabBarControl {
         this.tabBarItems = new ArrayList<>();
 
         // Create elements
-        this.tabBarItems.add(TabBarItem.createBasicItem(this.getContext(), "\uf015", MainActivity.class, Color.CYAN, Color.GREEN));
-        this.tabBarItems.add(TabBarItem.createBasicItem(this.getContext(), "\uf016", TabBar1.class, Color.CYAN, Color.GREEN));
+        this.tabBarItems.add(TabBarItem.createBasicItem(this.getContext(), MainActivity.class, "\uf015", Color.CYAN, Color.GREEN));
+        this.tabBarItems.add(TabBarItem.createBasicItem(this.getContext(), TabBar1.class, "\uf016", Color.CYAN, Color.GREEN));
         //this.tabBarItems.add(TabBarItem.createBasicItem(this.getContext(), "\uf017", TabBarScroll.class, Color.CYAN, Color.GREEN));
         this.tabBarItems.add(TabBarItem.createImageItem(this.getContext(), TabBarScroll.class, R.drawable.house, R.drawable.house));
-        this.tabBarItems.add(TabBarItem.createBasicItem(this.getContext(), "\uf018", HybridXmlSurface.class, Color.CYAN, Color.GREEN));
-        this.tabBarItems.add(TabBarItem.createBasicItem(this.getContext(), "\uf019", SurfaceWithFragments.class, Color.CYAN, Color.GREEN));
+        this.tabBarItems.add(TabBarItem.createBasicItem(this.getContext(), HybridXmlSurface.class, "\uf018", Color.CYAN, Color.GREEN));
+        this.tabBarItems.add(TabBarItem.createBasicItem(this.getContext(), SurfaceWithFragments.class, "\uf019", Color.CYAN, Color.GREEN));
     }
 }

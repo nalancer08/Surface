@@ -13,12 +13,14 @@ protocol SurfaceControllerViewDelegate {
     func onCreateView();
 }
 
-class SurfaceControllerView {
+public class SurfaceControllerView {
     
     var delegate: SurfaceControllerViewDelegate! = nil;
     var controller: UIViewController!;
     var screen: SfPanel!;
     var body: SfPanel!;
+    
+    var tabBar: TabBarControl!;
     
     /** Handle scrolls **/
     var scrolls:NSMutableDictionary!;
@@ -50,14 +52,14 @@ class SurfaceControllerView {
         panel.scrollHost = true;
         panel.fixScroll = true;
         panel.setKey(key: key);
-        panel.setView(view: UIScrollView);
+        //panel.setView(view: UIScrollView);
         
-        self.scrolls.setObject(view, forKey: key);
+        self.scrolls.setValue(view, forKey: key);
         self.addView(view: view);
         return panel;
     }
     
-    public func addScroll(key:String, view:View) {
+    public func addScroll(key:String, view:UIView) {
         
         var scroll:UIScrollView! =  self.scrolls.object(forKey: key) as! UIScrollView;
         scroll.addSubview(view);

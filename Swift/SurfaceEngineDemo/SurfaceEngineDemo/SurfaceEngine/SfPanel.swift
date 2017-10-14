@@ -102,12 +102,10 @@ public class SfPanel {
     }
     
     public func setParent(parent:SfPanel) -> Void {
-        
         self.parent = parent;
     }
     
     public func getParent() -> SfPanel {
-        
         return self.parent;
     }
     
@@ -118,8 +116,7 @@ public class SfPanel {
     }
     
     public func getView() -> UIView {
-        
-        return self.view;
+        return self.view != nil ? self.view : UIView();
     }
     
     public func setKey(key:String) -> SfPanel {
@@ -129,7 +126,6 @@ public class SfPanel {
     }
     
     public func getKey() -> String {
-        
         return self.key;
     }
     

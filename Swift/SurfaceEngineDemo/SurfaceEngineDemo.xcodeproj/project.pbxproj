@@ -21,6 +21,12 @@
 		A28AB36F1F8F513300768B31 /* SfRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28AB36A1F8F513200768B31 /* SfRect.swift */; };
 		A28AB3711F8FBF3900768B31 /* SurfaceControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28AB3701F8FBF3900768B31 /* SurfaceControllerView.swift */; };
 		A28AB3741F8FBFCB00768B31 /* ViewControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28AB3731F8FBFCB00768B31 /* ViewControllerView.swift */; };
+		A28AB3781F9114A200768B31 /* SfControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28AB3771F9114A200768B31 /* SfControl.swift */; };
+		A28AB37B1F91150C00768B31 /* TabBarControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28AB37A1F91150C00768B31 /* TabBarControl.swift */; };
+		A28AB37E1F91157900768B31 /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28AB37D1F91157900768B31 /* TabBarItem.swift */; };
+		A28AB3811F91359B00768B31 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28AB3801F91359B00768B31 /* TabBar.swift */; };
+		A28AB3831F914CBE00768B31 /* SecondController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28AB3821F914CBE00768B31 /* SecondController.swift */; };
+		A28AB3851F914CE100768B31 /* SecondControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28AB3841F914CE100768B31 /* SecondControllerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +80,12 @@
 		A28AB36A1F8F513200768B31 /* SfRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SfRect.swift; sourceTree = "<group>"; };
 		A28AB3701F8FBF3900768B31 /* SurfaceControllerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurfaceControllerView.swift; sourceTree = "<group>"; };
 		A28AB3731F8FBFCB00768B31 /* ViewControllerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerView.swift; sourceTree = "<group>"; };
+		A28AB3771F9114A200768B31 /* SfControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SfControl.swift; sourceTree = "<group>"; };
+		A28AB37A1F91150C00768B31 /* TabBarControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarControl.swift; sourceTree = "<group>"; };
+		A28AB37D1F91157900768B31 /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
+		A28AB3801F91359B00768B31 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
+		A28AB3821F914CBE00768B31 /* SecondController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondController.swift; sourceTree = "<group>"; };
+		A28AB3841F914CE100768B31 /* SecondControllerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondControllerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +137,7 @@
 		A28AB31D1F8F488500768B31 /* SurfaceEngineDemo */ = {
 			isa = PBXGroup;
 			children = (
+				A28AB37F1F9134E400768B31 /* Controls */,
 				A28AB3761F905A8300768B31 /* SurfaceEngine */,
 				A28AB3751F905A6800768B31 /* Controllers */,
 				A28AB3721F8FBFAE00768B31 /* Views */,
@@ -166,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				A28AB3731F8FBFCB00768B31 /* ViewControllerView.swift */,
+				A28AB3841F914CE100768B31 /* SecondControllerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -174,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				A28AB3201F8F488500768B31 /* ViewController.swift */,
+				A28AB3821F914CBE00768B31 /* SecondController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -181,14 +196,41 @@
 		A28AB3761F905A8300768B31 /* SurfaceEngine */ = {
 			isa = PBXGroup;
 			children = (
+				A28AB3791F9114ED00768B31 /* Controls */,
 				A28AB3701F8FBF3900768B31 /* SurfaceControllerView.swift */,
 				A28AB3671F8F513200768B31 /* SfBox.swift */,
 				A28AB3681F8F513200768B31 /* SfPanel.swift */,
 				A28AB3691F8F513200768B31 /* SfPoint.swift */,
 				A28AB36A1F8F513200768B31 /* SfRect.swift */,
 				A28AB3661F8F513200768B31 /* SfSize.swift */,
+				A28AB3771F9114A200768B31 /* SfControl.swift */,
 			);
 			path = SurfaceEngine;
+			sourceTree = "<group>";
+		};
+		A28AB3791F9114ED00768B31 /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				A28AB37C1F91156000768B31 /* Tabs */,
+				A28AB37A1F91150C00768B31 /* TabBarControl.swift */,
+			);
+			path = Controls;
+			sourceTree = "<group>";
+		};
+		A28AB37C1F91156000768B31 /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				A28AB37D1F91157900768B31 /* TabBarItem.swift */,
+			);
+			path = Tabs;
+			sourceTree = "<group>";
+		};
+		A28AB37F1F9134E400768B31 /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				A28AB3801F91359B00768B31 /* TabBar.swift */,
+			);
+			path = Controls;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -326,14 +368,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A28AB3781F9114A200768B31 /* SfControl.swift in Sources */,
 				A28AB36C1F8F513300768B31 /* SfBox.swift in Sources */,
 				A28AB36E1F8F513300768B31 /* SfPoint.swift in Sources */,
 				A28AB3211F8F488500768B31 /* ViewController.swift in Sources */,
+				A28AB37B1F91150C00768B31 /* TabBarControl.swift in Sources */,
 				A28AB36F1F8F513300768B31 /* SfRect.swift in Sources */,
+				A28AB37E1F91157900768B31 /* TabBarItem.swift in Sources */,
+				A28AB3831F914CBE00768B31 /* SecondController.swift in Sources */,
 				A28AB36D1F8F513300768B31 /* SfPanel.swift in Sources */,
 				A28AB36B1F8F513300768B31 /* SfSize.swift in Sources */,
+				A28AB3811F91359B00768B31 /* TabBar.swift in Sources */,
 				A28AB3711F8FBF3900768B31 /* SurfaceControllerView.swift in Sources */,
 				A28AB3741F8FBFCB00768B31 /* ViewControllerView.swift in Sources */,
+				A28AB3851F914CE100768B31 /* SecondControllerView.swift in Sources */,
 				A28AB31F1F8F488500768B31 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

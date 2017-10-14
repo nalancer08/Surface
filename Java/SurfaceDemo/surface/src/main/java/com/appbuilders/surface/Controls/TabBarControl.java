@@ -124,9 +124,7 @@ public abstract class TabBarControl extends SfControl {
             float tabMarginTop = selectedHeight ? 40 : 0;
 
             if (this.view.body == null) {
-
-                this.view.body = new SfPanel();
-                this.view.body.setSize(-100, -(100-tabBarHeight));
+                this.view.body = new SfPanel().setSize(-100, -(100-tabBarHeight));
             }
 
             for (int i = 0; i < tabsNumber; i++) {
@@ -138,13 +136,10 @@ public abstract class TabBarControl extends SfControl {
                 final int position = i;
 
                 if (item.getPanel() == null) { // New panel
-
                     if (view != null) {
 
                         tab.setSize(-(100 / tabsNumber), -tabHeight).setMargin(this.getDpY(tabMarginTop), 0, 0, 0);
-
                         if (this.currentTabPosition == i) {
-
                             tab.setSize(-(100 / tabsNumber), -100).setMargin(0, 0, 0, 0);
                             if (selected != null) {
                                 tab.setView(selected);
@@ -180,7 +175,7 @@ public abstract class TabBarControl extends SfControl {
 
                         tab = item.getPanel();
                         tab.setSize(-(100 / tabsNumber), -tabHeight).setMargin(this.getDpY(tabMarginTop), 0, 0, 0);
-                        view.setOnClickListener(new View.OnClickListener() {
+                        tab.getView().setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 if (tabListener != null) {

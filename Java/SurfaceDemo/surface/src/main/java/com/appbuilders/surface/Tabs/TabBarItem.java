@@ -75,18 +75,16 @@ public class TabBarItem {
         return this.clazz;
     }
 
-    public static TabBarItem creteCustomItem(Context context, Class clazz, SfPanel panel, SfPanel selectedPanel) {
+    public static TabBarItem creteCustomItem(Class clazz, SfPanel panel, SfPanel selectedPanel) {
 
         TabBarItem item = new TabBarItem();
-
         item.setClazz(clazz);
         item.setPanel(panel);
         item.setSelectedPanel(selectedPanel);
-
         return item;
     }
 
-    public static TabBarItem createBasicItem(Context context, String sequence, Class clazz ,int background, int selectedBackground) {
+    public static TabBarItem createBasicItem(Context context, Class clazz, String sequence, int background, int selectedBackground) {
 
         Typeface font =  Typeface.createFromAsset( context.getAssets(), "FontAwesome.ttf");
         TabBarItem item = new TabBarItem();
@@ -112,7 +110,6 @@ public class TabBarItem {
         item.setView(button);
         item.setSelectedView(buttonSelected);
         item.setClazz(clazz);
-
         return item;
     }
 
@@ -131,7 +128,6 @@ public class TabBarItem {
         item.setView(image);
         item.setSelectedView(imageSelected);
         item.setClazz(clazz);
-
         return item;
     }
 

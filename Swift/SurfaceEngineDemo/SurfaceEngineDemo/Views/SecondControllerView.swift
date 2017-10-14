@@ -1,15 +1,14 @@
 //
-//  ViewControllerView.swift
+//  SecondControllerView.swift
 //  SurfaceEngineDemo
 //
-//  Created by Erick Sanchez on 12/10/17.
+//  Created by Erick Sanchez on 13/10/17.
 //  Copyright © 2017 App Builders. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
-class ViewControllerView : SurfaceControllerView, TabBarControlDelagate {
+class SecondControllerView: SurfaceControllerView, TabBarControlDelagate {
     
     public init(controller:UIViewController) {
         super.init(controller: controller);
@@ -18,7 +17,7 @@ class ViewControllerView : SurfaceControllerView, TabBarControlDelagate {
     override public func onCreateView() {
         
         /** TabBar **/
-        self.tabBar = TabBar(view: self, delegate: self, position: 0);
+        self.tabBar = TabBar(view: self, delegate: self, position: 1);
         
         let vi: UIView! = UIView();
         vi.backgroundColor = UIColor.blue;
@@ -26,7 +25,7 @@ class ViewControllerView : SurfaceControllerView, TabBarControlDelagate {
         self.body.setView(view: vi);
         self.addView(view: vi);
         
-        for i in 1 ..< 31 {
+        for i in 1 ..< 5 {
             
             let pan = SfPanel();
             pan.setSize(width: -33.3333, height: -10);
