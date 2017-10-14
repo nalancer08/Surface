@@ -398,20 +398,15 @@ We want to call this "magic", you can u sea panel, and add a native fragemnt, wi
   <td width="80%">
     <pre lang="swift">
 
-	override func viewDidLoad() {
-        
-        super.viewDidLoad()
-        self.view.backgroundColor = UIColor.white;
+	override public func onCreateView() {
         
         let vi: UIView! = UIView();
-        vi.backgroundColor = UIColor.blue;
+        vi.backgroundColor = UIColor.darkGray;
         
-        let panel: SfPanel! = SfPanel();
-        panel.setSize(width: -100, height: -100).setView(view: vi);
+        self.screen.setView(view: vi);
+        self.addView(view: vi);
         
-        self.view.addSubview(vi);
-        
-        for i in 1 ..< 20 {
+        for i in 1 ..< 31 {
             
             let pan = SfPanel();
             pan.setSize(width: -33.3333, height: -10);
@@ -423,12 +418,10 @@ We want to call this "magic", you can u sea panel, and add a native fragemnt, wi
             vis.backgroundColor = UIColor(red:red, green: green, blue: blue, alpha: 1.0);
             
             pan.setView(view: vis);
-            panel.append(object: pan);
-            
-            self.view.addSubview(vis);
+            self.screen.append(object: pan);
+            self.addView(view: vis);
         }
-        
-        panel.update()
+        self.screen.update()
     }
   </td>
   <td>
