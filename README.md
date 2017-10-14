@@ -415,7 +415,8 @@ We want to call this "magic", you can u sea panel, and add a native fragemnt, wi
             let red:CGFloat = CGFloat(drand48())
             let green:CGFloat = CGFloat(drand48())
             let blue:CGFloat = CGFloat(drand48())
-            vis.backgroundColor = UIColor(red:red, green: green, blue: blue, alpha: 1.0);
+            vis.backgroundColor = UIColor(red:red, green: green, 
+            				blue: blue, alpha: 1.0);
             
             pan.setView(view: vis);
             self.screen.append(object: pan);
