@@ -432,7 +432,7 @@ We want to call this "magic", you can u sea panel, and add a native fragemnt, wi
     }
   </td>
   <td>
-      <img src="/Images/example_grid.png" height="100%">
+      <img src="/Images/iOS/example_grid.png" height="100%">
   </td>
   </tr>
 </table>

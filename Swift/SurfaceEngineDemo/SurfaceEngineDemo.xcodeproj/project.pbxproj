@@ -27,6 +27,8 @@
 		A28AB3811F91359B00768B31 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28AB3801F91359B00768B31 /* TabBar.swift */; };
 		A28AB3831F914CBE00768B31 /* SecondController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28AB3821F914CBE00768B31 /* SecondController.swift */; };
 		A28AB3851F914CE100768B31 /* SecondControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28AB3841F914CE100768B31 /* SecondControllerView.swift */; };
+		A28AB3871F91C2B300768B31 /* ThirdController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28AB3861F91C2B300768B31 /* ThirdController.swift */; };
+		A28AB3891F91C2E100768B31 /* ThirdControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28AB3881F91C2E100768B31 /* ThirdControllerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +88,8 @@
 		A28AB3801F91359B00768B31 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		A28AB3821F914CBE00768B31 /* SecondController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondController.swift; sourceTree = "<group>"; };
 		A28AB3841F914CE100768B31 /* SecondControllerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondControllerView.swift; sourceTree = "<group>"; };
+		A28AB3861F91C2B300768B31 /* ThirdController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdController.swift; sourceTree = "<group>"; };
+		A28AB3881F91C2E100768B31 /* ThirdControllerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdControllerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +184,7 @@
 			children = (
 				A28AB3731F8FBFCB00768B31 /* ViewControllerView.swift */,
 				A28AB3841F914CE100768B31 /* SecondControllerView.swift */,
+				A28AB3881F91C2E100768B31 /* ThirdControllerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -189,6 +194,7 @@
 			children = (
 				A28AB3201F8F488500768B31 /* ViewController.swift */,
 				A28AB3821F914CBE00768B31 /* SecondController.swift */,
+				A28AB3861F91C2B300768B31 /* ThirdController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -382,7 +388,9 @@
 				A28AB3711F8FBF3900768B31 /* SurfaceControllerView.swift in Sources */,
 				A28AB3741F8FBFCB00768B31 /* ViewControllerView.swift in Sources */,
 				A28AB3851F914CE100768B31 /* SecondControllerView.swift in Sources */,
+				A28AB3891F91C2E100768B31 /* ThirdControllerView.swift in Sources */,
 				A28AB31F1F8F488500768B31 /* AppDelegate.swift in Sources */,
+				A28AB3871F91C2B300768B31 /* ThirdController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
