@@ -429,6 +429,43 @@ We want to call this "magic", you can u sea panel, and add a native fragemnt, wi
       <img src="/Images/iOS/example_grid.png" height="100%">
   </td>
   </tr>
+
+  <tr>
+  <td width="80%">
+    <pre lang="swift">
+
+	override public func onCreateView() {
+        
+        let vi: UIView! = UIView();
+        vi.backgroundColor = UIColor.darkGray;
+        
+        self.screen.setView(view: vi);
+        self.addView(view: vi);
+        
+        for i in 1 ..< 31 {
+            
+            let pan = SfPanel();
+            pan.setSize(width: -33.3333, height: -10).
+            	setMargin(top: Float(i)*5, right: 0, bottom: 0, left: 0);
+            
+            let vis = UIView();
+            let red:CGFloat = CGFloat(drand48())
+            let green:CGFloat = CGFloat(drand48())
+            let blue:CGFloat = CGFloat(drand48())
+            vis.backgroundColor = UIColor(red:red, green: green, 
+            				blue: blue, alpha: 1.0);
+            
+            pan.setView(view: vis);
+            self.screen.append(object: pan);
+            self.addView(view: vis);
+        }
+        self.screen.update()
+    }
+  </td>
+  <td>
+      <img src="/Images/iOS/example_grid_margin_top.png" height="100%">
+  </td>
+  </tr>
 </table>
 
 

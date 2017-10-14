@@ -352,7 +352,7 @@ public class SfPanel {
         // Iterate throw children panles
         var panel: SfPanel! = self.firstChild;
         while (panel != nil) {
-            let panelW: Float! = panel.frame.width + panel.margin.getHeight();
+            let panelW: Float! = panel.frame.width + panel.margin.getWidth();
             let panelH: Float! = panel.frame.height + panel.margin.getHeight();
             if (!panel.visible) { continue; }
             switch (panel.postion) {

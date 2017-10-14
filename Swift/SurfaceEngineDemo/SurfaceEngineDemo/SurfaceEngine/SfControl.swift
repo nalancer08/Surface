@@ -13,7 +13,6 @@ class SfControl {
     internal var view:SurfaceControllerView!;
     
     public init (view:SurfaceControllerView) {
-        
         self.view = view;
     }
 }

@@ -25,7 +25,7 @@ class ThirdControllerView: SurfaceControllerView {
         for i in 1 ..< 31 {
             
             let pan = SfPanel();
-            pan.setSize(width: -33.3333, height: -10);
+            pan.setSize(width: -33.3333, height: -10).setMargin(top: Float(i)*5, right: 0, bottom: 0, left: 0);
             
             let vis = UIView();
             let red:CGFloat = CGFloat(drand48())
