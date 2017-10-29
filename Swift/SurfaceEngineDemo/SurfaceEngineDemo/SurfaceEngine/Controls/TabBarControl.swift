@@ -17,7 +17,7 @@ class TabBarControl: SfControl {
     
     private var tabDelegate:TabBarControlDelagate!;
     private var tabsNumber:Int! = 0;
-    private var tabBarHeigth:Float! = 10.0;
+    private var tabBarHeigth:Float! = 8.0;
     private var selectedHeight:Bool! = true;
     
     public var tabBar:SfPanel! = nil;
@@ -75,8 +75,8 @@ class TabBarControl: SfControl {
             
             self.tabsNumber = self.tabBarItems.count;
             self.tabBar = SfPanel().setSize(width: -100, height: -self.tabBarHeigth);
-            let tabHeight:Float! = selectedHeight! ? 100 : 100;
-            let tabMarginTop:Float! = selectedHeight! ? 0 : 0;
+            let tabHeight:Float! = selectedHeight! ? 85 : 100;
+            let tabMarginTop:Float! = selectedHeight! ? 12 : 0;
             
             if (self.view.body == nil) {
                 self.view.body = SfPanel().setSize(width: -100, height: -(100-self.tabBarHeigth));
@@ -90,6 +90,9 @@ class TabBarControl: SfControl {
                 let selected = item.getSelectedView();
                 self.currentClickPosition = i;
                 self.currentClickItem = item;
+                
+                view.layer.zPosition = 99999;
+                selected.layer.zPosition = 99999;
                 
                 if (item.getPanel() == nil) { // New panel
                     if (view != nil) {

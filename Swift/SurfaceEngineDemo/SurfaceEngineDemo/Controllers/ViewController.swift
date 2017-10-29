@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.cyan;
+        self.view.backgroundColor = UIColor.white;
         
         let _: ViewControllerView! =  ViewControllerView(controller: self);
         

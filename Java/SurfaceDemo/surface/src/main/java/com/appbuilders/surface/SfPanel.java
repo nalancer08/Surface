@@ -512,7 +512,7 @@ public class SfPanel extends Object {
     }
 
     public SfPanel calcPos(Context context) {
-        
+
         DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
         if (this.parent == null) {
             // Root panel

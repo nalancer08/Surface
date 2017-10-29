@@ -2,6 +2,7 @@ package com.appbuilders.surface;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +36,9 @@ public abstract class SurfaceActivityView {
 
     /** Handle multiples scrolls **/
     protected HashMap<String, AbsoluteLayout> scrolls;
+
+    /** Handle to save intent **/
+    protected Intent intent;
 
     /**
      * Constructor to require context
@@ -206,6 +210,14 @@ public abstract class SurfaceActivityView {
             this.addView(layout);
             ((AppCompatActivity)this.activity).getSupportFragmentManager().beginTransaction().replace(layout.getId(), panel.getFragment()).addToBackStack("fragment").commit();
         }
+    }
+
+    public void setIntent(Intent intent) {
+        this.intent = intent;
+    }
+
+    public Intent getIntent() {
+        return this.intent;
     }
 
     /**

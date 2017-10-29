@@ -22,6 +22,9 @@ class TabBar: TabBarControl {
         self.tabBarItems.add(TabBarItem.createBasicItem(clazz: ViewController(), sequence: "Home", background: UIColor.cyan, backgroundSelected: UIColor.green));
         self.tabBarItems.add(TabBarItem.createBasicItem(clazz: SecondController(), sequence: "Add", background: UIColor.cyan, backgroundSelected: UIColor.green));
         self.tabBarItems.add(TabBarItem.createBasicItem(clazz: ThirdController(), sequence: "Game", background: UIColor.cyan, backgroundSelected: UIColor.green));
+        self.tabBarItems.add(TabBarItem.createBasicItem(clazz: ThirdController(), sequence: "Game", background: UIColor.cyan, backgroundSelected: UIColor.green));
+        //self.tabBarItems.add(TabBarItem.createBasicItem(clazz: ThirdController(), sequence: "Game", background: UIColor.cyan, backgroundSelected: UIColor.green));
+        //self.tabBarItems.add(TabBarItem.createBasicItem(clazz: ViewController(), sequence: "Add", background: UIColor.cyan, backgroundSelected: UIColor.green));
     }
 
 }
