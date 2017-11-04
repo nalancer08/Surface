@@ -21,7 +21,6 @@ public class SurfaceBasic extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_surface_basic, container, false);
 
-
         Button button = view.findViewById(R.id.buttonFragemnt);
         button.setOnClickListener(new View.OnClickListener() {
             @Override

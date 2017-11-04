@@ -188,8 +188,14 @@ public abstract class TabBarControl extends SfControl {
                     this.tabBar.append(tab);
                 }
             }
-            this.view.screen.append(this.view.body);
-            this.view.screen.append(this.tabBar);
+
+            if (this.view.subScreen == null) {
+                this.view.screen.append(this.view.body);
+                this.view.screen.append(this.tabBar);
+            } else {
+                this.view.subScreen.append(this.view.body);
+                this.view.subScreen.append(this.tabBar);
+            }
             this.view.screen.update(this.getContext());
         }
         return this.view.body;

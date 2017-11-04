@@ -21,6 +21,8 @@ import java.util.ArrayList;
  * Revision 1 - 26/09/17
  * Revision 2 - 06/10/17
  * Revision 3 - 09/10/17
+ *      Revision 3.1 - 31/10/17
+ *      Revision 3.2 - 03/11/17
  */
 
 public class SfPanel extends Object {
@@ -102,6 +104,15 @@ public class SfPanel extends Object {
     }
 
     /**
+     * Method to get size of the panel
+     * @return SfSize
+     **/
+    public SfSize getSize() {
+
+        return this.size;
+    }
+
+    /**
      * Method to set panel position
      * Available relative and fixed
      * @param position: Integer reference
@@ -134,6 +145,15 @@ public class SfPanel extends Object {
     }
 
     /**
+     * Method to get origin box
+     * @return SfBox
+     **/
+    public SfBox getOrigin() {
+
+        return this.origin;
+    }
+
+    /**
      * Method to set panel margins in pixels
      * Automatically calculate the size proportions
      * @param top: Float pixels
@@ -145,6 +165,15 @@ public class SfPanel extends Object {
 
         this.margin.setBox(top, right, bottom, left);
         return this;
+    }
+
+    /**
+     * This method get margin box
+     * @return SfBox
+     **/
+    public SfBox getMargin() {
+
+        return this.margin;
     }
 
     /**
@@ -173,6 +202,15 @@ public class SfPanel extends Object {
 
         this.padding.setBox(top, right, bottom, left);
         return this;
+    }
+
+    /**
+     * Method to get padding box
+     * @return SfBox
+     **/
+    public SfBox getPadding() {
+
+        return this.padding;
     }
 
     /**
@@ -223,6 +261,13 @@ public class SfPanel extends Object {
      **/
     public View getView() {
         return this.view;
+    }
+
+    /**
+     * Method to remove the view
+     **/
+    public void removeView() {
+        this.view = null;
     }
 
     /**
@@ -450,12 +495,12 @@ public class SfPanel extends Object {
 
             DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
 
-            if (this.parent != null) {
+            if (this.parent != null) { // Has a parent
 
                 parentWidht = this.parent.frame.width;
                 parentHeight = this.parent.frame.height;
 
-            } else {
+            } else { // Using screen size
 
                 boolean fullScreenn = (((AppCompatActivity)context).getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0;
                 int offsett = 0;
@@ -658,7 +703,7 @@ public class SfPanel extends Object {
                 if (panel.position == SF_POSITION_RELATIVE) {
                     float panelW = panel.frame.width + panel.margin.getWidth();
                     // Get the line width we're working on
-                    panel.frame.x = lineWidths[panel.line];
+                    panel.frame.x = lineWidths[panel.line] + ((panel.parent != null) ? panel.parent.frame.x : 0); // Revision 3.2
                     lineWidths[panel.line] += panelW;
                 }
                 // Next panel

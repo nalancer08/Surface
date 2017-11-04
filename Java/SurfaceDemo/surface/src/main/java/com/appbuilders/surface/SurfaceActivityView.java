@@ -6,15 +6,14 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AbsoluteLayout;
 import android.widget.ScrollView;
 
 import com.appbuilders.surface.Controls.TabBarControl;
 
 import java.util.HashMap;
-import java.util.Random;
 
 /**
  * Created by ercsanchez on 26/09/17.
@@ -36,9 +35,6 @@ public abstract class SurfaceActivityView {
 
     /** Handle multiples scrolls **/
     protected HashMap<String, AbsoluteLayout> scrolls;
-
-    /** Handle to save intent **/
-    protected Intent intent;
 
     /**
      * Constructor to require context
@@ -90,7 +86,7 @@ public abstract class SurfaceActivityView {
     private void initialize(boolean fullScreen, AbsoluteLayout baseLayout) {
 
         // Creating or adding base layout
-        if (baseLayout == null) { // Create
+        if (baseLayout == null) { // Create base layout
 
             // Make it full screen
             if (fullScreen)
@@ -111,7 +107,7 @@ public abstract class SurfaceActivityView {
             this.screen.setSize(-100, -100);
             this.screen.setKey("screen");
 
-        } else { // Adding
+        } else { // Adding base layout, passing for constructor
 
             // Matching canvas with base layout
             this.screenCanvas = baseLayout;
@@ -132,7 +128,6 @@ public abstract class SurfaceActivityView {
             this.screenCanvas.getGlobalVisibleRect(myViewRect);
             float x = myViewRect.left;
             float y = myViewRect.top;
-
 
             // Creating subScreen
             this.subScreen = new SfPanel();
@@ -195,6 +190,17 @@ public abstract class SurfaceActivityView {
     }
 
     /**
+     * Method to remove a view from parent panel
+     **/
+    public void removeView(SfPanel panel) {
+
+        View view = panel.getView();
+        if (view != null) {
+            ((ViewGroup) view.getParent()).removeView(view);
+        }
+    }
+
+    /**
      * Method to add a fragment into a panel
      * The method create AbsoluteLayout, and iy's added to the panel, then
      * we beginning to get fragmentSupport and the transaction into the layout
@@ -209,15 +215,36 @@ public abstract class SurfaceActivityView {
             panel.setView(layout);
             this.addView(layout);
             ((AppCompatActivity)this.activity).getSupportFragmentManager().beginTransaction().replace(layout.getId(), panel.getFragment()).addToBackStack("fragment").commit();
+
         }
     }
 
+    /**
+     * Method to set a custom intent, it going to replace inherent intent
+     * Don't need to access to this, 'cause, the activity has an implicit intent
+     * It could be restore by the activity
+     **/
     public void setIntent(Intent intent) {
-        this.intent = intent;
+        this.activity.setIntent(intent);
     }
 
+    /**
+     * Method to get the activity intent
+     **/
     public Intent getIntent() {
-        return this.intent;
+        return this.activity.getIntent();
+    }
+
+    /**
+     * This method only can be called, it you're using custom baseLayout
+     **/
+    public void deleteActionBar() {
+
+        if (this.subScreen != null) {
+
+            ActionBar actionbar = ((AppCompatActivity)this.context).getSupportActionBar();
+            actionbar.hide();
+        }
     }
 
     /**
