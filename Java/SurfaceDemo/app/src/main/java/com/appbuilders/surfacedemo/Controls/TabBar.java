@@ -37,7 +37,7 @@ public class TabBar extends TabBarControl {
         // Create elements
         this.tabBarItems.add(TabBarItem.createBasicItem(this.getContext(), MainActivity.class, "\uf015", Color.CYAN, Color.GREEN));
         this.tabBarItems.add(TabBarItem.createBasicItem(this.getContext(), TabBar1.class, "\uf016", Color.CYAN, Color.GREEN));
-        //this.tabBarItems.add(TabBarItem.createBasicItem(this.getContext(), "\uf017", TabBarScroll.class, Color.CYAN, Color.GREEN));
+        //this.tabBarItems.add(TabBarItem.createBasicItem(this.getContext(), TabBarScroll.class,"\uf017", Color.CYAN, Color.GREEN));
         this.tabBarItems.add(TabBarItem.createImageItem(this.getContext(), TabBarScroll.class, R.drawable.house, R.drawable.house));
         this.tabBarItems.add(TabBarItem.createBasicItem(this.getContext(), HybridXmlSurface.class, "\uf018", Color.CYAN, Color.GREEN));
         this.tabBarItems.add(TabBarItem.createBasicItem(this.getContext(), SurfaceWithFragments.class, "\uf019", Color.CYAN, Color.GREEN));

@@ -23,6 +23,7 @@ import java.util.ArrayList;
  * Revision 3 - 09/10/17
  *      Revision 3.1 - 31/10/17
  *      Revision 3.2 - 03/11/17
+ * Revision 4 - 05/11/17
  */
 
 public class SfPanel extends Object {
@@ -53,7 +54,8 @@ public class SfPanel extends Object {
     protected Fragment fragment;
 
     public static final int SF_POSITION_RELATIVE = 0;
-    public static final int SF_POSITION_FIXED    = 1;
+    public static final int SF_POSITION_ABSOLUTE = 1; // Revision 4
+    public static final int SF_POSITION_FIXED    = 2;
 
     public static final int SF_ALIGNMENT_LEFT    = 0;
     public static final int SF_ALIGNMENT_RIGHT   = 1;
@@ -522,6 +524,15 @@ public class SfPanel extends Object {
                     // Do nothing YAY!
                     break;
 
+                case SF_POSITION_ABSOLUTE: // Revision 4
+                    if (this.origin.left != SF_UNSET && this.origin.right != SF_UNSET) {
+                        this.frame.width = parentWidht - (this.origin.left + this.origin.right);
+                    }
+                    if (this.origin.top != SF_UNSET && this.origin.bottom != SF_UNSET) {
+                        this.frame.height = parentHeight - (this.origin.top + this.origin.bottom);
+                    }
+                    break;
+
                 case SF_POSITION_FIXED:
                     if (this.origin.left != SF_UNSET && this.origin.right != SF_UNSET) {
                         this.frame.width = metrics.widthPixels - (this.origin.left + this.origin.right);
@@ -640,6 +651,16 @@ public class SfPanel extends Object {
                             // Offset the current X
                             curX += panelW;
                     }
+                    break;
+
+                case SF_POSITION_ABSOLUTE: // Revision 4
+
+                    float parentRight = this.frame.x + this.frame.width - this.margin.right;
+                    panel.frame.x = (panel.origin.left != SF_UNSET) ? (this.frame.x + panel.origin.left + panel.margin.left) : (parentRight - (panelW + panel.origin.right));
+
+                    float parentBottom = this.frame.y + this.frame.height - this.margin.bottom;
+                    panel.frame.y = (panel.origin.top != SF_UNSET) ? (this.frame.y + panel.origin.top + panel.margin.top) : (parentBottom - (panelH + panel.origin.bottom));
+
                     break;
 
                 case SF_POSITION_FIXED:
