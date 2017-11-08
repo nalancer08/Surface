@@ -89,8 +89,8 @@ public abstract class SurfaceActivityView {
         if (baseLayout == null) { // Create base layout
 
             // Make it full screen
-            if (fullScreen)
-                this.activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
+            if (!!fullScreen)
+                this.activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN); // | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 
             // Clearing action bar
             ActionBar actionbar = ((AppCompatActivity)context).getSupportActionBar();
@@ -178,7 +178,7 @@ public abstract class SurfaceActivityView {
      * @param view: View to be added
      **/
     protected void addToScroll(String key, View view) {
-       this.scrolls.get(key).addView(view);
+        this.scrolls.get(key).addView(view);
     }
 
     /**

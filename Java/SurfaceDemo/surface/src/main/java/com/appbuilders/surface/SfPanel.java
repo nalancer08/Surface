@@ -9,7 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.KeyCharacterMap;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.WindowManager;
 import android.widget.AbsoluteLayout;
 
@@ -24,6 +27,7 @@ import java.util.ArrayList;
  *      Revision 3.1 - 31/10/17
  *      Revision 3.2 - 03/11/17
  * Revision 4 - 05/11/17
+ *      Revision 4.1 - 06/11/17
  */
 
 public class SfPanel extends Object {
@@ -510,6 +514,16 @@ public class SfPanel extends Object {
                 if (!fullScreenn) {
                     int resourceId = Resources.getSystem().getIdentifier("status_bar_height", "dimen", "android");
                     offsett += resourceId > 0 ? Resources.getSystem().getDimensionPixelSize(resourceId) : 0;
+                }
+
+                /** Revision 4.1 **/
+                boolean navBar = (((AppCompatActivity)context).getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION) != 0;
+                boolean hasMenuKey = ViewConfiguration.get(context).hasPermanentMenuKey();
+                boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
+
+                if(!hasBackKey && !hasBackKey && !navBar) {
+                    int navId = Resources.getSystem().getIdentifier("navigation_bar_height", "dimen", "android");
+                    offsett -= navId > 0 ? Resources.getSystem().getDimensionPixelSize(navId) : 0;
                 }
 
                 parentWidht = metrics.widthPixels;
