@@ -14,6 +14,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        MainView view = new MainView(this);
+        MainView view = new MainView(this, false);
     }
 }

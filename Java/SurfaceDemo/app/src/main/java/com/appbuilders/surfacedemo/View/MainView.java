@@ -19,6 +19,10 @@ import com.appbuilders.surfacedemo.Controls.TabBar;
 
 public class MainView extends SurfaceActivityView implements TabBarControl.TabBarControlListener {
 
+    public MainView(Context context, boolean fullScreen) {
+        super(context, fullScreen);
+    }
+
     public MainView(Context context) {
         super(context);
     }

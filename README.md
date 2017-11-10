@@ -495,7 +495,9 @@ We want to call this "magic", you can u sea panel, and add a native fragemnt, wi
     - SfPanel
       - Added methods to gte sizes, margins, paddings
 
-
+  - Revision 4.2
+    - SfPanel
+      - Added custom fixed for Galaxy S8
 
 
 

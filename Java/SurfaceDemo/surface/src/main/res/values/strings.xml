@@ -1,3 +1,18 @@
 <resources>
+
     <string name="app_name">Surface</string>
+
+    <string-array name="exceptions">
+        <item>SM-G9500</item>
+        <item>SM-G950FD</item>
+        <item>SM-G950A</item>
+        <item>SM-G950F</item>
+        <item>SM-G950N</item>
+        <item>SM-G950P</item>
+        <item>SM-G950T</item>
+        <item>SM-G950U</item>
+        <item>SM-G950V</item>
+        <item>SM-G950W</item>
+    </string-array>
+
 </resources>

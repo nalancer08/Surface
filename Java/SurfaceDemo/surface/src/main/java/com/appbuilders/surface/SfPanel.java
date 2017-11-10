@@ -2,9 +2,9 @@ package com.appbuilders.surface;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.AbsoluteLayout;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by Erick Sanchez - App Builders CTO
@@ -28,6 +29,8 @@ import java.util.ArrayList;
  *      Revision 3.2 - 03/11/17
  * Revision 4 - 05/11/17
  *      Revision 4.1 - 06/11/17
+ *      Revision 4.2 - 06/11/17
+ *          Revision 4.2.1 - 09/11/17
  */
 
 public class SfPanel extends Object {
@@ -494,7 +497,7 @@ public class SfPanel extends Object {
      **/
     public SfPanel calcSize(Context context) {
 
-        float parentWidht = 0;
+        float parentWidth = 0;
         float parentHeight = 0;
 
         if (this.visible) {
@@ -503,34 +506,75 @@ public class SfPanel extends Object {
 
             if (this.parent != null) { // Has a parent
 
-                parentWidht = this.parent.frame.width;
+                parentWidth = this.parent.frame.width;
                 parentHeight = this.parent.frame.height;
 
             } else { // Using screen size
 
-                boolean fullScreenn = (((AppCompatActivity)context).getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0;
-                int offsett = 0;
+                boolean fullScreen = (((AppCompatActivity)context).getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0;
+                int offset = 0;
 
-                if (!fullScreenn) {
+                Log.d("DXGO", "FULLLL :::: " + fullScreen);
+                if (!fullScreen) {
+                    //int resourceId = Resources.getSystem().getIdentifier("status_bar_height", "dimen", "android");
+                    // topPanel
                     int resourceId = Resources.getSystem().getIdentifier("status_bar_height", "dimen", "android");
-                    offsett += resourceId > 0 ? Resources.getSystem().getDimensionPixelSize(resourceId) : 0;
+                    offset += resourceId > 0 ? Resources.getSystem().getDimensionPixelSize(resourceId) : 0;
+                    Log.d("DXGO", "ENTRE A ESTA MIERDA ::: " + offset);
                 }
 
                 /** Revision 4.1 **/
-                boolean navBar = (((AppCompatActivity)context).getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION) != 0;
-                boolean hasMenuKey = ViewConfiguration.get(context).hasPermanentMenuKey();
-                boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
+                //boolean navBar = (((AppCompatActivity)context).getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION) != 0;
+                //boolean hasMenuKey = ViewConfiguration.get(context).hasPermanentMenuKey();
+                //boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
+                //boolean hasBackKey = KeyCharacterMap. deviceHasKey(KeyEvent.KEYCODE_BACK);
+                //Log.d("DXGOP", "ME MUERO, AHORA QUEEEEEEEEEE :: " + hasBackKey + " ____ ");
+                //if(!hasBackKey) {
+                //    int navId = Resources.getSystem().getIdentifier("navigation_bar_height", "dimen", "android");
+                    //offset -= navId > 0 ? Resources.getSystem().getDimensionPixelSize(navId) : 0;
+                //}
 
-                if(!hasBackKey && !hasBackKey && !navBar) {
-                    int navId = Resources.getSystem().getIdentifier("navigation_bar_height", "dimen", "android");
-                    offsett -= navId > 0 ? Resources.getSystem().getDimensionPixelSize(navId) : 0;
+                /** Revision 4.2.1 **/
+                /*boolean hasSoftwareKeys = true;
+                if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.JELLY_BEAN_MR1) {
+
+                    Display d = ((AppCompatActivity)context).getWindowManager().getDefaultDisplay();
+                    DisplayMetrics realDisplayMetrics = new DisplayMetrics();
+                    d.getRealMetrics(realDisplayMetrics);
+
+                    int realHeight = realDisplayMetrics.heightPixels;
+                    int realWidth = realDisplayMetrics.widthPixels;
+
+                    DisplayMetrics displayMetrics = new DisplayMetrics();
+                    d.getMetrics(displayMetrics);
+
+                    int displayHeight = displayMetrics.heightPixels;
+                    int displayWidth = displayMetrics.widthPixels;
+
+                    hasSoftwareKeys =  (realWidth - displayWidth) > 0 || (realHeight - displayHeight) > 0;
+                } else {
+                    boolean hasMenuKey = ViewConfiguration.get(context).hasPermanentMenuKey();
+                    boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
+                    hasSoftwareKeys = !hasMenuKey && !hasBackKey;
                 }
 
-                parentWidht = metrics.widthPixels;
-                parentHeight = metrics.heightPixels - offsett;
+                Log.d("DXGOP", "REVISION 4.2.1 ::::: " + hasSoftwareKeys);
+                Log.d("DXGOP", "REVISION ::::: " + Build.MODEL);
+                Log.d("DXGOP", "REV ::::: " + Resources.getSystem().getIdentifier("config_showNavigationBar", "dimen", "android"));*/
+
+                /** Revision 4.2.2 **/
+                String[] exceptions = context.getResources().getStringArray(R.array.exceptions);
+                boolean exception = Arrays.asList(exceptions).contains(Build.MODEL);
+                if(exception) {
+                    int navId = Resources.getSystem().getIdentifier("navigation_bar_height", "dimen", "android");
+                    offset -= navId > 0 ? Resources.getSystem().getDimensionPixelSize(navId) : 0;
+                }
+
+                parentWidth = metrics.widthPixels;
+                parentHeight = metrics.heightPixels - offset;
             }
 
-            this.frame.width = this.size.width >= 0 ? this.size.width : (parentWidht * -this.size.width ) / 100;
+            this.frame.width = this.size.width >= 0 ? this.size.width : (parentWidth * -this.size.width ) / 100;
             this.frame.height = this.size.height >= 0 ? this.size.height : (parentHeight * -this.size.height ) / 100;
 
             switch (this.position) {
@@ -540,7 +584,7 @@ public class SfPanel extends Object {
 
                 case SF_POSITION_ABSOLUTE: // Revision 4
                     if (this.origin.left != SF_UNSET && this.origin.right != SF_UNSET) {
-                        this.frame.width = parentWidht - (this.origin.left + this.origin.right);
+                        this.frame.width = parentWidth - (this.origin.left + this.origin.right);
                     }
                     if (this.origin.top != SF_UNSET && this.origin.bottom != SF_UNSET) {
                         this.frame.height = parentHeight - (this.origin.top + this.origin.bottom);
@@ -557,12 +601,10 @@ public class SfPanel extends Object {
                         boolean actionbarVisible = actionbar != null ? actionbar.isShowing() : false;
                         int offset = 0;
                         if (!fullScreen) {
-                            Log.d("DXGO", "Entre al fullscreen");
                             int resourceId = Resources.getSystem().getIdentifier("status_bar_height", "dimen", "android");
                             offset += resourceId > 0 ? Resources.getSystem().getDimensionPixelSize(resourceId) : 0;
                         }
                         if (actionbarVisible) {
-                            Log.d("DXGO", "Entre al action");
                             TypedValue tv = new TypedValue();
                             context.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true);
                             offset += context.getResources().getDimensionPixelSize(tv.resourceId) + 12;
@@ -691,15 +733,28 @@ public class SfPanel extends Object {
                     boolean fullScreen = (((AppCompatActivity)context).getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0;
                     boolean actionbarVisible = actionbar != null ? actionbar.isShowing() : false;
                     int offset = 0;
+
                     if (!fullScreen) {
                         int resourceId = Resources.getSystem().getIdentifier("status_bar_height", "dimen", "android");
-                        offset += resourceId > 0 ? Resources.getSystem().getDimensionPixelSize(resourceId) : 0;
+                        //offset += resourceId > 0 ? Resources.getSystem().getDimensionPixelSize(resourceId) : 0;
                     }
+
                     if (actionbarVisible) {
                         TypedValue tv = new TypedValue();
                         context.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true);
-                        offset += context.getResources().getDimensionPixelSize(tv.resourceId) + 12;
+                        //offset += context.getResources().getDimensionPixelSize(tv.resourceId) + 12;
                     }
+
+                    /** Revision 4.2 **/
+                    boolean navBar = (((AppCompatActivity)context).getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION) != 0;
+                    boolean hasMenuKey = ViewConfiguration.get(context).hasPermanentMenuKey();
+                    boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
+
+                    if(!hasBackKey && !hasBackKey && !navBar) {
+                        int navId = Resources.getSystem().getIdentifier("navigation_bar_height", "dimen", "android");
+                        offset -= navId > 0 ? Resources.getSystem().getDimensionPixelSize(navId) : 0;
+                    }
+
                     panel.frame.y = (panel.origin.top != SF_UNSET) ? (panel.origin.top + panel.margin.top) : (metrics.heightPixels - (offset + panelH + panel.origin.bottom));
                     //}
                     break;
