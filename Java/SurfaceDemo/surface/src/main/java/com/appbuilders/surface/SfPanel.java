@@ -35,7 +35,7 @@ import java.util.Arrays;
 
 public class SfPanel extends Object {
 
-    private SfScreen screen;
+    //private SfScreen screen;
     private SfSize size;
     private SfRect frame;
     private SfBox origin;
@@ -149,6 +149,7 @@ public class SfPanel extends Object {
      **/
     @Deprecated
     public SfPanel setOrigin(float top, float right, float bottom, float left) {
+
         this.origin.setBox(top, right, bottom, left);
         return this;
     }

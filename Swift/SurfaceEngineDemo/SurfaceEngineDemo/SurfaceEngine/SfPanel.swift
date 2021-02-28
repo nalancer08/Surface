@@ -12,7 +12,8 @@ import UIKit
 public class SfPanel {
     
     public static let SF_POSITION_RELATIVE: Int! = 0;
-    public static let SF_POSITION_FIXED: Int! = 1;
+    public static let SF_POSITION_ABSOLUTE: Int! = 1;
+    public static let SF_POSITION_FIXED: Int! = 2;
     
     public static let SF_ALIGMENT_LEFT: Int! = 0;
     public static let SF_ALIGMENT_CENTER: Int! = 1;
@@ -65,10 +66,14 @@ public class SfPanel {
         self.fixScroll = false;
     }
     
-    public func setSize(width:Float, height:Float) -> SfPanel {
+    @discardableResult public func setSize(width:Float, height:Float) -> SfPanel {
         
         self.size.setSize(width: width, height: height);
         return self;
+    }
+    
+    public func getSize() -> SfSize {
+        return self.size;
     }
     
     public func setPosition(position:Int) -> SfPanel {
@@ -83,22 +88,34 @@ public class SfPanel {
         return self;
     }
     
-    public func setOrigin(top:Float, right:Float, bottom:Float, left:Float) -> SfPanel {
+    @discardableResult public func setOrigin(top:Float, right:Float, bottom:Float, left:Float) -> SfPanel {
         
         self.origin.setBox(top: top, right: right, bottom: bottom, left: left);
         return self;
     }
     
-    public func setMargin(top:Float, right:Float, bottom:Float, left:Float) -> SfPanel {
+    public func getOrigin() -> SfBox {
+        return self.origin;
+    }
+    
+    @discardableResult public func setMargin(top:Float, right:Float, bottom:Float, left:Float) -> SfPanel {
     
         self.margin.setBox(top: top, right: right, bottom: bottom, left: left);
         return self;
     }
     
-    public func setPadding(top:Float, right:Float, bottom:Float, left:Float) -> SfPanel {
+    public func getMargin() -> SfBox {
+        return self.margin;
+    }
+    
+    @discardableResult public func setPadding(top:Float, right:Float, bottom:Float, left:Float) -> SfPanel {
         
         self.padding.setBox(top: top, right: right, bottom: bottom, left: left);
         return self;
+    }
+    
+    public func getPadding() -> SfBox {
+        return self.padding;
     }
     
     public func setParent(parent:SfPanel) -> Void {
@@ -109,7 +126,7 @@ public class SfPanel {
         return self.parent;
     }
     
-    public func setView(view:UIView) -> SfPanel {
+    @discardableResult public func setView(view:UIView) -> SfPanel {
         
         self.view = view;
         return self;
@@ -119,7 +136,11 @@ public class SfPanel {
         return self.view != nil ? self.view : UIView();
     }
     
-    public func setKey(key:String) -> SfPanel {
+    public func removeView() {
+        self.view = nil;
+    }
+    
+    @discardableResult public func setKey(key:String) -> SfPanel {
         
         self.key = key;
         return self;
@@ -129,7 +150,7 @@ public class SfPanel {
         return self.key;
     }
     
-    public func append(object:SfPanel) -> SfPanel {
+    @discardableResult public func append(object:SfPanel) -> SfPanel {
         
         if (object != nil) {
             object.setParent(parent: self);
@@ -146,7 +167,7 @@ public class SfPanel {
         return self;
     }
     
-    public func prepend(object:SfPanel) -> SfPanel {
+    @discardableResult public func prepend(object:SfPanel) -> SfPanel {
         
         if (object != nil) {
             object.setParent(parent: self);
@@ -183,7 +204,6 @@ public class SfPanel {
     }
     
     public func getNext() -> SfPanel {
-        
         return self.next;
     }
     
@@ -219,7 +239,7 @@ public class SfPanel {
         return ret;
     }
     
-    public func remove() -> SfPanel {
+    @discardableResult public func remove() -> SfPanel {
         
         let prev: SfPanel! = self.prev;
         let next: SfPanel! = self.next;
@@ -246,13 +266,13 @@ public class SfPanel {
         return children.object(at: children.count - 1) as! SfPanel;
     }
     
-    public func setZIndex(zIndex:Int) -> SfPanel {
+    @discardableResult public func setZIndex(zIndex:Int) -> SfPanel {
         
         self.zIndex = zIndex;
         return self;
     }
     
-    public func setVisible(visible:Bool) -> SfPanel {
+    @discardableResult public func setVisible(visible:Bool) -> SfPanel {
         
         self.visible = visible;
         return self;
@@ -285,6 +305,18 @@ public class SfPanel {
                     // Do nothing YAY!
                 break;
                 
+                case SfPanel.SF_POSITION_ABSOLUTE:
+                
+                    if (self.origin.left != SfPanel.SF_UNSET && self.origin.right != SfPanel.SF_UNSET) {
+                        self.frame.width = parentWidth - (self.origin.left + self.origin.right);
+                    }
+                    
+                    if (self.origin.top != SfPanel.SF_UNSET && self.origin.bottom != SfPanel.SF_UNSET) {
+                        self.frame.height = parentHeigth - (self.origin.top + self.origin.bottom);
+                    }
+                    
+                break;
+                
                 case SfPanel.SF_POSITION_FIXED:
                 
                     if (self.origin.left != SfPanel.SF_UNSET && self.origin.right != SfPanel.SF_UNSET) {
@@ -310,13 +342,14 @@ public class SfPanel {
     private func calcPos() -> Void {
         
         let metrics: CGRect! = UIScreen.main.bounds;
+        let statusBarHeight: Float! = Float(UIApplication.shared.statusBarFrame.height);
         let screenW:Float! = Float(metrics.size.height);
-        let screenH: Float! = Float(metrics.size.height) - Float(UIApplication.shared.statusBarFrame.height);
+        let screenH: Float! = Float(metrics.size.height) - statusBarHeight;
         
         if (self.parent == nil) {
             // Root panel
             self.frame.x = self.origin.left + self.margin.left;
-            self.frame.y = self.origin.top + self.margin.top + Float(UIApplication.shared.statusBarFrame.height) as Float!;
+            self.frame.y = self.origin.top + self.margin.top + statusBarHeight;
         }
         // Position children
         var srcX: Float! = 0;
@@ -414,6 +447,16 @@ public class SfPanel {
                         
                         default: break;
                     }
+                break;
+                
+                case SfPanel.SF_POSITION_ABSOLUTE:
+                
+                    let parentRight: Float! = self.frame.x + self.frame.width - self.margin.right;
+                    panel.frame.x = (panel.origin.left != SfPanel.SF_UNSET) ? (Float(self.frame.x) + Float(panel.origin.left) + Float(panel.margin.left)) : (parentRight - (panelW + panel.origin.right));
+                    
+                    let parentBottom: Float! = self.frame.y + self.frame.height - self.margin.bottom;
+                    panel.frame.y = (panel.origin.top != SfPanel.SF_UNSET) ? (Float(self.frame.y) + Float(panel.origin.top) + Float(panel.margin.top)) : (parentBottom - (panelH + panel.origin.bottom));
+                    
                 break;
                 
                 case SfPanel.SF_POSITION_FIXED:

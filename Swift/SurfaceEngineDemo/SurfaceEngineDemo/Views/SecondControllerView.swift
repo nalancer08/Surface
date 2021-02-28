@@ -25,7 +25,7 @@ class SecondControllerView: SurfaceControllerView, TabBarControlDelagate {
         self.body.setView(view: vi);
         self.addView(view: vi);
         
-        for i in 1 ..< 5 {
+        for _ in 1 ..< 5 {
             
             let pan = SfPanel();
             pan.setSize(width: -33.3333, height: -10);

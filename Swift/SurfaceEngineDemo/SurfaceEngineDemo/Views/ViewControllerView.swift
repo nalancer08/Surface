@@ -26,7 +26,7 @@ class ViewControllerView : SurfaceControllerView, TabBarControlDelagate {
         self.body.setView(view: vi);
         self.addView(view: vi);
         
-        for i in 1 ..< 31 {
+        for _ in 1 ..< 31 {
             
             let pan = SfPanel();
             pan.setSize(width: -33.3333, height: -10);

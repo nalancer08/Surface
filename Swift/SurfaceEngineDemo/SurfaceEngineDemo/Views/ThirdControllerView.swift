@@ -25,7 +25,7 @@ class ThirdControllerView: SurfaceControllerView, TabBarControlDelagate {
         self.body.setView(view: vi);
         self.addView(view: vi);
         
-        for i in 1 ..< 29 {
+        for _ in 1 ..< 29 {
             
             let pan = SfPanel();
             pan.setSize(width: -33.3333, height: -10).setMargin(top: 10, right: 0, bottom: 0, left: 0);

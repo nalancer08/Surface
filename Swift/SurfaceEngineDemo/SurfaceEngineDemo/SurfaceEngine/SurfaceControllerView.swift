@@ -48,7 +48,7 @@ public class SurfaceControllerView {
     
     func makeItScrollable(panel: SfPanel, key:String) -> SfPanel {
         
-        var view: UIScrollView! = UIScrollView();
+        let view: UIScrollView! = UIScrollView();
         panel.scrollHost = true;
         panel.fixScroll = true;
         panel.setKey(key: key);
@@ -61,7 +61,7 @@ public class SurfaceControllerView {
     
     public func addScroll(key:String, view:UIView) {
         
-        var scroll:UIScrollView! =  self.scrolls.object(forKey: key) as! UIScrollView;
+        let scroll:UIScrollView! =  self.scrolls.object(forKey: key) as! UIScrollView;
         scroll.addSubview(view);
     }
     
